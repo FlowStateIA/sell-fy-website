@@ -864,54 +864,6 @@ function Pricing() {
   )
 }
 
-/* ─────────────────────────── Footer CTA ─────────────────────────── */
-
-function FooterCTA() {
-  return (
-    <section style={{ padding: '96px 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="max-w-[1200px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2
-            style={{
-              fontSize: 'clamp(28px, 3.5vw, 40px)',
-              fontWeight: 510,
-              letterSpacing: '-0.022em',
-              lineHeight: 1.1,
-              color: '#f7f8f8',
-              maxWidth: 500,
-            }}
-          >
-            Tu equipo merece mejores herramientas
-          </h2>
-          <p style={{ marginTop: 16, fontSize: 15, lineHeight: '24px', color: '#8a8f98', maxWidth: 400 }}>
-            Deja de perder ventas por falta de visibilidad. Agenda una consultoría gratuita.
-          </p>
-          <a
-            href="https://calendly.com/sell-fy/30min"
-            className="inline-flex items-center transition-colors"
-            style={{
-              marginTop: 24,
-              padding: '6px 12px',
-              backgroundColor: '#e6e6e6',
-              color: '#08090a',
-              borderRadius: 4,
-              fontSize: 13,
-              fontWeight: 500,
-            }}
-          >
-            Empezar ahora
-          </a>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-
 /* ─────────────────────────── Footer ─────────────────────────── */
 
 function Footer() {
