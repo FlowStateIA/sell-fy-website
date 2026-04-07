@@ -3,12 +3,20 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-gray-950 text-white antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply text-white font-semibold;
+  body {
+    background-color: #08090a;
+    color: #f7f8f8;
+    font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f7f8f8;
   }
 }
