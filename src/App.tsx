@@ -951,30 +951,48 @@ Todos los datos comerciales ingresados en Sell-Fy son propiedad exclusiva de la 
 
 Proveedores de IA: Anthropic (Claude) para análisis de transcripciones y N8N para automatización de flujos. El procesamiento se activa únicamente a instancias del Cliente. Los datos no se utilizan para entrenar modelos de IA externos.
 
-7. ALMACENAMIENTO Y TRANSFERENCIA INTERNACIONAL
+7. ACCESO, USO Y COMPARTICIÓN DE DATOS DE GOOGLE
+
+Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio y a instancias del Cliente.
+
+Google Calendar: leemos los eventos de tu calendario, incluidas las notas y transcripciones de llamadas asociadas a dichos eventos, para mostrarlos en la plataforma y para realizar auditorías de llamadas mediante inteligencia artificial. Sincronizamos eventos creados o gestionados desde Sell-Fy.
+
+Google Drive: accedemos a las transcripciones y grabaciones de reuniones asociadas a tus llamadas con el fin de generar dichas auditorías.
+
+Uso de inteligencia artificial sobre datos de Google: las transcripciones obtenidas de tu cuenta de Google se procesan mediante nuestra capa de automatización (n8n) y se analizan con nuestro proveedor de inteligencia artificial, Anthropic (Claude), con el único fin de generar auditorías de llamadas, una funcionalidad de cara al usuario. Estos datos NO se utilizan para entrenar modelos de inteligencia artificial.
+
+Terceros con los que se comparten datos de Google: Supabase Inc. (almacenamiento y base de datos), Vercel Inc. (alojamiento de la aplicación) y Anthropic (análisis de transcripciones para auditorías). Estos proveedores actúan como encargados del tratamiento bajo nuestras instrucciones.
+
+No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
+
+El uso y la transferencia por parte de Sell-Fy de la información recibida de las APIs de Google se ajustará a la Política de Datos de Usuario de los Servicios de las API de Google, incluidos los requisitos de Uso Limitado (Limited Use).
+
+Sell-Fy's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.
+
+8. ALMACENAMIENTO Y TRANSFERENCIA INTERNACIONAL
 
 Los datos se almacenan en servidores de Supabase Inc. (Amazon Web Services, Estados Unidos). Supabase cumple con certificaciones SOC 2 Type II. Los datos se conservan mientras exista la relación contractual. Tras la terminación, serán eliminados en máximo 30 días calendario.
 
-8. DERECHOS DE LOS TITULARES
+9. DERECHOS DE LOS TITULARES
 
 Conocer, actualizar y rectificar datos. Solicitar prueba de autorización. Revocar autorización para finalidades secundarias. Solicitar supresión. Presentar quejas ante la SIC (Colombia). Ser informado sobre el uso de sus datos.
 
 Canal: operaciones@sell-fy.app — Consultas: 10 días hábiles. Reclamos: 15 días hábiles.
 
-9. MEDIDAS DE SEGURIDAD
+10. MEDIDAS DE SEGURIDAD
 
 Técnicas: Encriptación TLS 1.3 y AES-256, Row Level Security, autenticación segura, monitoreo continuo, copias de seguridad automatizadas.
 Organizativas: Acceso restringido bajo mínimo privilegio, política de no acceso a datos comerciales, procedimientos de respuesta ante incidentes.
 
-10. COOKIES
+11. COOKIES
 
 Sell-Fy utiliza únicamente cookies estrictamente necesarias. NO utiliza cookies de rastreo, publicidad de terceros, Meta Pixel ni Google Analytics.
 
-11. MENORES DE EDAD
+12. MENORES DE EDAD
 
 Plataforma B2B exclusiva para mayores de 18 años. Datos de menores serán eliminados inmediatamente si se detectan.
 
-12. MODIFICACIONES
+13. MODIFICACIONES
 
 Cambios sustanciales notificados por correo y aviso en la Plataforma con al menos 15 días de antelación.
 
