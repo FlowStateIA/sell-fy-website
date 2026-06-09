@@ -951,13 +951,19 @@ Todos los datos comerciales ingresados en Sell-Fy son propiedad exclusiva de la 
 
 Proveedores de IA: Anthropic (Claude) para análisis de transcripciones y N8N para automatización de flujos. El procesamiento se activa únicamente a instancias del Cliente. Los datos no se utilizan para entrenar modelos de IA externos.
 
-7. COMPARTICIÓN Y DIVULGACIÓN DE DATOS DE GOOGLE
+7. ACCESO, USO Y COMPARTICIÓN DE DATOS DE GOOGLE
 
-Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio. Google Calendar: leemos y mostramos tus eventos dentro de la plataforma y sincronizamos eventos creados o gestionados desde Sell-Fy. Google Drive: almacenamos las transcripciones de las reuniones generadas a partir de tus llamadas; no accedemos a otros archivos de tu Drive.
+Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio y a instancias del Cliente.
 
-Compartimos estos datos únicamente con los siguientes proveedores de infraestructura, que actúan como encargados del tratamiento bajo nuestras instrucciones: Supabase Inc. (almacenamiento y base de datos) y Vercel Inc. (alojamiento de la aplicación).
+Google Calendar: leemos los eventos de tu calendario, incluidas las notas y transcripciones de llamadas asociadas a dichos eventos, para mostrarlos en la plataforma y para realizar auditorías de llamadas mediante inteligencia artificial. Sincronizamos eventos creados o gestionados desde Sell-Fy.
 
-No compartimos los datos de Google Calendar ni de Google Drive con servicios de inteligencia artificial de terceros. Las funciones de IA de Sell-Fy operan únicamente sobre datos comerciales internos y no reciben ni procesan datos provenientes de las APIs de Google. No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
+Google Drive: accedemos a las transcripciones y grabaciones de reuniones asociadas a tus llamadas con el fin de generar dichas auditorías.
+
+Uso de inteligencia artificial sobre datos de Google: las transcripciones obtenidas de tu cuenta de Google se procesan mediante nuestra capa de automatización (n8n) y se analizan con nuestro proveedor de inteligencia artificial, Anthropic (Claude), con el único fin de generar auditorías de llamadas, una funcionalidad de cara al usuario. Estos datos NO se utilizan para entrenar modelos de inteligencia artificial.
+
+Terceros con los que se comparten datos de Google: Supabase Inc. (almacenamiento y base de datos), Vercel Inc. (alojamiento de la aplicación) y Anthropic (análisis de transcripciones para auditorías). Estos proveedores actúan como encargados del tratamiento bajo nuestras instrucciones.
+
+No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
 
 El uso y la transferencia por parte de Sell-Fy de la información recibida de las APIs de Google se ajustará a la Política de Datos de Usuario de los Servicios de las API de Google, incluidos los requisitos de Uso Limitado (Limited Use).
 
