@@ -951,30 +951,42 @@ Todos los datos comerciales ingresados en Sell-Fy son propiedad exclusiva de la 
 
 Proveedores de IA: Anthropic (Claude) para análisis de transcripciones y N8N para automatización de flujos. El procesamiento se activa únicamente a instancias del Cliente. Los datos no se utilizan para entrenar modelos de IA externos.
 
-7. ALMACENAMIENTO Y TRANSFERENCIA INTERNACIONAL
+7. COMPARTICIÓN Y DIVULGACIÓN DE DATOS DE GOOGLE
+
+Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio. Google Calendar: leemos y mostramos tus eventos dentro de la plataforma y sincronizamos eventos creados o gestionados desde Sell-Fy. Google Drive: almacenamos las transcripciones de las reuniones generadas a partir de tus llamadas; no accedemos a otros archivos de tu Drive.
+
+Compartimos estos datos únicamente con los siguientes proveedores de infraestructura, que actúan como encargados del tratamiento bajo nuestras instrucciones: Supabase Inc. (almacenamiento y base de datos) y Vercel Inc. (alojamiento de la aplicación).
+
+No compartimos los datos de Google Calendar ni de Google Drive con servicios de inteligencia artificial de terceros. Las funciones de IA de Sell-Fy operan únicamente sobre datos comerciales internos y no reciben ni procesan datos provenientes de las APIs de Google. No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
+
+El uso y la transferencia por parte de Sell-Fy de la información recibida de las APIs de Google se ajustará a la Política de Datos de Usuario de los Servicios de las API de Google, incluidos los requisitos de Uso Limitado (Limited Use).
+
+Sell-Fy's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.
+
+8. ALMACENAMIENTO Y TRANSFERENCIA INTERNACIONAL
 
 Los datos se almacenan en servidores de Supabase Inc. (Amazon Web Services, Estados Unidos). Supabase cumple con certificaciones SOC 2 Type II. Los datos se conservan mientras exista la relación contractual. Tras la terminación, serán eliminados en máximo 30 días calendario.
 
-8. DERECHOS DE LOS TITULARES
+9. DERECHOS DE LOS TITULARES
 
 Conocer, actualizar y rectificar datos. Solicitar prueba de autorización. Revocar autorización para finalidades secundarias. Solicitar supresión. Presentar quejas ante la SIC (Colombia). Ser informado sobre el uso de sus datos.
 
 Canal: operaciones@sell-fy.app — Consultas: 10 días hábiles. Reclamos: 15 días hábiles.
 
-9. MEDIDAS DE SEGURIDAD
+10. MEDIDAS DE SEGURIDAD
 
 Técnicas: Encriptación TLS 1.3 y AES-256, Row Level Security, autenticación segura, monitoreo continuo, copias de seguridad automatizadas.
 Organizativas: Acceso restringido bajo mínimo privilegio, política de no acceso a datos comerciales, procedimientos de respuesta ante incidentes.
 
-10. COOKIES
+11. COOKIES
 
 Sell-Fy utiliza únicamente cookies estrictamente necesarias. NO utiliza cookies de rastreo, publicidad de terceros, Meta Pixel ni Google Analytics.
 
-11. MENORES DE EDAD
+12. MENORES DE EDAD
 
 Plataforma B2B exclusiva para mayores de 18 años. Datos de menores serán eliminados inmediatamente si se detectan.
 
-12. MODIFICACIONES
+13. MODIFICACIONES
 
 Cambios sustanciales notificados por correo y aviso en la Plataforma con al menos 15 días de antelación.
 
