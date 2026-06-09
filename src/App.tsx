@@ -955,13 +955,13 @@ Proveedores de IA: Anthropic (Claude) para análisis de transcripciones y N8N pa
 
 Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio y a instancias del Cliente.
 
-Google Calendar: leemos los eventos de tu calendario, incluidas las notas y transcripciones de llamadas asociadas a dichos eventos, para mostrarlos en la plataforma y para realizar auditorías de llamadas mediante inteligencia artificial. Sincronizamos eventos creados o gestionados desde Sell-Fy.
+Google Calendar: leemos los eventos de tu calendario y la lista de tus calendarios para mostrarlos y sincronizarlos en la plataforma. También creamos, actualizamos y eliminamos eventos en tu calendario en tu nombre —incluida la generación de enlaces de Google Meet— cuando agendas, reprogramas o cancelas citas desde Sell-Fy.
 
-Google Drive: accedemos a las transcripciones y grabaciones de reuniones asociadas a tus llamadas con el fin de generar dichas auditorías.
+Google Drive (solo lectura): cuando una reunión de tu calendario tiene adjunta una transcripción (Google Doc) o una grabación (video) generada por Google Meet, accedemos a ese archivo en modo solo lectura con el único fin de obtener la transcripción de la llamada y generar la auditoría correspondiente. No accedemos a ningún otro archivo de tu Drive.
 
-Uso de inteligencia artificial sobre datos de Google: las transcripciones obtenidas de tu cuenta de Google se procesan mediante nuestra capa de automatización (n8n) y se analizan con nuestro proveedor de inteligencia artificial, Anthropic (Claude), con el único fin de generar auditorías de llamadas, una funcionalidad de cara al usuario. Estos datos NO se utilizan para entrenar modelos de inteligencia artificial.
+Uso de inteligencia artificial sobre datos de Google: las transcripciones obtenidas se procesan mediante nuestra capa de automatización (n8n) y se analizan con nuestro proveedor de inteligencia artificial, Anthropic (Claude), con el único fin de generar auditorías de llamadas, una funcionalidad de cara al usuario. Estos datos NO se utilizan para entrenar modelos de inteligencia artificial.
 
-Terceros con los que se comparten datos de Google: Supabase Inc. (almacenamiento y base de datos), Vercel Inc. (alojamiento de la aplicación) y Anthropic (análisis de transcripciones para auditorías). Estos proveedores actúan como encargados del tratamiento bajo nuestras instrucciones.
+Terceros con los que se comparten datos de Google: Supabase Inc. (almacenamiento y base de datos), Vercel Inc. (alojamiento de la aplicación) y Anthropic (análisis de transcripciones para auditorías), que actúan como encargados del tratamiento bajo nuestras instrucciones.
 
 No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
 
