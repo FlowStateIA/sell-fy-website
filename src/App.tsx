@@ -1004,13 +1004,13 @@ Sell-Fy — sell-fy.app — privacidad@sell-fy.app
 Calle 42 D Sur, Medellín, Colombia`
 
 const termsContent = `TÉRMINOS Y CONDICIONES DEL SERVICIO — SELL-FY
-Entidad operadora: Flow State IA Consulting Group LLC
-5980 Richmond Highway, Alexandria, VA 22303, United States
-operaciones@sell-fy.app
+Entidad operadora: Flow State IA SAS
+Calle 42 D Sur, Medellín, Colombia
+privacidad@sell-fy.app
 
 1. PARTES Y ACEPTACIÓN
 
-Los presentes Términos regulan el acceso y uso de la plataforma Sell-Fy, disponible en sell-fy.app, operada por Flow State IA Consulting Group LLC, empresa constituida bajo las leyes del Estado de Virginia, Estados Unidos.
+Los presentes Términos regulan el acceso y uso de la plataforma Sell-Fy, disponible en sell-fy.app, operada por Flow State IA SAS, empresa constituida bajo las leyes del Estado de Virginia, Estados Unidos.
 
 Al acceder, registrarse o utilizar la Plataforma, el usuario y/o la Organización contratante ("el Cliente") aceptan estos Términos en su totalidad.
 
@@ -1031,7 +1031,7 @@ Roles: Propietario (acceso total), Administrador/Manager (acceso operativo ampli
 Disponibilidad: Uptime objetivo del 99% mensual, excluyendo mantenimientos programados (notificados con 24h de antelación) y fuerza mayor.
 Seguridad: Medidas técnicas y organizativas para proteger los datos.
 Confidencialidad: No acceder ni divulgar datos comerciales del Cliente.
-Soporte: Vía operaciones@sell-fy.app en días hábiles.
+Soporte: Vía privacidad@sell-fy.app en días hábiles.
 Incidentes: Notificación al Cliente en máximo 72 horas.
 Actualizaciones: Comunicación de cambios significativos con 15 días de anticipación.
 
@@ -1041,12 +1041,12 @@ Usar la Plataforma para fines comerciales lícitos. No intentar acceder a datos 
 
 6. PROPIEDAD INTELECTUAL
 
-De Sell-Fy: Todo el software, código, diseño, marcas y elementos de la Plataforma son propiedad exclusiva de Flow State IA Consulting Group LLC.
+De Sell-Fy: Todo el software, código, diseño, marcas y elementos de la Plataforma son propiedad exclusiva de Flow State IA SAS.
 Del Cliente: Todos los datos e información comercial ingresados son propiedad exclusiva del Cliente.
 
 7. PAGOS Y FACTURACIÓN
 
-Acceso mediante acuerdo de servicio personalizado. Precio según cotización acordada. Métodos: Stripe (tarjeta, internacional) y transferencia bancaria (Colombia/LATAM). Invoice emitido por Flow State IA Consulting Group LLC.
+Acceso mediante acuerdo de servicio personalizado. Precio según cotización acordada. Métodos: Stripe (tarjeta, internacional) y transferencia bancaria (Colombia/LATAM). Invoice emitido por Flow State IA SAS.
 
 Mora superior a 15 días: suspensión temporal. Mora superior a 30 días: terminación unilateral.
 
@@ -1062,7 +1062,7 @@ Responsabilidad máxima: valor total pagado por el Cliente en los 3 meses previo
 
 10. TERMINACIÓN
 
-Por el Cliente: Aviso de 15 días a operaciones@sell-fy.app. Sin reembolso por períodos parciales.
+Por el Cliente: Aviso de 15 días a privacidad@sell-fy.app. Sin reembolso por períodos parciales.
 Por Sell-Fy: Incumplimiento grave, mora >30 días, uso ilegal, o solicitud del Cliente.
 Efectos: 30 días para exportar datos, luego eliminación segura e irreversible.
 
@@ -1074,8 +1074,8 @@ Leyes del Estado de Virginia, Estados Unidos. Controversias resueltas por negoci
 
 Cláusulas inválidas no afectan las demás. La falta de ejercicio de un derecho no implica renuncia. Estos Términos constituyen el acuerdo completo entre las partes.
 
-Flow State IA Consulting Group LLC
-Sell-Fy — sell-fy.app — operaciones@sell-fy.app
-5980 Richmond Highway, Alexandria, VA 22303, United States`
+Flow State IA SAS
+Sell-Fy — sell-fy.app — privacidad@sell-fy.app
+Calle 42 D Sur, Medellín, Colombia`
 
 export default App
