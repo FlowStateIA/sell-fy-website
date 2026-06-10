@@ -914,20 +914,22 @@ function LegalPage({ title, content }: { title: string; content: string }) {
 }
 
 const privacyContent = `POLÍTICA DE PRIVACIDAD — SELL-FY
-Responsable: Flow State IA Consulting Group LLC
-5980 Richmond Highway, Alexandria, VA 22303, United States
-Responsable de Privacidad: David Bermudez — operaciones@sell-fy.app
+Responsable: Flow State IA SAS
+NIT: 901470221-5 — Calle 42 D Sur, Medellín, Colombia
+Responsable de Privacidad: David Bermudez — privacidad@sell-fy.app
 
 1. IDENTIFICACIÓN DEL RESPONSABLE
 
-Flow State IA Consulting Group LLC
-Tax ID: 32-0832410
-Dirección: 5980 Richmond Highway, Alexandria, VA 22303, United States
-Correo de privacidad: operaciones@sell-fy.app
+Razón Social: Flow State IA SAS
+NIT: 901470221-5
+Domicilio: Calle 42 D Sur, Medellín, Colombia
+Teléfono: +57 333 237 1945
+Correo de privacidad: privacidad@sell-fy.app
+La plataforma Sell-Fy está disponible a través del dominio sell-fy.app y sus subdominios.
 
 2. MARCO LEGAL APLICABLE
 
-Esta Política se rige por las leyes del Estado de Virginia, Estados Unidos. Sell-Fy cumple voluntariamente con la Ley 1581 de 2012 y Decreto 1377 de 2013 (Colombia), Decreto 1074 de 2015, directrices de la SIC y estándares GDPR como referencia de mejores prácticas internacionales.
+La presente Política se rige por las siguientes normas: la Constitución Política de Colombia, Artículos 15 y 20 (Derecho a la intimidad y Habeas Data); la Ley Estatutaria 1581 de 2012 (Protección de Datos Personales); el Decreto 1377 de 2013 (reglamentación parcial de la Ley 1581); el Decreto 1074 de 2015, Capítulos 25 y 26 (Registro Nacional de Bases de Datos); y las directrices de la Superintendencia de Industria y Comercio (SIC). Para usuarios fuera de Colombia, se aplicarán adicionalmente las leyes de protección de datos del país de residencia del titular, en la medida en que sean aplicables.
 
 3. DATOS PERSONALES RECOPILADOS
 
@@ -977,7 +979,7 @@ Los datos se almacenan en servidores de Supabase Inc. (Amazon Web Services, Esta
 
 Conocer, actualizar y rectificar datos. Solicitar prueba de autorización. Revocar autorización para finalidades secundarias. Solicitar supresión. Presentar quejas ante la SIC (Colombia). Ser informado sobre el uso de sus datos.
 
-Canal: operaciones@sell-fy.app — Consultas: 10 días hábiles. Reclamos: 15 días hábiles.
+Canal: privacidad@sell-fy.app — Consultas: 10 días hábiles. Reclamos: 15 días hábiles.
 
 10. MEDIDAS DE SEGURIDAD
 
@@ -996,9 +998,10 @@ Plataforma B2B exclusiva para mayores de 18 años. Datos de menores serán elimi
 
 Cambios sustanciales notificados por correo y aviso en la Plataforma con al menos 15 días de antelación.
 
-Flow State IA Consulting Group LLC
-Sell-Fy — sell-fy.app — operaciones@sell-fy.app
-5980 Richmond Highway, Alexandria, VA 22303, United States`
+Flow State IA SAS
+NIT: 901470221-5
+Sell-Fy — sell-fy.app — privacidad@sell-fy.app
+Calle 42 D Sur, Medellín, Colombia`
 
 const termsContent = `TÉRMINOS Y CONDICIONES DEL SERVICIO — SELL-FY
 Entidad operadora: Flow State IA Consulting Group LLC
