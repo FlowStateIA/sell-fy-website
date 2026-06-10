@@ -1010,7 +1010,7 @@ privacidad@sell-fy.app
 
 1. PARTES Y ACEPTACIÓN
 
-Los presentes Términos regulan el acceso y uso de la plataforma Sell-Fy, disponible en sell-fy.app, operada por Flow State IA SAS, empresa constituida bajo las leyes del Estado de Virginia, Estados Unidos.
+Los presentes Términos regulan el acceso y uso de la plataforma Sell-Fy, disponible en sell-fy.app, operada por Flow State IA SAS, sociedad constituida bajo las leyes de la República de Colombia.
 
 Al acceder, registrarse o utilizar la Plataforma, el usuario y/o la Organización contratante ("el Cliente") aceptan estos Términos en su totalidad.
 
@@ -1068,7 +1068,7 @@ Efectos: 30 días para exportar datos, luego eliminación segura e irreversible.
 
 11. LEY APLICABLE
 
-Leyes del Estado de Virginia, Estados Unidos. Controversias resueltas por negociación directa y, en su defecto, tribunales de Virginia. Clientes en Colombia pueden acudir a la SIC en materia de protección de datos.
+Leyes de la República de Colombia. Las controversias se resolverán mediante negociación directa entre las partes y, en su defecto, ante los jueces y tribunales competentes de Medellín, Colombia. Los titulares pueden acudir a la Superintendencia de Industria y Comercio (SIC) en materia de protección de datos personales.
 
 12. DISPOSICIONES FINALES
 
