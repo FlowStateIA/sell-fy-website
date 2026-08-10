@@ -16,9 +16,10 @@ export const LOOM_VIDEO_ID = ''
 
 export const hero = {
   eyebrow: 'Para infoproductores que venden high ticket por llamada',
-  headline: 'Centraliza tu operación y deja de adivinar por qué tu equipo no cierra',
+  headline: 'Toda la operación de tu negocio en un solo lugar, auditada por IA',
+  /** La enumeración es deliberada: es lo que le da sustento al "todo" del titular. */
   subheadline:
-    'En este video te muestro la plataforma por dentro: cómo audita cada llamada, qué te dice de tus closers y cómo deja de escapársete el dinero que ya vendiste.',
+    'Ventas, cobros, cuotas, comisiones, embudos y agendas. En este video te muestro cómo funciona por dentro y cómo deja de escapársete el dinero que ya vendiste.',
   cta: 'Agendar una demo',
   ctaSub: '30 minutos · Sin compromiso',
 }
