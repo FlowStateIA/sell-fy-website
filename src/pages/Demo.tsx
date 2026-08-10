@@ -22,9 +22,19 @@ import {
 
 /* ─────────────────────────── Primitivas ─────────────────────────── */
 
-function CtaButton({ label, sub, size = 'md' }: { label: string; sub?: string; size?: 'md' | 'lg' }) {
+function CtaButton({
+  label,
+  sub,
+  size = 'md',
+  center = false,
+}: {
+  label: string
+  sub?: string
+  size?: 'md' | 'lg'
+  center?: boolean
+}) {
   return (
-    <div className="flex flex-col items-start gap-2">
+    <div className={`flex flex-col gap-2 ${center ? 'items-center' : 'items-start'}`}>
       <a
         href={CALENDLY_URL}
         target="_blank"
@@ -255,6 +265,7 @@ export function Demo() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="text-center mx-auto"
             style={{ maxWidth: 860 }}
           >
             <div
@@ -281,6 +292,7 @@ export function Demo() {
               {hero.headline}
             </h1>
             <p
+              className="mx-auto"
               style={{
                 marginTop: 16,
                 fontSize: 16,
@@ -298,11 +310,12 @@ export function Demo() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mx-auto"
             style={{ marginTop: 28, maxWidth: 880 }}
           >
             <VideoEmbed />
             <div style={{ marginTop: 24 }}>
-              <CtaButton label={hero.cta} sub={hero.ctaSub} size="lg" />
+              <CtaButton label={hero.cta} sub={hero.ctaSub} size="lg" center />
             </div>
           </motion.div>
         </div>
