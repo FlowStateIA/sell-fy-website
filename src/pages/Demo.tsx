@@ -210,8 +210,9 @@ export function Demo() {
     <div className="min-h-screen" style={{ backgroundColor: '#08090a', color: '#f7f8f8' }}>
       <DemoHeader />
 
-      {/* Hero + VSL */}
-      <section style={{ paddingTop: 120, paddingBottom: 24 }}>
+      {/* Hero + VSL — compactado a propósito para que el video entre completo
+          en el primer pantallazo. En una VSL el video es la página. */}
+      <section style={{ paddingTop: 96, paddingBottom: 24 }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -233,7 +234,7 @@ export function Demo() {
             </div>
             <h1
               style={{
-                fontSize: 'clamp(34px, 4.6vw, 56px)',
+                fontSize: 'clamp(30px, 3.8vw, 46px)',
                 fontWeight: 510,
                 letterSpacing: '-0.022em',
                 lineHeight: 1.05,
@@ -244,9 +245,9 @@ export function Demo() {
             </h1>
             <p
               style={{
-                marginTop: 22,
-                fontSize: 17,
-                lineHeight: '27px',
+                marginTop: 16,
+                fontSize: 16,
+                lineHeight: '25px',
                 color: '#8a8f98',
                 maxWidth: 680,
               }}
@@ -260,10 +261,10 @@ export function Demo() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-            style={{ marginTop: 48, maxWidth: 980 }}
+            style={{ marginTop: 28, maxWidth: 880 }}
           >
             <VideoEmbed />
-            <div style={{ marginTop: 32 }}>
+            <div style={{ marginTop: 24 }}>
               <CtaButton label={hero.cta} sub={hero.ctaSub} size="lg" />
             </div>
           </motion.div>
