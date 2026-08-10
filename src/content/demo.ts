@@ -27,27 +27,57 @@ export const hero = {
  */
 export const metrics: { value: string; label: string }[] = []
 
+/** Claves de icono válidas. Se mapean a lucide-react en Demo.tsx */
+export type PainIcon =
+  | 'puzzle'
+  | 'users'
+  | 'headphones'
+  | 'calculator'
+  | 'radar'
+  | 'trending'
+
 export const forWho = {
   title: '¿Sell-Fy es para tu negocio?',
-  yes: {
-    title: 'Sí, si te pasa esto',
-    items: [
-      'Tienes un equipo de closers y setters, y no sabes con certeza quién está fallando ni en qué',
-      'Vendes high-ticket por llamada y las grabaciones se acumulan sin que nadie las escuche',
-      'Llevas comisiones, cuotas y cobros en Excel, y siempre hay discusiones sobre quién cobra qué',
-      'Sabes cuánto vendiste, pero no cuánto de eso realmente entró a caja',
-      'Tu operación vive repartida entre el calendario, un CRM, hojas de cálculo y WhatsApp',
-    ],
-  },
-  no: {
-    title: 'No, si es tu caso',
-    items: [
-      'Vendes productos de bajo ticket sin llamada de por medio',
-      'Trabajas solo y no tienes equipo comercial que gestionar',
-      'Buscas un CRM genérico para cualquier industria',
-      'Quieres una herramienta suelta y no un acompañamiento de implementación',
-    ],
-  },
+  subtitle:
+    'Sell-Fy trabaja para equipos que ya están vendiendo por llamada y necesitan dejar de operar con la información partida en pedazos.',
+  cards: [
+    {
+      icon: 'puzzle' as PainIcon,
+      title: 'Tu operación vive en cinco herramientas distintas',
+      desc: 'Pagas Calendly, pagas un CRM, las comisiones van en Excel y lo importante quedó escrito en un grupo de WhatsApp.',
+    },
+    {
+      icon: 'users' as PainIcon,
+      title: 'No sabes con certeza quién está fallando',
+      desc: 'Tienes closers y setters, pero no puedes señalar quién falla ni en qué parte exacta de la llamada.',
+    },
+    {
+      icon: 'headphones' as PainIcon,
+      title: 'Las grabaciones se acumulan sin que nadie las abra',
+      desc: 'Vendes high-ticket por llamada, y escuchar 300 grabaciones al mes no lo hace nadie.',
+    },
+    {
+      icon: 'calculator' as PainIcon,
+      title: 'Las comisiones se calculan a mano',
+      desc: 'Cuotas, cobros y liquidaciones en hojas de cálculo, con discusiones cada mes sobre quién cobra qué.',
+    },
+    {
+      icon: 'radar' as PainIcon,
+      title: 'No sabes de dónde viene cada venta',
+      desc: 'No puedes decir con números qué embudo te trae clientes rentables y cuál te está quemando el presupuesto.',
+    },
+    {
+      icon: 'trending' as PainIcon,
+      title: 'Quieres operar con control, no con memoria',
+      desc: 'Tu negocio ya factura lo suficiente para dejar de depender de lo que cada persona recuerde.',
+    },
+  ],
+  /** Cierre tipo gancho. Los segmentos con accent van resaltados. */
+  closing: [
+    { text: 'Si hoy pagas Calendly, un CRM aparte y encima llevas las comisiones en Excel, ' },
+    { text: 'ya estás gastando más de $150 al mes', accent: true },
+    { text: ' en tener tu operación partida en pedazos.' },
+  ] as { text: string; accent?: boolean }[],
 }
 
 export const beforeAfter = {

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
 
 import logoImg from '../assets/logo.png'
 import { CALENDLY_URL } from '../content/site'
+import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
@@ -44,7 +46,15 @@ function CtaButton({ label, sub, size = 'md' }: { label: string; sub?: string; s
   )
 }
 
-function SectionTitle({ children, max = 800 }: { children: React.ReactNode; max?: number }) {
+function SectionTitle({
+  children,
+  max = 800,
+  center = false,
+}: {
+  children: React.ReactNode
+  max?: number
+  center?: boolean
+}) {
   return (
     <h2
       style={{
@@ -53,11 +63,38 @@ function SectionTitle({ children, max = 800 }: { children: React.ReactNode; max?
         letterSpacing: '-0.022em',
         lineHeight: 1.15,
         color: '#f7f8f8',
-        maxWidth: max,
+        maxWidth: center ? undefined : max,
       }}
     >
       {children}
     </h2>
+  )
+}
+
+const PAIN_ICONS = {
+  puzzle: Puzzle,
+  users: Users,
+  headphones: Headphones,
+  calculator: Calculator,
+  radar: Radar,
+  trending: TrendingUp,
+} as const
+
+function PainIconChip({ name }: { name: PainIcon }) {
+  const Icon = PAIN_ICONS[name]
+  return (
+    <div
+      className="flex items-center justify-center flex-shrink-0"
+      style={{
+        width: 38,
+        height: 38,
+        borderRadius: 9,
+        border: '1px solid rgba(220,38,38,0.22)',
+        backgroundColor: 'rgba(220,38,38,0.07)',
+      }}
+    >
+      <Icon size={18} strokeWidth={1.6} color="#e5534b" />
+    </div>
   )
 }
 
@@ -294,42 +331,70 @@ export function Demo() {
         </Section>
       )}
 
-      {/* ¿Es para ti? */}
+      {/* ¿Es para ti? — rejilla de dolores */}
       <Section>
-        <SectionTitle>{forWho.title}</SectionTitle>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 48 }}>
-          {[forWho.yes, forWho.no].map((col, idx) => (
+        <div className="text-center mx-auto" style={{ maxWidth: 720 }}>
+          <SectionTitle center>{forWho.title}</SectionTitle>
+          <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 18 }}>
+            {forWho.subtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ marginTop: 56 }}>
+          {forWho.cards.map((card) => (
             <div
-              key={col.title}
+              key={card.title}
+              className="flex gap-4"
               style={{
-                padding: 32,
-                borderRadius: 8,
-                border: '1px solid rgba(255,255,255,0.06)',
-                backgroundColor: idx === 0 ? '#0d0e10' : 'transparent',
+                padding: 24,
+                borderRadius: 10,
+                border: '1px solid rgba(255,255,255,0.07)',
+                backgroundColor: '#0b0c0e',
               }}
             >
-              <div
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: idx === 0 ? '#f7f8f8' : '#8a8f98',
-                  marginBottom: 20,
-                }}
-              >
-                {col.title}
+              <PainIconChip name={card.icon} />
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', lineHeight: '21px' }}>
+                  {card.title}
+                </div>
+                <div style={{ fontSize: 13, lineHeight: '21px', color: '#6b6f76', marginTop: 7 }}>
+                  {card.desc}
+                </div>
               </div>
-              <ul className="flex flex-col gap-3">
-                {col.items.map((item) => (
-                  <li key={item} className="flex gap-3" style={{ fontSize: 14, lineHeight: '22px' }}>
-                    <span style={{ color: idx === 0 ? '#dc2626' : '#484b52', flexShrink: 0 }}>
-                      {idx === 0 ? '→' : '·'}
-                    </span>
-                    <span style={{ color: idx === 0 ? '#d0d6e0' : '#6b6f76' }}>{item}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
+        </div>
+
+        {/* Cierre con gancho */}
+        <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
+          <div
+            style={{
+              width: 240,
+              height: 1,
+              background:
+                'linear-gradient(to right, transparent, rgba(220,38,38,0.55), transparent)',
+            }}
+          />
+          <p
+            className="text-center"
+            style={{
+              maxWidth: 660,
+              marginTop: 32,
+              fontSize: 18,
+              lineHeight: '30px',
+              color: '#8a8f98',
+            }}
+          >
+            {forWho.closing.map((seg, i) =>
+              seg.accent ? (
+                <strong key={i} style={{ color: '#f7f8f8', fontWeight: 600 }}>
+                  {seg.text}
+                </strong>
+              ) : (
+                <span key={i}>{seg.text}</span>
+              ),
+            )}
+          </p>
         </div>
       </Section>
 
