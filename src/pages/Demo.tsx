@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
 
@@ -12,11 +11,11 @@ import {
   forWho,
   beforeAfter,
   includes,
-  integrations,
+  centralize,
   pricing,
+  costComparison,
   testimonials,
   guarantee,
-  faq,
   finalCta,
 } from '../content/demo'
 
@@ -217,39 +216,6 @@ function VideoEmbed() {
   )
 }
 
-/* ─────────────────────────── FAQ ─────────────────────────── */
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-6 text-left transition-colors"
-        style={{
-          padding: '20px 0',
-          background: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          color: '#f7f8f8',
-          fontSize: 15,
-          fontWeight: 500,
-        }}
-      >
-        <span>{q}</span>
-        <span style={{ fontSize: 18, color: '#6b6f76', flexShrink: 0, lineHeight: 1 }}>
-          {open ? '−' : '+'}
-        </span>
-      </button>
-      {open && (
-        <p style={{ fontSize: 14, lineHeight: '23px', color: '#8a8f98', paddingBottom: 20, maxWidth: 760 }}>
-          {a}
-        </p>
-      )}
-    </div>
-  )
-}
-
 /* ─────────────────────────── Página ─────────────────────────── */
 
 export function Demo() {
@@ -378,37 +344,6 @@ export function Demo() {
           ))}
         </div>
 
-        {/* Cierre con gancho */}
-        <div className="flex flex-col items-center" style={{ marginTop: 64 }}>
-          <div
-            style={{
-              width: 240,
-              height: 1,
-              background:
-                'linear-gradient(to right, transparent, rgba(220,38,38,0.55), transparent)',
-            }}
-          />
-          <p
-            className="text-center"
-            style={{
-              maxWidth: 660,
-              marginTop: 32,
-              fontSize: 18,
-              lineHeight: '30px',
-              color: '#8a8f98',
-            }}
-          >
-            {forWho.closing.map((seg, i) =>
-              seg.accent ? (
-                <strong key={i} style={{ color: '#f7f8f8', fontWeight: 600 }}>
-                  {seg.text}
-                </strong>
-              ) : (
-                <span key={i}>{seg.text}</span>
-              ),
-            )}
-          </p>
-        </div>
       </Section>
 
       {/* Antes / Después */}
@@ -478,92 +413,170 @@ export function Demo() {
         </div>
       </Section>
 
-      {/* Integraciones */}
+      {/* Centralización — reemplaza vs se conecta */}
       <Section>
-        <SectionTitle max={620}>{integrations.title}</SectionTitle>
-        <div className="flex flex-wrap gap-3" style={{ marginTop: 32 }}>
-          {integrations.items.map((name) => (
-            <span
-              key={name}
-              style={{
-                padding: '9px 18px',
-                borderRadius: 999,
-                border: '1px solid rgba(255,255,255,0.08)',
-                fontSize: 13,
-                color: '#d0d6e0',
-              }}
-            >
-              {name}
-            </span>
-          ))}
-        </div>
-      </Section>
+        <SectionTitle max={680}>{centralize.title}</SectionTitle>
+        <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 640 }}>
+          {centralize.subtitle}
+        </p>
 
-      {/* Precio + ROI */}
-      <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-          <div>
-            <SectionTitle max={420}>{pricing.title}</SectionTitle>
-            <div className="flex items-baseline gap-2" style={{ marginTop: 28 }}>
-              <span style={{ fontSize: 56, fontWeight: 510, letterSpacing: '-0.03em', color: '#f7f8f8', lineHeight: 1 }}>
-                {pricing.amount}
-              </span>
-              <span style={{ fontSize: 15, color: '#6b6f76' }}>{pricing.period}</span>
-            </div>
-            <p style={{ fontSize: 14, color: '#8a8f98', marginTop: 14 }}>{pricing.note}</p>
-            <div style={{ marginTop: 28 }}>
-              <CtaButton label={finalCta.cta} sub={hero.ctaSub} />
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 48 }}>
+          {/* Lo que deja de usar */}
           <div
             style={{
               padding: 32,
-              borderRadius: 8,
-              border: '1px solid rgba(255,255,255,0.06)',
-              backgroundColor: '#0d0e10',
+              borderRadius: 10,
+              border: '1px solid rgba(255,255,255,0.07)',
+              backgroundColor: '#0b0c0e',
             }}
           >
-            <div style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8', marginBottom: 24 }}>
-              {pricing.roi.title}
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#e5534b',
+                marginBottom: 22,
+              }}
+            >
+              {centralize.replaces.title}
             </div>
-            <div className="flex flex-col">
-              {pricing.roi.rows.map((row, i) => (
-                <div
-                  key={row.label}
-                  className="flex items-baseline justify-between gap-6"
-                  style={{
-                    padding: '14px 0',
-                    borderTop: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.05)',
-                  }}
-                >
-                  <span style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98' }}>{row.label}</span>
+            <ul className="flex flex-col gap-3">
+              {centralize.replaces.items.map((item) => (
+                <li key={item} className="flex items-center gap-3">
                   <span
                     style={{
                       fontSize: 14,
-                      fontWeight: 500,
-                      whiteSpace: 'nowrap',
-                      color: row.positive ? '#f7f8f8' : '#6b6f76',
+                      color: '#6b6f76',
+                      textDecoration: 'line-through',
+                      textDecorationColor: 'rgba(229,83,75,0.5)',
                     }}
                   >
-                    {row.value}
+                    {item}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
-            <p
+            </ul>
+          </div>
+
+          {/* Lo que sigue conectado */}
+          <div
+            style={{
+              padding: 32,
+              borderRadius: 10,
+              border: '1px solid rgba(255,255,255,0.07)',
+              backgroundColor: 'transparent',
+            }}
+          >
+            <div
               style={{
-                fontSize: 13,
-                lineHeight: '21px',
-                color: '#d0d6e0',
-                marginTop: 24,
-                paddingTop: 20,
-                borderTop: '1px solid rgba(255,255,255,0.05)',
+                fontSize: 12,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#8a8f98',
+                marginBottom: 22,
               }}
             >
-              {pricing.roi.closing}
-            </p>
+              {centralize.connects.title}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {centralize.connects.items.map((name) => (
+                <span
+                  key={name}
+                  style={{
+                    padding: '9px 18px',
+                    borderRadius: 999,
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    fontSize: 13,
+                    color: '#d0d6e0',
+                  }}
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
           </div>
+        </div>
+      </Section>
+
+      {/* Precio y costo de oportunidad */}
+      <Section>
+        <div className="text-center mx-auto" style={{ maxWidth: 760 }}>
+          <SectionTitle center>{costComparison.title}</SectionTitle>
+          <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 18 }}>
+            {costComparison.subtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 56 }}>
+          {[
+            { data: costComparison.human, highlight: false },
+            { data: costComparison.product, highlight: true },
+          ].map(({ data, highlight }) => (
+            <div
+              key={data.label}
+              style={{
+                padding: 32,
+                borderRadius: 12,
+                border: highlight
+                  ? '1px solid rgba(229,83,75,0.35)'
+                  : '1px solid rgba(255,255,255,0.07)',
+                backgroundColor: highlight ? '#0d0e10' : 'transparent',
+              }}
+            >
+              <div
+                className="inline-block"
+                style={{
+                  padding: '6px 14px',
+                  borderRadius: 999,
+                  border: highlight
+                    ? '1px solid rgba(229,83,75,0.35)'
+                    : '1px solid rgba(255,255,255,0.12)',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: highlight ? '#e5534b' : '#8a8f98',
+                }}
+              >
+                {data.label}
+              </div>
+
+              <div className="flex items-baseline gap-2" style={{ marginTop: 24 }}>
+                <span style={{ fontSize: 13, color: '#6b6f76' }}>USD</span>
+                <span
+                  style={{
+                    fontSize: 40,
+                    fontWeight: 510,
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                    color: highlight ? '#f7f8f8' : '#8a8f98',
+                  }}
+                >
+                  {data.amount}
+                </span>
+                <span style={{ fontSize: 14, color: '#6b6f76' }}>{data.period}</span>
+              </div>
+
+              <ul className="flex flex-col gap-3" style={{ marginTop: 28 }}>
+                {data.items.map((item) => (
+                  <li key={item} className="flex gap-3" style={{ fontSize: 14, lineHeight: '22px' }}>
+                    <span style={{ color: highlight ? '#e5534b' : '#484b52', flexShrink: 0 }}>
+                      {highlight ? '✓' : '✕'}
+                    </span>
+                    <span style={{ color: highlight ? '#d0d6e0' : '#6b6f76' }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col items-center" style={{ marginTop: 48 }}>
+          <CtaButton label={finalCta.cta} sub={hero.ctaSub} size="lg" center />
+          <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
         </div>
       </Section>
 
@@ -612,16 +625,6 @@ export function Demo() {
           </div>
         </Section>
       )}
-
-      {/* FAQ */}
-      <Section>
-        <SectionTitle max={620}>Preguntas frecuentes</SectionTitle>
-        <div style={{ marginTop: 40, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          {faq.map((item) => (
-            <FaqItem key={item.q} q={item.q} a={item.a} />
-          ))}
-        </div>
-      </Section>
 
       {/* CTA final */}
       <section style={{ padding: '96px 0 128px' }}>
