@@ -9,7 +9,6 @@ import {
   hero,
   metrics,
   forWho,
-  beforeAfter,
   includes,
   centralize,
   pricing,
@@ -344,47 +343,6 @@ export function Demo() {
           ))}
         </div>
 
-      </Section>
-
-      {/* Antes / Después */}
-      <Section>
-        <SectionTitle max={900}>{beforeAfter.title}</SectionTitle>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 48 }}>
-          {[beforeAfter.before, beforeAfter.after].map((col, idx) => (
-            <div
-              key={col.title}
-              style={{
-                padding: 32,
-                borderRadius: 8,
-                border: '1px solid rgba(255,255,255,0.06)',
-                backgroundColor: idx === 1 ? '#0d0e10' : 'transparent',
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: idx === 1 ? '#f7f8f8' : '#6b6f76',
-                  marginBottom: 20,
-                }}
-              >
-                {col.title}
-              </div>
-              <ul className="flex flex-col gap-4">
-                {col.items.map((item) => (
-                  <li key={item} className="flex gap-3" style={{ fontSize: 14, lineHeight: '22px' }}>
-                    <span style={{ color: idx === 1 ? '#f7f8f8' : '#484b52', flexShrink: 0 }}>
-                      {idx === 1 ? '✓' : '✕'}
-                    </span>
-                    <span style={{ color: idx === 1 ? '#d0d6e0' : '#6b6f76' }}>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </Section>
 
       {/* Qué incluye */}

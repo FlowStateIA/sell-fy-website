@@ -76,32 +76,6 @@ export const forWho = {
   ],
 }
 
-export const beforeAfter = {
-  title: 'La diferencia no es tener más leads. Es saber qué pasa con los que ya tienes.',
-  before: {
-    title: 'Sin Sell-Fy',
-    items: [
-      'Nadie escucha las llamadas: 300 grabaciones al mes es humanamente imposible',
-      'El closer que va mal se detecta cuando ya perdiste el trimestre',
-      'Las comisiones se calculan a mano y generan fricción con el equipo',
-      'Las cuotas vencidas se descubren tarde, cuando el cliente ya se enfrió',
-      'No sabes qué embudo te trae clientes rentables y cuál te quema presupuesto',
-      'La información del cliente vive en la cabeza del vendedor que se va',
-    ],
-  },
-  after: {
-    title: 'Con Sell-Fy',
-    items: [
-      'Cada llamada se audita sola: score de 0 a 100 en 7 dimensiones',
-      'Sabes esta semana qué closer necesita entrenamiento y exactamente en qué',
-      'Las comisiones se calculan y liquidan solas, con PDF para cada persona',
-      'Alertas automáticas por WhatsApp y email antes de que una cuota se venza',
-      'CAC y ROI reales por embudo, con la inversión publicitaria prorrateada',
-      'Dolores, objeciones y aspiraciones de tus clientes quedan en el sistema, no en una persona',
-    ],
-  },
-}
-
 export const includes = {
   title: 'Qué incluye',
   subtitle: 'No es una licencia de software. Es la plataforma más la implementación.',
