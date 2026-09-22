@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
 
 import logoImg from '../assets/logo.png'
-import { CALENDLY_URL, WHOP_CHECKOUT_URL } from '../content/site'
+import { WHOP_CHECKOUT_URL } from '../content/site'
 import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
@@ -25,7 +25,7 @@ function CtaButton({
   sub,
   size = 'md',
   center = false,
-  href = CALENDLY_URL,
+  href = WHOP_CHECKOUT_URL,
   variant = 'solid',
 }: {
   label: string
@@ -60,7 +60,7 @@ function CtaButton({
   )
 }
 
-/** Par de CTAs: comprar directo (Whop) como primario + agendar demo (Calendly) secundario. */
+/** CTA de compra directa (Whop). */
 function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?: boolean }) {
   return (
     <div
@@ -73,14 +73,6 @@ function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?:
         size={size}
         center={center}
         variant="solid"
-      />
-      <CtaButton
-        label="Agendar una demo"
-        sub="30 min · sin compromiso"
-        href={CALENDLY_URL}
-        size={size}
-        center={center}
-        variant="outline"
       />
     </div>
   )
