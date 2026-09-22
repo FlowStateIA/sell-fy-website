@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
 
 import logoImg from '../assets/logo.png'
-import { CALENDLY_URL } from '../content/site'
+import { CALENDLY_URL, WHOP_CHECKOUT_URL } from '../content/site'
 import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
@@ -25,23 +25,29 @@ function CtaButton({
   sub,
   size = 'md',
   center = false,
+  href = CALENDLY_URL,
+  variant = 'solid',
 }: {
   label: string
   sub?: string
   size?: 'md' | 'lg'
   center?: boolean
+  href?: string
+  variant?: 'solid' | 'outline'
 }) {
+  const solid = variant === 'solid'
   return (
     <div className={`flex flex-col gap-2 ${center ? 'items-center' : 'items-start'}`}>
       <a
-        href={CALENDLY_URL}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block transition-opacity hover:opacity-90"
         style={{
           padding: size === 'lg' ? '14px 32px' : '10px 24px',
-          backgroundColor: '#e6e6e6',
-          color: '#08090a',
+          backgroundColor: solid ? '#e6e6e6' : 'transparent',
+          color: solid ? '#08090a' : '#d0d6e0',
+          border: solid ? 'none' : '1px solid rgba(255,255,255,0.14)',
           borderRadius: 6,
           fontSize: size === 'lg' ? 15 : 13,
           fontWeight: 500,
@@ -50,6 +56,32 @@ function CtaButton({
         {label}
       </a>
       {sub && <span style={{ fontSize: 12, color: '#6b6f76' }}>{sub}</span>}
+    </div>
+  )
+}
+
+/** Par de CTAs: comprar directo (Whop) como primario + agendar demo (Calendly) secundario. */
+function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?: boolean }) {
+  return (
+    <div
+      className={`flex flex-col sm:flex-row gap-3 ${center ? 'items-center justify-center' : 'items-start'}`}
+    >
+      <CtaButton
+        label="Empezar ahora"
+        sub="Plan Standard · $150 USD/mes"
+        href={WHOP_CHECKOUT_URL}
+        size={size}
+        center={center}
+        variant="solid"
+      />
+      <CtaButton
+        label="Agendar una demo"
+        sub="30 min · sin compromiso"
+        href={CALENDLY_URL}
+        size={size}
+        center={center}
+        variant="outline"
+      />
     </div>
   )
 }
@@ -138,7 +170,7 @@ function DemoHeader() {
         {/* Sin link a home: en una página de embudo no se ofrecen salidas */}
         <img src={logoImg} alt="Sell-fy" style={{ height: 64 }} />
         <a
-          href={CALENDLY_URL}
+          href={WHOP_CHECKOUT_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="transition-opacity hover:opacity-90"
@@ -151,7 +183,7 @@ function DemoHeader() {
             fontWeight: 500,
           }}
         >
-          Agendar demo
+          Empezar ahora
         </a>
       </div>
     </header>
@@ -280,7 +312,7 @@ export function Demo() {
           >
             <VideoEmbed />
             <div style={{ marginTop: 24 }}>
-              <CtaButton label={hero.cta} sub={hero.ctaSub} size="lg" center />
+              <CtaPair size="lg" center />
             </div>
           </motion.div>
         </div>
@@ -533,7 +565,7 @@ export function Demo() {
         </div>
 
         <div className="flex flex-col items-center" style={{ marginTop: 48 }}>
-          <CtaButton label={finalCta.cta} sub={hero.ctaSub} size="lg" center />
+          <CtaPair size="lg" center />
           <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
         </div>
       </Section>
@@ -604,7 +636,7 @@ export function Demo() {
               {finalCta.subtitle}
             </p>
             <div style={{ marginTop: 32 }}>
-              <CtaButton label={finalCta.cta} sub={hero.ctaSub} size="lg" />
+              <CtaPair size="lg" />
             </div>
           </motion.div>
         </div>
