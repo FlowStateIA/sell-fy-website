@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-import { CALENDLY_URL } from '../content/site'
+import { CALENDLY_URL, WHOP_CHECKOUT_URL } from '../content/site'
 
 const includes = [
   { title: 'Software completo', desc: 'Ventas, cobros, comisiones, agendas, analítica y auditorías con IA. Sin límites de usuarios.' },
@@ -91,27 +91,49 @@ export function Pricing() {
           }}
         >
           <div>
-            <div style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8', marginBottom: 4 }}>
-              Precio personalizado según tu equipo
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8' }}>Plan Standard</span>
+              <span style={{ fontSize: 22, fontWeight: 560, color: '#f7f8f8', letterSpacing: '-0.02em' }}>
+                $150
+              </span>
+              <span style={{ fontSize: 13, color: '#6b6f76' }}>USD / mes</span>
             </div>
             <div style={{ fontSize: 13, color: '#6b6f76' }}>
-              Agenda una consultoría gratuita de 30 min. Te mostramos la plataforma y armamos una propuesta.
+              Software completo, onboarding y soporte. Sin límites de usuarios. Cancela cuando quieras.
             </div>
           </div>
-          <a
-            href={CALENDLY_URL}
-            className="flex-shrink-0 transition-colors"
-            style={{
-              padding: '10px 24px',
-              backgroundColor: '#e6e6e6',
-              color: '#08090a',
-              borderRadius: 4,
-              fontSize: 13,
-              fontWeight: 500,
-            }}
-          >
-            Agenda una consulta
-          </a>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0">
+            <a
+              href={WHOP_CHECKOUT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors text-center"
+              style={{
+                padding: '10px 24px',
+                backgroundColor: '#e6e6e6',
+                color: '#08090a',
+                borderRadius: 4,
+                fontSize: 13,
+                fontWeight: 500,
+              }}
+            >
+              Empezar ahora
+            </a>
+            <a
+              href={CALENDLY_URL}
+              className="transition-colors text-center"
+              style={{
+                padding: '10px 24px',
+                border: '1px solid rgba(255,255,255,0.14)',
+                color: '#d0d6e0',
+                borderRadius: 4,
+                fontSize: 13,
+                fontWeight: 500,
+              }}
+            >
+              Agenda una demo
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
