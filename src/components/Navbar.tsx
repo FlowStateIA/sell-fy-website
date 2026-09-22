@@ -29,13 +29,29 @@ export function Navbar() {
           <img src={logoImg} alt="Sell-fy" style={{ height: 80 }} />
         </a>
 
-        <a
-          href="https://app.sell-fy.app"
-          style={{ fontSize: 13, color: '#8a8f98' }}
-          className="hover:!text-[#f7f8f8] transition-colors"
-        >
-          Log in
-        </a>
+        <nav className="flex items-center gap-6 sm:gap-8">
+          <a
+            href="/demo"
+            style={{ fontSize: 13, color: '#8a8f98' }}
+            className="hover:!text-[#f7f8f8] transition-colors"
+          >
+            Demo
+          </a>
+          <a
+            href="/#precios"
+            style={{ fontSize: 13, color: '#8a8f98' }}
+            className="hover:!text-[#f7f8f8] transition-colors"
+          >
+            Pricing
+          </a>
+          <a
+            href="https://app.sell-fy.app"
+            style={{ fontSize: 13, color: '#8a8f98' }}
+            className="hover:!text-[#f7f8f8] transition-colors"
+          >
+            Log in
+          </a>
+        </nav>
       </div>
     </header>
   )
