@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-import { CALENDLY_URL, WHOP_CHECKOUT_URL } from '../content/site'
+import { WHOP_CHECKOUT_URL } from '../content/site'
 
 const includes = [
   { title: 'Software completo', desc: 'Ventas, cobros, comisiones, agendas, analítica y auditorías con IA. Sin límites de usuarios.' },
@@ -118,20 +118,6 @@ export function Pricing() {
               }}
             >
               Empezar ahora
-            </a>
-            <a
-              href={CALENDLY_URL}
-              className="transition-colors text-center"
-              style={{
-                padding: '10px 24px',
-                border: '1px solid rgba(255,255,255,0.14)',
-                color: '#d0d6e0',
-                borderRadius: 4,
-                fontSize: 13,
-                fontWeight: 500,
-              }}
-            >
-              Agenda una demo
             </a>
           </div>
         </motion.div>
