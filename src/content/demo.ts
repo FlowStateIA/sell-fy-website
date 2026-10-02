@@ -12,7 +12,7 @@
  */
 
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
-export const LOOM_VIDEO_ID = ''
+export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
 
 export const hero = {
   eyebrow: 'Para infoproductores que venden high ticket por llamada',
