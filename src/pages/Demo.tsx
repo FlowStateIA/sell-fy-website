@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
 
 import logoImg from '../assets/logo.png'
+import { CONNECT_LOGOS } from '../components/BrandLogos'
 import { WHOP_CHECKOUT_URL } from '../content/site'
 import type { PainIcon } from '../content/demo'
 import {
@@ -464,20 +465,26 @@ export function Demo() {
               {centralize.connects.title}
             </div>
             <div className="flex flex-wrap gap-3">
-              {centralize.connects.items.map((name) => (
-                <span
-                  key={name}
-                  style={{
-                    padding: '9px 18px',
-                    borderRadius: 999,
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    fontSize: 13,
-                    color: '#d0d6e0',
-                  }}
-                >
-                  {name}
-                </span>
-              ))}
+              {centralize.connects.items.map((name) => {
+                const Logo = CONNECT_LOGOS[name]
+                return (
+                  <span
+                    key={name}
+                    className="inline-flex items-center gap-2.5"
+                    style={{
+                      padding: '9px 16px',
+                      borderRadius: 999,
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      backgroundColor: 'rgba(255,255,255,0.03)',
+                      fontSize: 13,
+                      color: '#d0d6e0',
+                    }}
+                  >
+                    {Logo && <Logo size={20} />}
+                    {name}
+                  </span>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -556,7 +563,60 @@ export function Demo() {
           ))}
         </div>
 
-        <div className="flex flex-col items-center" style={{ marginTop: 48 }}>
+        {/* Estructura de precio: setup único (incluye 1er mes) + mensualidad */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto w-full"
+          style={{ marginTop: 56, maxWidth: 680 }}
+        >
+          {[
+            { ...pricing.setup, highlight: true },
+            { ...pricing.recurring, highlight: false },
+          ].map((p) => (
+            <div
+              key={p.label}
+              style={{
+                padding: 28,
+                borderRadius: 12,
+                border: p.highlight
+                  ? '1px solid rgba(229,83,75,0.35)'
+                  : '1px solid rgba(255,255,255,0.07)',
+                backgroundColor: p.highlight ? '#0d0e10' : 'transparent',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: p.highlight ? '#e5534b' : '#8a8f98',
+                }}
+              >
+                {p.label}
+              </div>
+              <div className="flex items-baseline gap-2" style={{ marginTop: 16 }}>
+                <span style={{ fontSize: 13, color: '#6b6f76' }}>{p.unit}</span>
+                <span
+                  style={{
+                    fontSize: 36,
+                    fontWeight: 510,
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                    color: '#f7f8f8',
+                  }}
+                >
+                  {p.amount}
+                </span>
+                <span style={{ fontSize: 14, color: '#6b6f76' }}>{p.period}</span>
+              </div>
+              <p style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98', marginTop: 14 }}>
+                {p.note}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col items-center" style={{ marginTop: 40 }}>
           <CtaPair size="lg" center />
           <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
         </div>
