@@ -138,9 +138,23 @@ export const centralize = {
 
 export const pricing = {
   title: 'Precio',
-  amount: '$150',
-  period: 'USD / mes',
-  note: 'Usuarios ilimitados. Sin costo de setup. Sin permanencia.',
+  /** Pago inicial único: implementación + primer mes de membresía incluido. */
+  setup: {
+    label: 'Setup inicial',
+    unit: 'USD',
+    amount: '$500',
+    period: 'pago único',
+    note: 'Incluye la implementación completa + tu primer mes de membresía.',
+  },
+  /** Suscripción recurrente a partir del segundo mes. */
+  recurring: {
+    label: 'Mensualidad',
+    unit: 'USD',
+    amount: '$150',
+    period: '/ mes',
+    note: 'A partir del segundo mes. Usuarios ilimitados.',
+  },
+  note: 'Usuarios ilimitados. Sin permanencia.',
 }
 
 /** Comparativa de costo de oportunidad. */
