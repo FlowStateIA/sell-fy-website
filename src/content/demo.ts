@@ -145,14 +145,21 @@ export const pricing = {
     amount: '$500',
     period: 'pago único',
     note: 'Incluye la implementación completa + tu primer mes de membresía.',
+    items: [] as string[],
   },
-  /** Suscripción recurrente a partir del segundo mes. */
+  /** Suscripción recurrente a partir del segundo mes. Lleva los beneficios del producto. */
   recurring: {
     label: 'Mensualidad',
     unit: 'USD',
     amount: '$150',
     period: '/ mes',
     note: 'A partir del segundo mes. Usuarios ilimitados.',
+    items: [
+      'Centraliza la operación y la data',
+      'Audita el 100% de las llamadas',
+      'Gestiona cartera, ventas y servicio',
+      'Todo tu equipo en un solo lugar',
+    ] as string[],
   },
   note: 'Usuarios ilimitados. Sin permanencia.',
 }

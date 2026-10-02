@@ -376,17 +376,21 @@ export function Demo() {
         <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 620 }}>
           {includes.subtitle}
         </p>
+        {/* Móvil: carrusel horizontal deslizable (evita apilar 6 cards y alargar
+            la página). Desktop (md+): grid unificado con costuras de 1px. */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px overflow-hidden"
-          style={{
-            marginTop: 48,
-            borderRadius: 8,
-            border: '1px solid rgba(255,255,255,0.06)',
-            backgroundColor: 'rgba(255,255,255,0.04)',
-          }}
+          className="mt-12 flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar
+                     -mx-6 px-6 scroll-px-6
+                     md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-px
+                     md:overflow-hidden md:rounded-lg md:border md:border-white/[0.06] md:bg-white/[0.04]"
         >
           {includes.items.map((item) => (
-            <div key={item.title} style={{ padding: 32, backgroundColor: '#08090a' }}>
+            <div
+              key={item.title}
+              className="snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto
+                         rounded-xl md:rounded-none border border-white/[0.07] md:border-0
+                         bg-[#0b0c0e] md:bg-[#08090a] p-8"
+            >
               <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', marginBottom: 8 }}>
                 {item.title}
               </div>
@@ -499,10 +503,9 @@ export function Demo() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 56 }}>
+        <div className="mx-auto w-full" style={{ marginTop: 56, maxWidth: 440 }}>
           {[
             { data: costComparison.human, highlight: false },
-            { data: costComparison.product, highlight: true },
           ].map(({ data, highlight }) => (
             <div
               key={data.label}
@@ -569,8 +572,8 @@ export function Demo() {
           style={{ marginTop: 56, maxWidth: 680 }}
         >
           {[
-            { ...pricing.setup, highlight: true },
-            { ...pricing.recurring, highlight: false },
+            { ...pricing.setup, highlight: false },
+            { ...pricing.recurring, highlight: true },
           ].map((p) => (
             <div
               key={p.label}
@@ -612,6 +615,20 @@ export function Demo() {
               <p style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98', marginTop: 14 }}>
                 {p.note}
               </p>
+              {p.items.length > 0 && (
+                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
+                  {p.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex gap-3"
+                      style={{ fontSize: 14, lineHeight: '22px' }}
+                    >
+                      <span style={{ color: '#e5534b', flexShrink: 0 }}>✓</span>
+                      <span style={{ color: '#d0d6e0' }}>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
