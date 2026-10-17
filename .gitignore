@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Documentos internos (no publicar: el repo tiene remoto en GitHub)
+*.pdf
