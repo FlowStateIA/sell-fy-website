@@ -4,7 +4,7 @@
  * Página de conversión: sin navegación, un solo objetivo — agendar.
  * Todo el copy vive aquí para poder iterarlo sin tocar el diseño.
  *
- * Público: infoproductores high ticket que venden por llamada.
+ * Público: infoproductores que quieren centralizar su negocio.
  *
  * ⚠️ Las secciones de testimonios, métricas y garantía sólo se renderizan
  * si tienen datos. Se quedan vacías a propósito: no publicamos prueba
@@ -15,14 +15,36 @@
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
 
 export const hero = {
-  eyebrow: 'Para infoproductores que venden high ticket por llamada',
+  eyebrow: 'Para infoproductores que quieren centralizar su negocio',
   headline: 'Toda la operación de tu negocio en un solo lugar, auditada por IA',
-  /** La enumeración es deliberada: es lo que le da sustento al "todo" del titular. */
   subheadline:
-    'Ventas, cobros, cuotas, comisiones, embudos y agendas. En este video te muestro cómo funciona por dentro y cómo deja de escapársete el dinero que ya vendiste.',
+    'En este video te muestro cómo funciona por dentro y cómo deja de escapársete el dinero que ya vendiste.',
   cta: 'Agendar una demo',
   ctaSub: '30 minutos · Sin compromiso',
 }
+
+/**
+ * Las áreas que cubre la plataforma. Es lo que le da sustento al "toda la
+ * operación" del titular.
+ *
+ * ⚠️ Van como chips, no dentro del subtítulo: doce palabras en texto corrido
+ * son un muro que empuja el video fuera del primer pantallazo. Como chips se
+ * leen de un vistazo y ocupan dos líneas.
+ */
+export const covers = [
+  'Ventas',
+  'Cobros',
+  'Cuotas',
+  'Comisiones',
+  'Embudos',
+  'Agendas',
+  'Entrega de servicio',
+  'Calendario',
+  'Métricas',
+  'Reportes',
+  'Recordatorios',
+  'Analítica',
+]
 
 /**
  * Métricas de validación. Vacío = la sección no se muestra.
@@ -119,23 +141,52 @@ export const includes = {
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
-    'La mayoría opera con cinco herramientas que no se hablan entre sí. Sell-Fy se queda con el trabajo de todas.',
-  replaces: {
-    title: 'Deja de usar',
-    items: [
-      'Tu CRM',
-      'Las hojas de comisiones',
-      'El control de cobros en Excel',
-      'La información suelta en grupos de WhatsApp',
-      'Los reportes que alguien arma a mano cada semana',
-    ],
+    'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. Sell-Fy se queda con el trabajo de todas.',
+  columns: {
+    outside: 'Lo que usas hoy por fuera',
+    inside: 'Lo que lo reemplaza en Sell-Fy',
   },
+  /** Mapeo uno a uno del brief de negocio. Cada fila es una herramienta que el cliente deja de pagar. */
+  rows: [
+    { outside: 'Calendly o similar para agendar llamadas', inside: 'Calenfy' },
+    { outside: 'CRM genérico para el pipeline comercial', inside: 'CRM + Ventas' },
+    { outside: 'Hoja de cálculo de comisiones y liquidaciones', inside: 'Comisiones' },
+    {
+      outside: 'Notion o un tablero suelto para la entrega del programa',
+      inside: 'Entrega de Servicio',
+    },
+    {
+      outside: 'Herramienta de grabación y auditoría de llamadas',
+      inside: 'Auditorías + Inteligencia',
+    },
+    { outside: 'Hoja de gastos, nómina y caja del negocio', inside: 'Finanzas' },
+    { outside: 'Dashboards armados a mano cada semana', inside: 'Analítica + Informes' },
+  ],
+  /**
+   * ⚠️ Calendly salió de aquí: con Calenfy incluido en el plan de lanzamiento
+   * pasó a la columna de "lo que reemplaza". Seguir mostrándolo como
+   * integración al lado de la fila que lo reemplaza se contradice solo.
+   */
   connects: {
     title: 'Se conecta con',
-    items: ['Google Calendar', 'Google Meet', 'Calendly'],
+    items: ['Google Calendar', 'Google Meet'],
   },
 }
 
+/**
+ * Precio del Plan de lanzamiento ($297 + $500 de setup), que es el foco
+ * comercial según el brief de octubre 2026.
+ *
+ * ⚠️ El plan de $150 ya no se publica: el lanzamiento corrige el precio y
+ * suma Finanzas, Calenfy y Entrega de Servicio, que son justamente los tres
+ * módulos que más herramientas sueltas reemplazan. Los clientes que hoy
+ * pagan $150 son una decisión aparte (respetar precio o migrar), no un plan
+ * de esta página.
+ *
+ * ⚠️ El Plan completo ($497) se muestra como destino del upsell, SIN botón
+ * de compra: todavía dependen de él las ocho piezas que faltan. Venderlo
+ * hoy sería cobrar por algo que no existe.
+ */
 export const pricing = {
   title: 'Precio',
   /** Pago inicial único: implementación + primer mes de membresía incluido. */
@@ -151,24 +202,45 @@ export const pricing = {
   recurring: {
     label: 'Mensualidad',
     unit: 'USD',
-    amount: '$150',
+    amount: '$297',
     period: '/ mes',
     note: 'A partir del segundo mes. Usuarios ilimitados.',
     items: [
-      'Centraliza la operación y la data',
-      'Audita el 100% de las llamadas',
-      'Gestiona cartera, ventas y servicio',
-      'Todo tu equipo en un solo lugar',
+      'CRM, Ventas, Comisiones y Cobros',
+      'Auditoría de llamadas con IA e Inteligencia',
+      'Finanzas: caja, gastos, nómina y recurrencia',
+      'Calenfy: tu propia página de agendamiento',
+      'Entrega de Servicio: programas, alumnos y mentorías',
     ] as string[],
   },
   note: 'Usuarios ilimitados. Sin permanencia.',
+}
+
+/**
+ * Siguiente escalón. Se muestra como ancla y destino del upsell, nunca como
+ * algo comprable hoy. `available: false` apaga cualquier CTA.
+ */
+export const nextTier = {
+  label: 'Plan completo',
+  badge: 'Próximamente',
+  available: false,
+  unit: 'USD',
+  amount: '$497',
+  period: '/ mes',
+  note: 'Se habilita cuando cierren los módulos que faltan. Es el upgrade natural del plan de lanzamiento, no un plan paralelo.',
+  items: [
+    'Todo lo del plan de lanzamiento',
+    'Instagram, Meta y métricas de campaña',
+    'WooCommerce y BCL',
+    'Chat de setters y módulo de lanzamientos',
+  ] as string[],
 }
 
 /** Comparativa de costo de oportunidad. */
 export const costComparison = {
   title: '¿Caro? Calcula lo que te cuesta no tenerlo',
   subtitle:
-    'Contratar a alguien que escuche las llamadas de tu equipo y lleve el control cuesta entre $800 y $1.500 USD al mes. Sell-Fy cuesta $150 y audita el 100% de las llamadas, todos los días.',
+    'Contratar a alguien que escuche las llamadas de tu equipo y lleve el control cuesta entre $800 y $1.500 USD al mes. Sell-Fy cuesta $297, audita el 100% de las llamadas y además te reemplaza el CRM, el agendador, la hoja de comisiones y la de finanzas.',
   human: {
     label: 'Contratar a alguien',
     amount: '$800 – $1.500',
@@ -182,7 +254,7 @@ export const costComparison = {
   },
   product: {
     label: 'Sell-Fy',
-    amount: '$150',
+    amount: '$297',
     period: '/mes',
     items: [
       'Audita el 100% de las llamadas',

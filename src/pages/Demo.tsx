@@ -8,11 +8,13 @@ import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
+  covers,
   metrics,
   forWho,
   includes,
   centralize,
   pricing,
+  nextTier,
   costComparison,
   testimonials,
   guarantee,
@@ -69,7 +71,7 @@ function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?:
     >
       <CtaButton
         label="Empezar ahora"
-        sub="Plan Standard · $150 USD/mes"
+        sub="Plan de lanzamiento · $297 USD/mes"
         href={WHOP_CHECKOUT_URL}
         size={size}
         center={center}
@@ -293,6 +295,32 @@ export function Demo() {
             >
               {hero.subheadline}
             </p>
+
+            {/* Las áreas que cubre. Deliberadamente discretas: sustentan el
+                "toda la operación" del titular sin competir con él ni empujar
+                el video fuera del primer pantallazo. */}
+            <div
+              className="flex flex-wrap justify-center gap-x-2 gap-y-2 mx-auto"
+              style={{ marginTop: 16, maxWidth: 720 }}
+            >
+              {covers.map((item) => (
+                <span
+                  key={item}
+                  style={{
+                    padding: '5px 11px',
+                    borderRadius: 999,
+                    border: '1px solid rgba(255,255,255,0.09)',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    fontSize: 12,
+                    lineHeight: '16px',
+                    color: '#8a8f98',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           {/* El video va inmediatamente después del titular */}
@@ -301,7 +329,7 @@ export function Demo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
             className="mx-auto"
-            style={{ marginTop: 28, maxWidth: 880 }}
+            style={{ marginTop: 22, maxWidth: 880 }}
           >
             <VideoEmbed />
             <div style={{ marginTop: 24 }}>
@@ -370,6 +398,130 @@ export function Demo() {
 
       </Section>
 
+      {/* Centralización — reemplaza vs se conecta */}
+      <Section>
+        <SectionTitle max={680}>{centralize.title}</SectionTitle>
+        <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 640 }}>
+          {centralize.subtitle}
+        </p>
+
+        {/* Mapeo uno a uno: cada herramienta que paga hoy contra el módulo que la
+            absorbe. Es el argumento que sostiene el ticket, así que va explícito
+            fila por fila en vez de como lista suelta. */}
+        <div
+          className="overflow-hidden"
+          style={{
+            marginTop: 48,
+            borderRadius: 10,
+            border: '1px solid rgba(255,255,255,0.07)',
+          }}
+        >
+          {/* Encabezados: sólo desde md, donde hay dos columnas que rotular */}
+          <div
+            className="hidden md:grid md:grid-cols-2"
+            style={{
+              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              backgroundColor: 'rgba(255,255,255,0.02)',
+            }}
+          >
+            {[centralize.columns.outside, centralize.columns.inside].map((label, i) => (
+              <div
+                key={label}
+                style={{
+                  padding: '14px 24px',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: i === 0 ? '#6b6f76' : '#e5534b',
+                  borderLeft: i === 1 ? '1px solid rgba(255,255,255,0.07)' : undefined,
+                }}
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+
+          {centralize.rows.map((row, idx) => (
+            <div
+              key={row.inside}
+              className="grid grid-cols-1 md:grid-cols-2"
+              style={{
+                borderTop: idx === 0 ? undefined : '1px solid rgba(255,255,255,0.07)',
+              }}
+            >
+              <div
+                className="flex items-center"
+                style={{
+                  padding: '18px 24px',
+                  fontSize: 14,
+                  lineHeight: '21px',
+                  color: '#6b6f76',
+                }}
+              >
+                <span
+                  style={{
+                    textDecoration: 'line-through',
+                    textDecorationColor: 'rgba(229,83,75,0.45)',
+                  }}
+                >
+                  {row.outside}
+                </span>
+              </div>
+              <div
+                className="flex items-center gap-3"
+                style={{
+                  padding: '18px 24px',
+                  fontSize: 14,
+                  lineHeight: '21px',
+                  fontWeight: 500,
+                  color: '#f7f8f8',
+                  backgroundColor: 'rgba(229,83,75,0.04)',
+                }}
+              >
+                <span style={{ color: '#e5534b', flexShrink: 0 }}>→</span>
+                {row.inside}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Lo que sigue conectado */}
+        <div className="flex flex-wrap items-center gap-3" style={{ marginTop: 28 }}>
+          <span
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: '#6b6f76',
+            }}
+          >
+            {centralize.connects.title}
+          </span>
+          {centralize.connects.items.map((name) => {
+            const Logo = CONNECT_LOGOS[name]
+            return (
+              <span
+                key={name}
+                className="inline-flex items-center gap-2.5"
+                style={{
+                  padding: '9px 16px',
+                  borderRadius: 999,
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  fontSize: 13,
+                  color: '#d0d6e0',
+                }}
+              >
+                {Logo && <Logo size={20} />}
+                {name}
+              </span>
+            )
+          })}
+        </div>
+      </Section>
+
       {/* Qué incluye */}
       <Section>
         <SectionTitle>{includes.title}</SectionTitle>
@@ -397,100 +549,6 @@ export function Demo() {
               <div style={{ fontSize: 13, lineHeight: '21px', color: '#6b6f76' }}>{item.desc}</div>
             </div>
           ))}
-        </div>
-      </Section>
-
-      {/* Centralización — reemplaza vs se conecta */}
-      <Section>
-        <SectionTitle max={680}>{centralize.title}</SectionTitle>
-        <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 640 }}>
-          {centralize.subtitle}
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginTop: 48 }}>
-          {/* Lo que deja de usar */}
-          <div
-            style={{
-              padding: 32,
-              borderRadius: 10,
-              border: '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: '#0b0c0e',
-            }}
-          >
-            <div
-              style={{
-                fontSize: 12,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: '#e5534b',
-                marginBottom: 22,
-              }}
-            >
-              {centralize.replaces.title}
-            </div>
-            <ul className="flex flex-col gap-3">
-              {centralize.replaces.items.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span
-                    style={{
-                      fontSize: 14,
-                      color: '#6b6f76',
-                      textDecoration: 'line-through',
-                      textDecorationColor: 'rgba(229,83,75,0.5)',
-                    }}
-                  >
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Lo que sigue conectado */}
-          <div
-            style={{
-              padding: 32,
-              borderRadius: 10,
-              border: '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: 'transparent',
-            }}
-          >
-            <div
-              style={{
-                fontSize: 12,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: '#8a8f98',
-                marginBottom: 22,
-              }}
-            >
-              {centralize.connects.title}
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {centralize.connects.items.map((name) => {
-                const Logo = CONNECT_LOGOS[name]
-                return (
-                  <span
-                    key={name}
-                    className="inline-flex items-center gap-2.5"
-                    style={{
-                      padding: '9px 16px',
-                      borderRadius: 999,
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      backgroundColor: 'rgba(255,255,255,0.03)',
-                      fontSize: 13,
-                      color: '#d0d6e0',
-                    }}
-                  >
-                    {Logo && <Logo size={20} />}
-                    {name}
-                  </span>
-                )
-              })}
-            </div>
-          </div>
         </div>
       </Section>
 
@@ -636,6 +694,72 @@ export function Demo() {
         <div className="flex flex-col items-center" style={{ marginTop: 40 }}>
           <CtaPair size="lg" center />
           <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
+        </div>
+
+        {/* Siguiente escalón. Ancla de precio y destino del upsell — deliberadamente
+            sin CTA: todavía dependen de él los módulos que faltan. */}
+        <div
+          className="mx-auto w-full"
+          style={{
+            marginTop: 48,
+            maxWidth: 680,
+            padding: 28,
+            borderRadius: 12,
+            border: '1px dashed rgba(255,255,255,0.12)',
+          }}
+        >
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#8a8f98',
+              }}
+            >
+              {nextTier.label}
+            </div>
+            <div
+              style={{
+                padding: '4px 10px',
+                borderRadius: 999,
+                border: '1px solid rgba(255,255,255,0.12)',
+                fontSize: 11,
+                color: '#6b6f76',
+              }}
+            >
+              {nextTier.badge}
+            </div>
+          </div>
+
+          <div className="flex items-baseline gap-2" style={{ marginTop: 14 }}>
+            <span style={{ fontSize: 13, color: '#6b6f76' }}>{nextTier.unit}</span>
+            <span
+              style={{
+                fontSize: 30,
+                fontWeight: 510,
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
+                color: '#8a8f98',
+              }}
+            >
+              {nextTier.amount}
+            </span>
+            <span style={{ fontSize: 14, color: '#6b6f76' }}>{nextTier.period}</span>
+          </div>
+
+          <p style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 12 }}>
+            {nextTier.note}
+          </p>
+
+          <ul className="flex flex-wrap gap-x-5 gap-y-2" style={{ marginTop: 18 }}>
+            {nextTier.items.map((item) => (
+              <li key={item} style={{ fontSize: 13, color: '#6b6f76' }}>
+                · {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
