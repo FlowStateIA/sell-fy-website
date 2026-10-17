@@ -11,6 +11,28 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Banner de integraciones. La pista se renderiza dos veces y se desplaza
+     exactamente la mitad, así el salto al reiniciar es invisible. */
+  .marquee-track {
+    animation: marquee-scroll 38s linear infinite;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Quien pidió menos movimiento ve la lista quieta, no una animación lenta. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
 }
 
 @layer base {

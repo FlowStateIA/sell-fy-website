@@ -103,31 +103,64 @@ export const includes = {
   subtitle: 'No es una licencia de software. Es la plataforma más la implementación.',
   items: [
     {
-      title: 'Auditoría de llamadas con IA',
-      desc: 'Score conductual de 0 a 100 en 7 dimensiones, mapa de la llamada con timestamps, identificación del error más costoso y plan de mejora por closer.',
+      title: 'CRM, ventas y cartera',
+      desc: 'Pipeline comercial, ventas adicionales, cuotas, renovaciones y reservas. Recordatorios de cobro automáticos para que no se te quede plata en la calle.',
     },
     {
-      title: 'Inteligencia de tus clientes',
-      desc: 'Dolores, objeciones, aspiraciones y señales de cierre extraídas automáticamente de cada conversación. El cerebro de tu avatar, construido solo.',
+      title: 'Audita el 100% de las llamadas de tu equipo',
+      desc: 'Score conductual de 0 a 100 en 7 dimensiones, mapa de la llamada con timestamps, el error más costoso y plan de mejora por closer. Todas, todos los días.',
     },
     {
-      title: 'Ventas, cobros y cartera',
-      desc: 'Cuotas, renovaciones, reservas y upsells trackeados. Alertas de vencimiento automáticas. Sabes de dónde viene cada dólar.',
+      title: 'Inteligencia del cliente',
+      desc: 'El perfil psicológico de tu avatar: dolores, objeciones, aspiraciones y señales de cierre extraídas automáticamente de cada conversación.',
+    },
+    {
+      title: 'Centralización de funnels',
+      desc: 'Conecta tus diferentes canales de venta y trackéalos todos en el mismo tablero. Sabes qué embudo trae clientes rentables y cuál no.',
+    },
+    {
+      title: 'Entrega de servicio',
+      desc: 'Programas reutilizables, alumnos con checklist y progreso, sesiones y calendario del mentor, encuestas por sesión y reporting de la entrega.',
+    },
+    {
+      title: 'Calend-Fy',
+      desc: 'Tu propia página de agendamiento con la marca de tu organización: tipos de evento, reglas de reparto entre el equipo y disponibilidad por persona.',
     },
     {
       title: 'Comisiones y liquidaciones',
       desc: 'Cálculo automático por closer y setter, liquidaciones parciales y PDF descargable. Se acaban las discusiones.',
     },
     {
-      title: 'Analítica real',
-      desc: 'Revenue, cash collected, tasa de cierre, CAC y ROI por embudo con inversión prorrateada por día.',
+      title: 'Analítica, atribución e informes',
+      desc: 'Atribución por funnel con inversión prorrateada, revenue, cash collected, tasa de cierre, CAC y ROI. Información en línea, no el reporte de la semana pasada.',
     },
     {
-      title: 'Implementación en 24h',
-      desc: 'Configuramos tu organización, roles, ofertas, embudos y permisos. Tu equipo opera desde el día 1.',
+      title: 'Implementación en 7 días',
+      desc: 'Configuramos tu organización, roles, ofertas, embudos y permisos, y entrenamos a tu equipo para que opere sin ti encima.',
     },
   ],
 }
+
+/**
+ * Banner de integraciones que cruza la página debajo del video.
+ *
+ * ⚠️ Van como texto, no como logos: dibujar marcas ajenas de memoria sale
+ * impreciso. Cuando haya SVGs oficiales se cambian aquí mismo.
+ *
+ * ⚠️ Calendly aparece aquí Y tachado en la tabla de reemplazo. No es
+ * contradicción: Calend-Fy reemplaza la suscripción, pero importa los datos
+ * desde Calendly para que nadie pierda su historial al migrar.
+ */
+export const integrations = [
+  'Calendly',
+  'Hotmart',
+  'Skool',
+  'Whop',
+  'Fathom',
+  'Google Calendar',
+  'Google Meet',
+  'WhatsApp',
+]
 
 /**
  * Centralización. El mensaje es "deja de tener todo repartido".
@@ -148,7 +181,7 @@ export const centralize = {
   },
   /** Mapeo uno a uno del brief de negocio. Cada fila es una herramienta que el cliente deja de pagar. */
   rows: [
-    { outside: 'Calendly o similar para agendar llamadas', inside: 'Calenfy' },
+    { outside: 'Calendly o similar para agendar llamadas', inside: 'Calend-Fy' },
     { outside: 'CRM genérico para el pipeline comercial', inside: 'CRM + Ventas' },
     { outside: 'Hoja de cálculo de comisiones y liquidaciones', inside: 'Comisiones' },
     {
@@ -163,7 +196,7 @@ export const centralize = {
     { outside: 'Dashboards armados a mano cada semana', inside: 'Analítica + Informes' },
   ],
   /**
-   * ⚠️ Calendly salió de aquí: con Calenfy incluido en el plan de lanzamiento
+   * ⚠️ Calendly salió de aquí: con Calend-Fy incluido en el plan de lanzamiento
    * pasó a la columna de "lo que reemplaza". Seguir mostrándolo como
    * integración al lado de la fila que lo reemplaza se contradice solo.
    */
@@ -178,7 +211,7 @@ export const centralize = {
  * comercial según el brief de octubre 2026.
  *
  * ⚠️ El plan de $150 ya no se publica: el lanzamiento corrige el precio y
- * suma Finanzas, Calenfy y Entrega de Servicio, que son justamente los tres
+ * suma Finanzas, Calend-Fy y Entrega de Servicio, que son justamente los tres
  * módulos que más herramientas sueltas reemplazan. Los clientes que hoy
  * pagan $150 son una decisión aparte (respetar precio o migrar), no un plan
  * de esta página.
@@ -209,7 +242,7 @@ export const pricing = {
       'CRM, Ventas, Comisiones y Cobros',
       'Auditoría de llamadas con IA e Inteligencia',
       'Finanzas: caja, gastos, nómina y recurrencia',
-      'Calenfy: tu propia página de agendamiento',
+      'Calend-Fy: tu propia página de agendamiento',
       'Entrega de Servicio: programas, alumnos y mentorías',
     ] as string[],
   },
@@ -219,8 +252,12 @@ export const pricing = {
 /**
  * Siguiente escalón. Se muestra como ancla y destino del upsell, nunca como
  * algo comprable hoy. `available: false` apaga cualquier CTA.
+ *
+ * ⚠️ `visible: false` lo saca de la página por ahora. El contenido se queda
+ * aquí listo para encenderlo cuando cierren las ocho piezas que faltan.
  */
 export const nextTier = {
+  visible: false,
   label: 'Plan completo',
   badge: 'Próximamente',
   available: false,
@@ -237,30 +274,32 @@ export const nextTier = {
 }
 
 /** Comparativa de costo de oportunidad. */
+/**
+ * Costo de oportunidad. No compara sólo contra contratar a alguien: el costo
+ * real de seguir igual son cuatro cosas — el sueldo, las horas que se van
+ * ordenando información, las decisiones que se toman sin data y las
+ * suscripciones sueltas que ya se están pagando.
+ *
+ * ⚠️ Sólo hay una tarjeta. El contrapeso de Sell-Fy es el bloque de precio
+ * que va justo debajo ($500 de setup + $297/mes), no una segunda tarjeta.
+ */
 export const costComparison = {
-  title: '¿Caro? Calcula lo que te cuesta no tenerlo',
+  title: 'Calcula lo que te cuesta no tenerlo',
   subtitle:
-    'Contratar a alguien que escuche las llamadas de tu equipo y lleve el control cuesta entre $800 y $1.500 USD al mes. Sell-Fy cuesta $297, audita el 100% de las llamadas y además te reemplaza el CRM, el agendador, la hoja de comisiones y la de finanzas.',
+    'No es sólo el sueldo de alguien que escuche las llamadas. Son las horas que se van ordenando información regada, las decisiones que tomas por memoria porque la data no está, y las cinco o seis suscripciones que ya pagas por separado.',
   human: {
-    label: 'Contratar a alguien',
+    label: 'Seguir como estás',
     amount: '$800 – $1.500',
+    /** Corto a propósito: un period largo parte la cifra en dos líneas. El matiz
+     *  de que es sólo el sueldo va en el subtítulo y en el primer ítem. */
     period: '/mes',
     items: [
+      'Y eso es sólo el sueldo de quien audita',
       'Escucha 20 o 30 llamadas al mes, no 300',
+      'Cinco o seis suscripciones que pagas aparte',
+      'Horas cada semana armando reportes a mano',
+      'Decisiones por memoria, porque la data no está cruzada',
       'Vacaciones, incapacidades y rotación',
-      'Meses de curva de aprendizaje',
-      'Criterio distinto en cada auditoría',
-    ],
-  },
-  product: {
-    label: 'Sell-Fy',
-    amount: '$297',
-    period: '/mes',
-    items: [
-      'Audita el 100% de las llamadas',
-      'El mismo criterio en las 300',
-      'Operando en 24 horas',
-      'Crece con tu equipo sin contratar a nadie más',
     ],
   },
 }

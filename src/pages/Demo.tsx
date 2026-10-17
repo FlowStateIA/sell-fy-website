@@ -9,6 +9,7 @@ import {
   LOOM_VIDEO_ID,
   hero,
   covers,
+  integrations,
   metrics,
   forWho,
   includes,
@@ -185,6 +186,73 @@ function DemoHeader() {
   )
 }
 
+/* ─────────────────────────── Banner de integraciones ─────────────────────────── */
+
+/**
+ * Cinta infinita con las herramientas que se conectan. La lista va duplicada
+ * y la pista se desplaza -50%: al reiniciar, la segunda copia está justo
+ * donde estaba la primera, así que no se ve el corte.
+ *
+ * `aria-hidden` en la copia para que un lector de pantalla no lea dos veces
+ * la misma lista.
+ */
+function IntegrationsMarquee() {
+  const Pista = ({ copia }: { copia: boolean }) => (
+    <ul
+      className="flex items-center shrink-0"
+      aria-hidden={copia || undefined}
+      style={{ gap: 0 }}
+    >
+      {integrations.map((name) => (
+        <li
+          key={name}
+          className="flex items-center shrink-0"
+          style={{
+            fontSize: 14,
+            fontWeight: 450,
+            color: '#8a8f98',
+            padding: '0 28px',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {name}
+          <span
+            aria-hidden
+            style={{
+              marginLeft: 28,
+              width: 3,
+              height: 3,
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.18)',
+            }}
+          />
+        </li>
+      ))}
+    </ul>
+  )
+
+  return (
+    <div
+      style={{
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        padding: '18px 0',
+        overflow: 'hidden',
+        // Desvanece los extremos para que la cinta no "aparezca" de golpe.
+        maskImage:
+          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+      }}
+    >
+      <div className="marquee-track flex w-max">
+        <Pista copia={false} />
+        <Pista copia />
+      </div>
+    </div>
+  )
+}
+
 /* ─────────────────────────── Video ─────────────────────────── */
 
 function VideoEmbed() {
@@ -338,6 +406,12 @@ export function Demo() {
           </motion.div>
         </div>
       </section>
+
+      {/* Integraciones. Va justo debajo del CTA del video: responde "¿y lo que
+          ya uso?" antes de que el prospecto empiece a leer los dolores. */}
+      <div style={{ marginTop: 40 }}>
+        <IntegrationsMarquee />
+      </div>
 
       {/* Métricas — sólo si hay datos reales */}
       {metrics.length > 0 && (
@@ -561,10 +635,10 @@ export function Demo() {
           </p>
         </div>
 
+        {/* Una sola tarjeta: el costo de seguir igual. El contrapeso es el
+            bloque de precio que va justo debajo. */}
         <div className="mx-auto w-full" style={{ marginTop: 56, maxWidth: 440 }}>
-          {[
-            { data: costComparison.human, highlight: false },
-          ].map(({ data, highlight }) => (
+          {[{ data: costComparison.human, highlight: false }].map(({ data, highlight }) => (
             <div
               key={data.label}
               style={{
@@ -697,7 +771,9 @@ export function Demo() {
         </div>
 
         {/* Siguiente escalón. Ancla de precio y destino del upsell — deliberadamente
-            sin CTA: todavía dependen de él los módulos que faltan. */}
+            sin CTA: todavía dependen de él los módulos que faltan.
+            Apagado con nextTier.visible mientras no esté listo. */}
+        {nextTier.visible && (
         <div
           className="mx-auto w-full"
           style={{
@@ -761,6 +837,7 @@ export function Demo() {
             ))}
           </ul>
         </div>
+        )}
       </Section>
 
       {/* Testimonios — sólo si hay reales */}
