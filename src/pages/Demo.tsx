@@ -1,10 +1,23 @@
 import { motion } from 'framer-motion'
-import { Puzzle, Users, Headphones, Calculator, Radar, TrendingUp } from 'lucide-react'
+import {
+  AudioLines,
+  BarChart3,
+  CalendarDays,
+  Calculator,
+  GraduationCap,
+  Headphones,
+  Kanban,
+  Puzzle,
+  Radar,
+  TrendingUp,
+  Users,
+  Wallet,
+} from 'lucide-react'
 
 import logoImg from '../assets/logo.png'
-import { CONNECT_LOGOS } from '../components/BrandLogos'
+import { BRAND_IMAGES, CONNECT_LOGOS } from '../components/brandLogoMaps'
 import { WHOP_CHECKOUT_URL } from '../content/site'
-import type { PainIcon } from '../content/demo'
+import type { PainIcon, ReplaceIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
@@ -134,6 +147,34 @@ function PainIconChip({ name }: { name: PainIcon }) {
   )
 }
 
+const REPLACE_ICONS = {
+  calendar: CalendarDays,
+  kanban: Kanban,
+  calculator: Calculator,
+  graduation: GraduationCap,
+  audio: AudioLines,
+  wallet: Wallet,
+  chart: BarChart3,
+} as const
+
+function ReplaceIconChip({ name }: { name: ReplaceIcon }) {
+  const Icon = REPLACE_ICONS[name]
+  return (
+    <div
+      className="flex items-center justify-center flex-shrink-0"
+      style={{
+        width: 36,
+        height: 36,
+        borderRadius: 9,
+        border: '1px solid rgba(220,38,38,0.22)',
+        backgroundColor: 'rgba(220,38,38,0.07)',
+      }}
+    >
+      <Icon size={17} strokeWidth={1.6} color="#e5534b" />
+    </div>
+  )
+}
+
 function Section({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
     <section id={id} style={{ padding: '80px 0' }}>
@@ -162,20 +203,21 @@ function DemoHeader() {
         borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-6 h-full flex items-center justify-between gap-3">
         {/* Sin link a home: en una página de embudo no se ofrecen salidas */}
-        <img src={logoImg} alt="Sell-fy" style={{ height: 64 }} />
+        <img src={logoImg} alt="Sell-fy" className="h-12 sm:h-16 w-auto flex-shrink-0" />
         <a
           href={WHOP_CHECKOUT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-opacity hover:opacity-90"
+          // whitespace-nowrap: "Empezar ahora" se partía en dos líneas y el
+          // botón crecía a 55px dentro de un header de 64.
+          className="transition-opacity hover:opacity-90 whitespace-nowrap flex-shrink-0
+                     px-4 py-2 text-[12px] sm:px-[18px] sm:text-[13px]"
           style={{
-            padding: '8px 18px',
             backgroundColor: '#e6e6e6',
             color: '#08090a',
             borderRadius: 6,
-            fontSize: 13,
             fontWeight: 500,
           }}
         >
@@ -196,41 +238,53 @@ function DemoHeader() {
  * `aria-hidden` en la copia para que un lector de pantalla no lea dos veces
  * la misma lista.
  */
-function IntegrationsMarquee() {
-  const Pista = ({ copia }: { copia: boolean }) => (
-    <ul
-      className="flex items-center shrink-0"
-      aria-hidden={copia || undefined}
-      style={{ gap: 0 }}
-    >
-      {integrations.map((name) => (
+function IntegrationLogo({ name }: { name: string }) {
+  const Svg = CONNECT_LOGOS[name]
+  if (Svg) return <Svg size={22} />
+
+  const src = BRAND_IMAGES[name]
+  if (!src) return null
+  // Los iconos descargados son cuadrados tipo app: el radio los uniforma
+  // con los SVG de al lado.
+  return (
+    <img
+      src={src}
+      alt=""
+      width={22}
+      height={22}
+      // Sin lazy: la cinta se mueve sola y un logo que todavía no cargó
+      // aparecería como hueco a los pocos segundos. Pesan entre 2 y 16 KB.
+      style={{ width: 22, height: 22, borderRadius: 5, objectFit: 'contain' }}
+    />
+  )
+}
+
+/** Una pasada de la lista. `copia` oculta el duplicado a lectores de pantalla. */
+function MarqueeTrack({ copia }: { copia: boolean }) {
+  return (
+    <ul className="flex items-center shrink-0" style={{ gap: 0 }} aria-hidden={copia || undefined}>
+      {integrations.map(name => (
         <li
           key={name}
           className="flex items-center shrink-0"
           style={{
+            gap: 9,
             fontSize: 14,
             fontWeight: 450,
             color: '#8a8f98',
-            padding: '0 28px',
+            padding: '0 26px',
             whiteSpace: 'nowrap',
           }}
         >
+          <IntegrationLogo name={name} />
           {name}
-          <span
-            aria-hidden
-            style={{
-              marginLeft: 28,
-              width: 3,
-              height: 3,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255,255,255,0.18)',
-            }}
-          />
         </li>
       ))}
     </ul>
   )
+}
 
+function IntegrationsMarquee() {
   return (
     <div
       style={{
@@ -239,15 +293,13 @@ function IntegrationsMarquee() {
         padding: '18px 0',
         overflow: 'hidden',
         // Desvanece los extremos para que la cinta no "aparezca" de golpe.
-        maskImage:
-          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
-        WebkitMaskImage:
-          'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+        maskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
       }}
     >
       <div className="marquee-track flex w-max">
-        <Pista copia={false} />
-        <Pista copia />
+        <MarqueeTrack copia={false} />
+        <MarqueeTrack copia />
       </div>
     </div>
   )
@@ -297,9 +349,7 @@ function VideoEmbed() {
               }}
             />
           </div>
-          <span style={{ fontSize: 13, color: '#6b6f76' }}>
-            Espacio del video de ventas
-          </span>
+          <span style={{ fontSize: 13, color: '#6b6f76' }}>Espacio del video de ventas</span>
           <span style={{ fontSize: 12, color: '#484b52', maxWidth: 380 }}>
             Pega el ID de Loom en <code style={{ color: '#8a8f98' }}>LOOM_VIDEO_ID</code> dentro de{' '}
             <code style={{ color: '#8a8f98' }}>src/content/demo.ts</code>
@@ -371,7 +421,7 @@ export function Demo() {
               className="flex flex-wrap justify-center gap-x-2 gap-y-2 mx-auto"
               style={{ marginTop: 16, maxWidth: 720 }}
             >
-              {covers.map((item) => (
+              {covers.map(item => (
                 <span
                   key={item}
                   style={{
@@ -424,9 +474,16 @@ export function Demo() {
               backgroundColor: 'rgba(255,255,255,0.04)',
             }}
           >
-            {metrics.map((m) => (
+            {metrics.map(m => (
               <div key={m.label} style={{ padding: '28px 24px', backgroundColor: '#08090a' }}>
-                <div style={{ fontSize: 28, fontWeight: 510, letterSpacing: '-0.02em', color: '#f7f8f8' }}>
+                <div
+                  style={{
+                    fontSize: 28,
+                    fontWeight: 510,
+                    letterSpacing: '-0.02em',
+                    color: '#f7f8f8',
+                  }}
+                >
                   {m.value}
                 </div>
                 <div style={{ fontSize: 13, color: '#6b6f76', marginTop: 4 }}>{m.label}</div>
@@ -445,8 +502,11 @@ export function Demo() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ marginTop: 56 }}>
-          {forWho.cards.map((card) => (
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          style={{ marginTop: 56 }}
+        >
+          {forWho.cards.map(card => (
             <div
               key={card.title}
               className="flex gap-4"
@@ -459,7 +519,9 @@ export function Demo() {
             >
               <PainIconChip name={card.icon} />
               <div>
-                <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', lineHeight: '21px' }}>
+                <div
+                  style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', lineHeight: '21px' }}
+                >
                   {card.title}
                 </div>
                 <div style={{ fontSize: 13, lineHeight: '21px', color: '#6b6f76', marginTop: 7 }}>
@@ -469,100 +531,92 @@ export function Demo() {
             </div>
           ))}
         </div>
-
       </Section>
 
       {/* Centralización — reemplaza vs se conecta */}
       <Section>
         <SectionTitle max={680}>{centralize.title}</SectionTitle>
-        <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 640 }}>
+        <p
+          style={{
+            fontSize: 17,
+            lineHeight: '26px',
+            color: '#8a8f98',
+            marginTop: 16,
+            maxWidth: 640,
+          }}
+        >
           {centralize.subtitle}
         </p>
 
-        {/* Mapeo uno a uno: cada herramienta que paga hoy contra el módulo que la
-            absorbe. Es el argumento que sostiene el ticket, así que va explícito
-            fila por fila en vez de como lista suelta. */}
+        {/* Mapeo uno a uno: cada herramienta que paga hoy contra el módulo que
+            la absorbe. En tarjetas y no en tabla porque el protagonista debe ser
+            el módulo de Sell-Fy; la herramienta que se cae va debajo, tachada. */}
         <div
-          className="overflow-hidden"
-          style={{
-            marginTop: 48,
-            borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.07)',
-          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
+          style={{ marginTop: 48 }}
         >
-          {/* Encabezados: sólo desde md, donde hay dos columnas que rotular */}
-          <div
-            className="hidden md:grid md:grid-cols-2"
-            style={{
-              borderBottom: '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: 'rgba(255,255,255,0.02)',
-            }}
-          >
-            {[centralize.columns.outside, centralize.columns.inside].map((label, i) => (
-              <div
-                key={label}
-                style={{
-                  padding: '14px 24px',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: i === 0 ? '#6b6f76' : '#e5534b',
-                  borderLeft: i === 1 ? '1px solid rgba(255,255,255,0.07)' : undefined,
-                }}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
-
-          {centralize.rows.map((row, idx) => (
+          {centralize.rows.map(row => (
             <div
               key={row.inside}
-              className="grid grid-cols-1 md:grid-cols-2"
+              className="flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
               style={{
-                borderTop: idx === 0 ? undefined : '1px solid rgba(255,255,255,0.07)',
+                borderRadius: 12,
+                border: '1px solid rgba(255,255,255,0.07)',
+                backgroundColor: '#0b0c0e',
               }}
             >
-              <div
-                className="flex items-center"
-                style={{
-                  padding: '18px 24px',
-                  fontSize: 14,
-                  lineHeight: '21px',
-                  color: '#6b6f76',
-                }}
-              >
-                <span
+              <ReplaceIconChip name={row.icon} />
+              <div style={{ minWidth: 0 }}>
+                <div
                   style={{
-                    textDecoration: 'line-through',
-                    textDecorationColor: 'rgba(229,83,75,0.45)',
+                    fontSize: 14,
+                    fontWeight: 550,
+                    lineHeight: '20px',
+                    color: '#f7f8f8',
                   }}
                 >
-                  {row.outside}
-                </span>
-              </div>
-              <div
-                className="flex items-center gap-3"
-                style={{
-                  padding: '18px 24px',
-                  fontSize: 14,
-                  lineHeight: '21px',
-                  fontWeight: 500,
-                  color: '#f7f8f8',
-                  backgroundColor: 'rgba(229,83,75,0.04)',
-                }}
-              >
-                <span style={{ color: '#e5534b', flexShrink: 0 }}>→</span>
-                {row.inside}
+                  {row.inside}
+                </div>
+                {/* En móvil el rótulo va en la misma línea que la herramienta:
+                    en línea aparte sumaba 18px por tarjeta y eran siete. */}
+                <div className="mt-1.5 sm:mt-[7px] flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 sm:block">
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.07em',
+                      color: '#484b52',
+                    }}
+                  >
+                    {centralize.insteadOf}
+                  </span>
+                  <span
+                    className="sm:block sm:mt-[3px]"
+                    style={{
+                      fontSize: 13,
+                      lineHeight: '19px',
+                      color: '#6b6f76',
+                      textDecoration: 'line-through',
+                      textDecorationColor: 'rgba(229,83,75,0.45)',
+                    }}
+                  >
+                    {row.outside}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Lo que sigue conectado */}
-        <div className="flex flex-wrap items-center gap-3" style={{ marginTop: 28 }}>
+        {/* Lo que sigue conectado. En móvil el rótulo va en su propia línea:
+            en línea con los chips dejaba uno solo arriba y el resto huérfano. */}
+        <div
+          className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+          style={{ marginTop: 28 }}
+        >
           <span
+            className="flex-shrink-0"
             style={{
               fontSize: 12,
               fontWeight: 600,
@@ -573,33 +627,43 @@ export function Demo() {
           >
             {centralize.connects.title}
           </span>
-          {centralize.connects.items.map((name) => {
-            const Logo = CONNECT_LOGOS[name]
-            return (
-              <span
-                key={name}
-                className="inline-flex items-center gap-2.5"
-                style={{
-                  padding: '9px 16px',
-                  borderRadius: 999,
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backgroundColor: 'rgba(255,255,255,0.03)',
-                  fontSize: 13,
-                  color: '#d0d6e0',
-                }}
-              >
-                {Logo && <Logo size={20} />}
-                {name}
-              </span>
-            )
-          })}
+          <div className="flex flex-wrap gap-2.5">
+            {centralize.connects.items.map(name => {
+              const Logo = CONNECT_LOGOS[name]
+              return (
+                <span
+                  key={name}
+                  className="inline-flex items-center gap-2.5"
+                  style={{
+                    padding: '9px 16px',
+                    borderRadius: 999,
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    fontSize: 13,
+                    color: '#d0d6e0',
+                  }}
+                >
+                  {Logo && <Logo size={20} />}
+                  {name}
+                </span>
+              )
+            })}
+          </div>
         </div>
       </Section>
 
       {/* Qué incluye */}
       <Section>
         <SectionTitle>{includes.title}</SectionTitle>
-        <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98', marginTop: 16, maxWidth: 620 }}>
+        <p
+          style={{
+            fontSize: 17,
+            lineHeight: '26px',
+            color: '#8a8f98',
+            marginTop: 16,
+            maxWidth: 620,
+          }}
+        >
           {includes.subtitle}
         </p>
         {/* Móvil: carrusel horizontal deslizable (evita apilar 6 cards y alargar
@@ -610,7 +674,7 @@ export function Demo() {
                      md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-px
                      md:overflow-hidden md:rounded-lg md:border md:border-white/[0.06] md:bg-white/[0.04]"
         >
-          {includes.items.map((item) => (
+          {includes.items.map(item => (
             <div
               key={item.title}
               className="snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto
@@ -641,8 +705,8 @@ export function Demo() {
           {[{ data: costComparison.human, highlight: false }].map(({ data, highlight }) => (
             <div
               key={data.label}
+              className="p-6 sm:p-8"
               style={{
-                padding: 32,
                 borderRadius: 12,
                 border: highlight
                   ? '1px solid rgba(229,83,75,0.35)'
@@ -668,14 +732,17 @@ export function Demo() {
                 {data.label}
               </div>
 
-              <div className="flex items-baseline gap-2" style={{ marginTop: 24 }}>
+              {/* La cifra baja a 30px en móvil: a 40 "$800 – $1.500" se partía
+                  en dos líneas dentro de la tarjeta. */}
+              <div className="flex items-baseline gap-2 flex-wrap" style={{ marginTop: 24 }}>
                 <span style={{ fontSize: 13, color: '#6b6f76' }}>USD</span>
                 <span
+                  className="text-[30px] sm:text-[40px]"
                   style={{
-                    fontSize: 40,
                     fontWeight: 510,
                     letterSpacing: '-0.03em',
                     lineHeight: 1,
+                    whiteSpace: 'nowrap',
                     color: highlight ? '#f7f8f8' : '#8a8f98',
                   }}
                 >
@@ -685,8 +752,12 @@ export function Demo() {
               </div>
 
               <ul className="flex flex-col gap-3" style={{ marginTop: 28 }}>
-                {data.items.map((item) => (
-                  <li key={item} className="flex gap-3" style={{ fontSize: 14, lineHeight: '22px' }}>
+                {data.items.map(item => (
+                  <li
+                    key={item}
+                    className="flex gap-3"
+                    style={{ fontSize: 14, lineHeight: '22px' }}
+                  >
                     <span style={{ color: highlight ? '#e5534b' : '#484b52', flexShrink: 0 }}>
                       {highlight ? '✓' : '✕'}
                     </span>
@@ -706,7 +777,7 @@ export function Demo() {
           {[
             { ...pricing.setup, highlight: false },
             { ...pricing.recurring, highlight: true },
-          ].map((p) => (
+          ].map(p => (
             <div
               key={p.label}
               style={{
@@ -749,7 +820,7 @@ export function Demo() {
               </p>
               {p.items.length > 0 && (
                 <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
-                  {p.items.map((item) => (
+                  {p.items.map(item => (
                     <li
                       key={item}
                       className="flex gap-3"
@@ -774,69 +845,69 @@ export function Demo() {
             sin CTA: todavía dependen de él los módulos que faltan.
             Apagado con nextTier.visible mientras no esté listo. */}
         {nextTier.visible && (
-        <div
-          className="mx-auto w-full"
-          style={{
-            marginTop: 48,
-            maxWidth: 680,
-            padding: 28,
-            borderRadius: 12,
-            border: '1px dashed rgba(255,255,255,0.12)',
-          }}
-        >
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: '#8a8f98',
-              }}
-            >
-              {nextTier.label}
+          <div
+            className="mx-auto w-full"
+            style={{
+              marginTop: 48,
+              maxWidth: 680,
+              padding: 28,
+              borderRadius: 12,
+              border: '1px dashed rgba(255,255,255,0.12)',
+            }}
+          >
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: '#8a8f98',
+                }}
+              >
+                {nextTier.label}
+              </div>
+              <div
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: 999,
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  fontSize: 11,
+                  color: '#6b6f76',
+                }}
+              >
+                {nextTier.badge}
+              </div>
             </div>
-            <div
-              style={{
-                padding: '4px 10px',
-                borderRadius: 999,
-                border: '1px solid rgba(255,255,255,0.12)',
-                fontSize: 11,
-                color: '#6b6f76',
-              }}
-            >
-              {nextTier.badge}
+
+            <div className="flex items-baseline gap-2" style={{ marginTop: 14 }}>
+              <span style={{ fontSize: 13, color: '#6b6f76' }}>{nextTier.unit}</span>
+              <span
+                style={{
+                  fontSize: 30,
+                  fontWeight: 510,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                  color: '#8a8f98',
+                }}
+              >
+                {nextTier.amount}
+              </span>
+              <span style={{ fontSize: 14, color: '#6b6f76' }}>{nextTier.period}</span>
             </div>
+
+            <p style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 12 }}>
+              {nextTier.note}
+            </p>
+
+            <ul className="flex flex-wrap gap-x-5 gap-y-2" style={{ marginTop: 18 }}>
+              {nextTier.items.map(item => (
+                <li key={item} style={{ fontSize: 13, color: '#6b6f76' }}>
+                  · {item}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <div className="flex items-baseline gap-2" style={{ marginTop: 14 }}>
-            <span style={{ fontSize: 13, color: '#6b6f76' }}>{nextTier.unit}</span>
-            <span
-              style={{
-                fontSize: 30,
-                fontWeight: 510,
-                letterSpacing: '-0.03em',
-                lineHeight: 1,
-                color: '#8a8f98',
-              }}
-            >
-              {nextTier.amount}
-            </span>
-            <span style={{ fontSize: 14, color: '#6b6f76' }}>{nextTier.period}</span>
-          </div>
-
-          <p style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 12 }}>
-            {nextTier.note}
-          </p>
-
-          <ul className="flex flex-wrap gap-x-5 gap-y-2" style={{ marginTop: 18 }}>
-            {nextTier.items.map((item) => (
-              <li key={item} style={{ fontSize: 13, color: '#6b6f76' }}>
-                · {item}
-              </li>
-            ))}
-          </ul>
-        </div>
         )}
       </Section>
 
@@ -845,7 +916,7 @@ export function Demo() {
         <Section>
           <SectionTitle max={620}>Lo que dicen quienes ya lo usan</SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ marginTop: 48 }}>
-            {testimonials.map((t) => (
+            {testimonials.map(t => (
               <div
                 key={t.name}
                 style={{
@@ -902,7 +973,15 @@ export function Demo() {
             }}
           >
             <SectionTitle max={720}>{finalCta.title}</SectionTitle>
-            <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 18, maxWidth: 620 }}>
+            <p
+              style={{
+                fontSize: 16,
+                lineHeight: '26px',
+                color: '#8a8f98',
+                marginTop: 18,
+                maxWidth: 620,
+              }}
+            >
               {finalCta.subtitle}
             </p>
             <div style={{ marginTop: 32 }}>
@@ -917,10 +996,18 @@ export function Demo() {
         <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <span style={{ fontSize: 12, color: '#484b52' }}>Flow State IA LLC — © 2026</span>
           <div className="flex items-center gap-5">
-            <a href="/privacidad" style={{ fontSize: 12, color: '#484b52' }} className="hover:!text-[#8a8f98] transition-colors">
+            <a
+              href="/privacidad"
+              style={{ fontSize: 12, color: '#484b52' }}
+              className="hover:!text-[#8a8f98] transition-colors"
+            >
               Política de Privacidad
             </a>
-            <a href="/terminos" style={{ fontSize: 12, color: '#484b52' }} className="hover:!text-[#8a8f98] transition-colors">
+            <a
+              href="/terminos"
+              style={{ fontSize: 12, color: '#484b52' }}
+              className="hover:!text-[#8a8f98] transition-colors"
+            >
               Términos de Servicio
             </a>
           </div>

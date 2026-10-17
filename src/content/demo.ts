@@ -53,13 +53,7 @@ export const covers = [
 export const metrics: { value: string; label: string }[] = []
 
 /** Claves de icono válidas. Se mapean a lucide-react en Demo.tsx */
-export type PainIcon =
-  | 'puzzle'
-  | 'users'
-  | 'headphones'
-  | 'calculator'
-  | 'radar'
-  | 'trending'
+export type PainIcon = 'puzzle' | 'users' | 'headphones' | 'calculator' | 'radar' | 'trending'
 
 export const forWho = {
   title: '¿Sell-Fy es para tu negocio?',
@@ -171,29 +165,53 @@ export const integrations = [
  * a "reemplaza" sería prometer algo que se cae en la demo. Cuando exista
  * el módulo de agendamiento propio, se mueve.
  */
+/** Claves de icono de las tarjetas de reemplazo. Se mapean a lucide-react en Demo.tsx */
+export type ReplaceIcon =
+  'calendar' | 'kanban' | 'calculator' | 'graduation' | 'audio' | 'wallet' | 'chart'
+
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
     'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. Sell-Fy se queda con el trabajo de todas.',
-  columns: {
-    outside: 'Lo que usas hoy por fuera',
-    inside: 'Lo que lo reemplaza en Sell-Fy',
-  },
+  /** Etiqueta que une las dos mitades de cada tarjeta. */
+  insteadOf: 'En lugar de',
   /** Mapeo uno a uno del brief de negocio. Cada fila es una herramienta que el cliente deja de pagar. */
   rows: [
-    { outside: 'Calendly o similar para agendar llamadas', inside: 'Calend-Fy' },
-    { outside: 'CRM genérico para el pipeline comercial', inside: 'CRM + Ventas' },
-    { outside: 'Hoja de cálculo de comisiones y liquidaciones', inside: 'Comisiones' },
     {
-      outside: 'Notion o un tablero suelto para la entrega del programa',
+      icon: 'calendar' as ReplaceIcon,
+      inside: 'Calend-Fy',
+      outside: 'Calendly o similar para agendar llamadas',
+    },
+    {
+      icon: 'kanban' as ReplaceIcon,
+      inside: 'CRM + Ventas',
+      outside: 'Un CRM genérico para el pipeline comercial',
+    },
+    {
+      icon: 'calculator' as ReplaceIcon,
+      inside: 'Comisiones',
+      outside: 'Hojas de cálculo de comisiones y liquidaciones',
+    },
+    {
+      icon: 'graduation' as ReplaceIcon,
       inside: 'Entrega de Servicio',
+      outside: 'Notion o un tablero suelto para la entrega del programa',
     },
     {
-      outside: 'Herramienta de grabación y auditoría de llamadas',
+      icon: 'audio' as ReplaceIcon,
       inside: 'Auditorías + Inteligencia',
+      outside: 'Una herramienta de grabación y auditoría de llamadas',
     },
-    { outside: 'Hoja de gastos, nómina y caja del negocio', inside: 'Finanzas' },
-    { outside: 'Dashboards armados a mano cada semana', inside: 'Analítica + Informes' },
+    {
+      icon: 'wallet' as ReplaceIcon,
+      inside: 'Finanzas',
+      outside: 'Hojas de gastos, nómina y caja del negocio',
+    },
+    {
+      icon: 'chart' as ReplaceIcon,
+      inside: 'Analítica + Informes',
+      outside: 'Dashboards armados a mano cada semana',
+    },
   ],
   /**
    * ⚠️ Calendly salió de aquí: con Calend-Fy incluido en el plan de lanzamiento
