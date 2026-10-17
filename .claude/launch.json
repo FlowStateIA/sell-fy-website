@@ -4,7 +4,9 @@
     {
       "name": "Vite Dev Server",
       "runtimeExecutable": "/bin/bash",
-      "runtimeArgs": ["/Users/mrbermudez/sell-fy-website/.claude/start-dev.sh"],
+      "runtimeArgs": [
+        ".claude/start-dev.sh"
+      ],
       "port": 5173
     }
   ]
