@@ -14,13 +14,16 @@
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
 
+/**
+ * ⚠️ El hero no define el texto del botón: todos los CTA de la página son el
+ * mismo componente (CtaPair) y llevan al checkout. Tenía aquí un `cta` y un
+ * `ctaSub` de cuando se agendaba por Calendly, que ya no renderizaba nadie.
+ */
 export const hero = {
   eyebrow: 'Para infoproductores que quieren centralizar su negocio',
   headline: 'Toda la operación de tu negocio en un solo lugar, auditada por IA',
   subheadline:
     'En este video te muestro cómo funciona por dentro y cómo deja de escapársete el dinero que ya vendiste.',
-  cta: 'Agendar una demo',
-  ctaSub: '30 minutos · Sin compromiso',
 }
 
 /**
@@ -62,7 +65,7 @@ export const forWho = {
     {
       icon: 'puzzle' as PainIcon,
       title: 'Tu operación está partida',
-      desc: 'Calendly por un lado, el CRM por otro, las comisiones en Excel.',
+      desc: 'El CRM por un lado, la entrega del servicio en otro, las comisiones en Excel.',
     },
     {
       icon: 'users' as PainIcon,
@@ -81,8 +84,8 @@ export const forWho = {
     },
     {
       icon: 'radar' as PainIcon,
-      title: 'No sabes qué embudo funciona',
-      desc: 'No puedes decir con números cuál te trae clientes rentables.',
+      title: 'No sabes la atribución real del lead',
+      desc: 'Ni dónde está el cuello de botella de la operación. Inviertes sin saber qué canal te trae clientes rentables.',
     },
     {
       icon: 'trending' as PainIcon,
@@ -138,10 +141,10 @@ export const includes = {
 /**
  * Banner de integraciones que cruza la página debajo del video.
  *
- * ⚠️ Van como texto, no como logos: dibujar marcas ajenas de memoria sale
- * impreciso. Cuando haya SVGs oficiales se cambian aquí mismo.
+ * Los logos se resuelven por nombre en src/components/brandLogoMaps.ts:
+ * agregar una marca aquí sin logo allá la deja sin icono.
  *
- * ⚠️ Calendly aparece aquí Y tachado en la tabla de reemplazo. No es
+ * ⚠️ Calendly aparece aquí Y tachado en las tarjetas de reemplazo. No es
  * contradicción: Calend-Fy reemplaza la suscripción, pero importa los datos
  * desde Calendly para que nadie pierda su historial al migrar.
  */
@@ -156,15 +159,6 @@ export const integrations = [
   'WhatsApp',
 ]
 
-/**
- * Centralización. El mensaje es "deja de tener todo repartido".
- *
- * ⚠️ Calendly está en "se conecta" y NO en "reemplaza" a propósito:
- * Sell-Fy todavía no tiene generador de eventos propio (no hay página
- * pública de reserva, ni tipos de evento, ni reglas de horario). Moverlo
- * a "reemplaza" sería prometer algo que se cae en la demo. Cuando exista
- * el módulo de agendamiento propio, se mueve.
- */
 /** Claves de icono de las tarjetas de reemplazo. Se mapean a lucide-react en Demo.tsx */
 export type ReplaceIcon =
   'calendar' | 'kanban' | 'calculator' | 'graduation' | 'audio' | 'wallet' | 'chart'
@@ -239,7 +233,6 @@ export const centralize = {
  * hoy sería cobrar por algo que no existe.
  */
 export const pricing = {
-  title: 'Precio',
   /** Pago inicial único: implementación + primer mes de membresía incluido. */
   setup: {
     label: 'Setup inicial',
@@ -291,11 +284,10 @@ export const nextTier = {
   ] as string[],
 }
 
-/** Comparativa de costo de oportunidad. */
 /**
  * Costo de oportunidad. No compara sólo contra contratar a alguien: el costo
- * real de seguir igual son cuatro cosas — el sueldo, las horas que se van
- * ordenando información, las decisiones que se toman sin data y las
+ * real de seguir igual es el sueldo, más las horas que se van ordenando
+ * información, más las decisiones que se toman sin data, más las
  * suscripciones sueltas que ya se están pagando.
  *
  * ⚠️ Sólo hay una tarjeta. El contrapeso de Sell-Fy es el bloque de precio
@@ -334,9 +326,13 @@ export const testimonials: { quote: string; name: string; role: string }[] = []
  */
 export const guarantee: { title: string; body: string } | null = null
 
+/**
+ * ⚠️ El título tiene que hablar de empezar, no de agendar. El botón de esta
+ * sección lleva al checkout, no a una llamada: decía "Agenda 30 minutos" y
+ * cobraba $297 al hacer clic.
+ */
 export const finalCta = {
-  title: 'Agenda 30 minutos y te lo muestro con tus números',
+  title: 'Centraliza tu operación esta semana',
   subtitle:
-    'No es una llamada de ventas con presentación genérica. Miramos tu operación, te muestro la plataforma por dentro y decides.',
-  cta: 'Agendar una demo',
+    'Empiezas hoy y nosotros configuramos tu organización, roles, ofertas, embudos y permisos. En 7 días tu equipo está operando adentro.',
 }

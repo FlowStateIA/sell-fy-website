@@ -16,7 +16,7 @@ import {
 
 import logoImg from '../assets/logo.png'
 import { BRAND_IMAGES, CONNECT_LOGOS } from '../components/brandLogoMaps'
-import { WHOP_CHECKOUT_URL } from '../content/site'
+import { COPYRIGHT, WHOP_CHECKOUT_URL } from '../content/site'
 import type { PainIcon, ReplaceIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
@@ -83,9 +83,11 @@ function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?:
     <div
       className={`flex flex-col sm:flex-row gap-3 ${center ? 'items-center justify-center' : 'items-start'}`}
     >
+      {/* El precio sale de `pricing`, no escrito a mano: estaba en tres CTA y
+          un cambio de plan dejaba la página diciendo dos precios distintos. */}
       <CtaButton
         label="Empezar ahora"
-        sub="Plan de lanzamiento · $297 USD/mes"
+        sub={`Plan de lanzamiento · ${pricing.recurring.amount} USD${pricing.recurring.period.replace(' ', '')}`}
         href={WHOP_CHECKOUT_URL}
         size={size}
         center={center}
@@ -994,7 +996,7 @@ export function Demo() {
       {/* Footer mínimo — sólo legal, sin salidas de navegación */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '28px 0' }}>
         <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <span style={{ fontSize: 12, color: '#484b52' }}>Flow State IA LLC — © 2026</span>
+          <span style={{ fontSize: 12, color: '#484b52' }}>{COPYRIGHT}</span>
           <div className="flex items-center gap-5">
             <a
               href="/privacidad"

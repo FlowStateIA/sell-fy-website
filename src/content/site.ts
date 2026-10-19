@@ -7,6 +7,16 @@ export const APP_URL = 'https://app.sell-fy.app'
 export const CALENDLY_URL = 'https://calendly.com/sell-fy/30min'
 
 /**
+ * Entidad legal, en un solo lugar.
+ *
+ * ⚠️ Tiene que coincidir con src/content/legal.ts. Los dos footers decían
+ * "LLC" mientras los Términos y la Política decían "SAS": los commits que
+ * cambiaron la entidad a la sociedad colombiana no tocaron los footers.
+ */
+export const LEGAL_ENTITY = 'Flow State IA SAS'
+export const COPYRIGHT = `${LEGAL_ENTITY} — © ${new Date().getFullYear()}`
+
+/**
  * Checkout de Whop. El cliente paga aquí.
  *
  * 🚨 DESALINEADO: este producto cobra $150/mes, pero /demo ya publica el
