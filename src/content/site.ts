@@ -19,9 +19,24 @@ export const COPYRIGHT = `${LEGAL_ENTITY} — © ${new Date().getFullYear()}`
 /**
  * Checkout de Whop. El cliente paga aquí.
  *
- * 🚨 DESALINEADO: este producto cobra $150/mes, pero /demo ya publica el
- * Plan de lanzamiento a $297/mes. Hay que crear el producto de $297 en Whop
- * y reemplazar esta URL ANTES de desplegar, o la página promete un precio
- * y el checkout cobra otro.
+ * ⚠️ Si cambias este link, verifica en la página de checkout que las cifras
+ * de PRICE sigan coincidiendo. La página no puede prometer un precio y el
+ * checkout cobrar otro.
  */
-export const WHOP_CHECKOUT_URL = 'https://whop.com/sell-fy/standar-plan/'
+export const WHOP_CHECKOUT_URL = 'https://whop.com/checkout/plan_lrfMAhKe5YTmT'
+
+/**
+ * Precio del Plan de lanzamiento. Una sola fuente para /demo y para el home:
+ * cuando vivía en los dos archivos, el home se quedó en $150 mientras /demo
+ * ya vendía a $297.
+ *
+ * Verificado contra el checkout de Whop (plan "Sell - Fy - Pro"):
+ * cuota inicial $200 + primer mes $297 = $497 hoy, luego $297 cada mes.
+ */
+export const PRICE = {
+  planName: 'Plan de lanzamiento',
+  monthly: '$297',
+  monthlyPeriod: '/ mes',
+  setup: '$200',
+  dueToday: '$497',
+}

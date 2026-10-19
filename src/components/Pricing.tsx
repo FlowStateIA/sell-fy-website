@@ -1,14 +1,32 @@
 import { motion } from 'framer-motion'
 
-import { WHOP_CHECKOUT_URL } from '../content/site'
+import { PRICE, WHOP_CHECKOUT_URL } from '../content/site'
 
 const includes = [
-  { title: 'Software completo', desc: 'Ventas, cobros, comisiones, agendas, analítica y auditorías con IA. Sin límites de usuarios.' },
-  { title: 'Onboarding en 24h', desc: 'Configuramos tu organización, roles, ofertas, funnels y permisos. Tu equipo opera desde el día 1.' },
-  { title: 'Auditorías con Jarvis', desc: 'IA que analiza cada llamada de tu equipo. Score conductual, plan de mejora e inteligencia de clientes.' },
-  { title: 'Soporte prioritario', desc: 'WhatsApp directo con nuestro equipo. Respuesta en horas, no en días.' },
-  { title: 'Integraciones', desc: 'Google Calendar, CRM y notificaciones automáticas por WhatsApp y email.' },
-  { title: 'Actualizaciones continuas', desc: 'Nuevas funcionalidades cada semana. Sin costo adicional, sin migraciones.' },
+  {
+    title: 'Software completo',
+    desc: 'Ventas, cobros, comisiones, agendas, analítica y auditorías con IA. Sin límites de usuarios.',
+  },
+  {
+    title: 'Implementación en 7 días',
+    desc: 'Configuramos tu organización, roles, ofertas, funnels y permisos, y entrenamos a tu equipo.',
+  },
+  {
+    title: 'Auditorías con Jarvis',
+    desc: 'IA que analiza cada llamada de tu equipo. Score conductual, plan de mejora e inteligencia de clientes.',
+  },
+  {
+    title: 'Soporte prioritario',
+    desc: 'WhatsApp directo con nuestro equipo. Respuesta en horas, no en días.',
+  },
+  {
+    title: 'Integraciones',
+    desc: 'Google Calendar, CRM y notificaciones automáticas por WhatsApp y email.',
+  },
+  {
+    title: 'Actualizaciones continuas',
+    desc: 'Nuevas funcionalidades cada semana. Sin costo adicional, sin migraciones.',
+  },
 ]
 
 export function Pricing() {
@@ -39,7 +57,8 @@ export function Pricing() {
           </div>
           <div>
             <p style={{ fontSize: 17, lineHeight: '26px', color: '#d0d6e0' }}>
-              Sell-fy no se vende como herramienta suelta. Es parte de una consultoría integral donde configuramos, acompañamos y escalamos tu operación comercial.
+              Sell-fy no se vende como herramienta suelta. Es parte de una consultoría integral
+              donde configuramos, acompañamos y escalamos tu operación comercial.
             </p>
           </div>
         </motion.div>
@@ -68,9 +87,7 @@ export function Pricing() {
               <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', marginBottom: 8 }}>
                 {item.title}
               </div>
-              <div style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76' }}>
-                {item.desc}
-              </div>
+              <div style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76' }}>{item.desc}</div>
             </div>
           ))}
         </motion.div>
@@ -92,14 +109,23 @@ export function Pricing() {
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8' }}>Plan Standard</span>
-              <span style={{ fontSize: 22, fontWeight: 560, color: '#f7f8f8', letterSpacing: '-0.02em' }}>
-                $150
+              <span style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8' }}>
+                {PRICE.planName}
               </span>
-              <span style={{ fontSize: 13, color: '#6b6f76' }}>USD / mes</span>
+              <span
+                style={{
+                  fontSize: 22,
+                  fontWeight: 560,
+                  color: '#f7f8f8',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                {PRICE.monthly}
+              </span>
+              <span style={{ fontSize: 13, color: '#6b6f76' }}>USD {PRICE.monthlyPeriod}</span>
             </div>
             <div style={{ fontSize: 13, color: '#6b6f76' }}>
-              Software completo, onboarding y soporte. Sin límites de usuarios. Cancela cuando quieras.
+              {`Hoy pagas ${PRICE.dueToday} USD (${PRICE.setup} de implementación + tu primer mes). Sin límites de usuarios, sin permanencia.`}
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0">

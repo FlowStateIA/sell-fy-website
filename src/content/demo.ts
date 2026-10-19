@@ -11,6 +11,8 @@
  * social inventada. Llénalas con datos reales cuando los tengas.
  */
 
+import { PRICE } from './site'
+
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
 
@@ -233,21 +235,22 @@ export const centralize = {
  * hoy sería cobrar por algo que no existe.
  */
 export const pricing = {
-  /** Pago inicial único: implementación + primer mes de membresía incluido. */
+  /** Lo que se cobra el primer día. Cifras verificadas contra el checkout. */
   setup: {
-    label: 'Setup inicial',
+    label: 'Hoy pagas',
     unit: 'USD',
-    amount: '$500',
-    period: 'pago único',
-    note: 'Incluye la implementación completa + tu primer mes de membresía.',
+    /** "pago único" aquí se leía como que $497 es todo lo que se paga. */
+    amount: PRICE.dueToday,
+    period: 'una vez',
+    note: `${PRICE.setup} de implementación + tu primer mes de membresía.`,
     items: [] as string[],
   },
   /** Suscripción recurrente a partir del segundo mes. Lleva los beneficios del producto. */
   recurring: {
-    label: 'Mensualidad',
+    label: 'Luego',
     unit: 'USD',
-    amount: '$297',
-    period: '/ mes',
+    amount: PRICE.monthly,
+    period: PRICE.monthlyPeriod,
     note: 'A partir del segundo mes. Usuarios ilimitados.',
     items: [
       'CRM, Ventas, Comisiones y Cobros',
