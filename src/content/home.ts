@@ -22,7 +22,7 @@ export const featureSections: FeatureSectionData[] = [
   {
     title: 'Tu cliente ya te dijo\ncómo venderle',
     description:
-      'Las personas que ya te compraron tienen la clave para replicar ese resultado cientos de veces. Sell-fy extrae dolores, objeciones y aspiraciones de cada llamada y te entrega un perfil psicológico accionable.',
+      'Las personas que ya te compraron tienen la clave para replicar ese resultado cientos de veces. SellNode extrae dolores, objeciones y aspiraciones de cada llamada y te entrega un perfil psicológico accionable.',
     images: [dataImg, data2Img],
     subFeatures: [
       {
@@ -46,7 +46,7 @@ export const featureSections: FeatureSectionData[] = [
         description: 'Bloqueadores de conversión, tendencias emocionales y señales de cierre.',
         detail: {
           title: 'Patrones de Compra',
-          body: 'Sell-fy detecta patrones recurrentes en las objeciones, bloqueos emocionales y señales de cierre de tus clientes. Esta data te permite personalizar tu embudo para que tu avatar se identifique en cada etapa y te compre sin saber por qué.',
+          body: 'SellNode detecta patrones recurrentes en las objeciones, bloqueos emocionales y señales de cierre de tus clientes. Esta data te permite personalizar tu embudo para que tu avatar se identifique en cada etapa y te compre sin saber por qué.',
           specs: [
             { label: 'Objeciones Frecuentes', value: 'Las 5 razones principales por las que no cierran' },
             { label: 'Bloqueador #1', value: 'El patrón que más ventas pone en riesgo' },

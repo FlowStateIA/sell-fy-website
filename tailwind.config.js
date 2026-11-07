@@ -16,7 +16,8 @@ export default {
         accent: '#dc2626',
       },
       fontFamily: {
-        sans: ['"Inter"', '"SF Pro Display"', '-apple-system', 'system-ui', 'sans-serif'],
+        sans: ['"DejaVu Sans"', '-apple-system', 'system-ui', 'sans-serif'],
+        mono: ['"DejaVu Sans Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
     },
   },

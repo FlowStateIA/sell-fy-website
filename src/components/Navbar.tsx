@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import logoImg from '../assets/logo.png'
+import logoImg from '../assets/sellnode-logo-inversa.svg'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -26,7 +26,7 @@ export function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
         <a href="/" style={{ marginLeft: -4 }}>
-          <img src={logoImg} alt="Sell-fy" style={{ height: 80 }} />
+          <img src={logoImg} alt="SellNode" style={{ height: 24 }} />
         </a>
 
         <nav className="flex items-center gap-6 sm:gap-8">

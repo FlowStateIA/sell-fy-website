@@ -20,23 +20,52 @@ export const COPYRIGHT = `${LEGAL_ENTITY} — © ${new Date().getFullYear()}`
  * Checkout de Whop. El cliente paga aquí.
  *
  * ⚠️ Si cambias este link, verifica en la página de checkout que las cifras
- * de PRICE sigan coincidiendo. La página no puede prometer un precio y el
+ * de PLANS sigan coincidiendo. La página no puede prometer un precio y el
  * checkout cobrar otro.
  */
 export const WHOP_CHECKOUT_URL = 'https://whop.com/checkout/plan_lrfMAhKe5YTmT'
 
 /**
- * Precio del Plan de lanzamiento. Una sola fuente para /demo y para el home:
- * cuando vivía en los dos archivos, el home se quedó en $150 mientras /demo
- * ya vendía a $297.
- *
- * Verificado contra el checkout de Whop (plan "Sell - Fy - Pro"):
- * cuota inicial $200 + primer mes $297 = $497 hoy, luego $297 cada mes.
+ * Checkout del plan Standard. Es el link viejo del plan de $150.
+ * ⚠️ PENDIENTE de conectar en Whop con las cifras nuevas (ver PLANS).
  */
-export const PRICE = {
-  planName: 'Plan de lanzamiento',
-  monthly: '$297',
-  monthlyPeriod: '/ mes',
-  setup: '$200',
-  dueToday: '$497',
+export const WHOP_STANDARD_CHECKOUT_URL = 'https://whop.com/sell-fy/standar-plan/'
+
+/**
+ * Planes publicados. Una sola fuente para /demo y para el home.
+ *
+ * Modelo (decisión de producto, 2026-11-07): la implementación es un pago
+ * inicial que INCLUYE el primer mes; la mensualidad se paga desde el segundo mes.
+ *
+ * ⚠️ PENDIENTE: los checkouts de Whop todavía no cobran estas cifras. El de Pro
+ * (plan "Sell - Fy - Pro") cobra $200 de entrada + $297; el de Standard es el
+ * link viejo de $150. No publicar en producción hasta conectarlos: la página no
+ * puede prometer un precio y el checkout cobrar otro.
+ */
+export type Plan = {
+  name: string
+  setup: string
+  monthly: string
+  monthlyPeriod: string
+  checkoutUrl: string
 }
+
+export const PLANS: { standard: Plan; pro: Plan } = {
+  standard: {
+    name: 'Standard',
+    setup: '$897',
+    monthly: '$150',
+    monthlyPeriod: '/ mes',
+    checkoutUrl: WHOP_STANDARD_CHECKOUT_URL,
+  },
+  pro: {
+    name: 'Pro',
+    setup: '$997',
+    monthly: '$297',
+    monthlyPeriod: '/ mes',
+    checkoutUrl: WHOP_CHECKOUT_URL,
+  },
+}
+
+/** La mensualidad más baja, para los CTA que dicen "desde". */
+export const PRICE_FROM = PLANS.standard.monthly

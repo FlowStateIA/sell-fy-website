@@ -1,4 +1,4 @@
-export const privacyContent = `POLÍTICA DE PRIVACIDAD — SELL-FY
+export const privacyContent = `POLÍTICA DE PRIVACIDAD — SellNode
 Responsable: Flow State IA SAS
 NIT: 901470221-5 — Calle 42 D Sur, Medellín, Colombia
 Responsable de Privacidad: David Bermudez — privacidad@sell-fy.app
@@ -10,7 +10,7 @@ NIT: 901470221-5
 Domicilio: Calle 42 D Sur, Medellín, Colombia
 Teléfono: +57 333 237 1945
 Correo de privacidad: privacidad@sell-fy.app
-La plataforma Sell-Fy está disponible a través del dominio sell-fy.app y sus subdominios.
+La plataforma SellNode está disponible a través del dominio sell-fy.app y sus subdominios.
 
 2. MARCO LEGAL APLICABLE
 
@@ -32,7 +32,7 @@ Secundarias (consentimiento expreso): Comunicaciones comerciales. Estadísticas 
 
 5. PROPIEDAD Y ACCESO A LOS DATOS
 
-Todos los datos comerciales ingresados en Sell-Fy son propiedad exclusiva de la Organización. Sell-Fy actúa como Encargado del tratamiento. Sell-Fy no accederá ni utilizará los datos comerciales para fines propios. Los datos están aislados mediante Row Level Security (RLS).
+Todos los datos comerciales ingresados en SellNode son propiedad exclusiva de la Organización. SellNode actúa como Encargado del tratamiento. SellNode no accederá ni utilizará los datos comerciales para fines propios. Los datos están aislados mediante Row Level Security (RLS).
 
 6. USO DE INTELIGENCIA ARTIFICIAL
 
@@ -40,9 +40,9 @@ Proveedores de IA: Anthropic (Claude) para análisis de transcripciones y N8N pa
 
 7. ACCESO, USO Y COMPARTICIÓN DE DATOS DE GOOGLE
 
-Sell-Fy accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio y a instancias del Cliente.
+SellNode accede a datos de tu cuenta de Google (Google Calendar y Google Drive) únicamente para prestar el servicio y a instancias del Cliente.
 
-Google Calendar: leemos los eventos de tu calendario y la lista de tus calendarios para mostrarlos y sincronizarlos en la plataforma. También creamos, actualizamos y eliminamos eventos en tu calendario en tu nombre —incluida la generación de enlaces de Google Meet— cuando agendas, reprogramas o cancelas citas desde Sell-Fy.
+Google Calendar: leemos los eventos de tu calendario y la lista de tus calendarios para mostrarlos y sincronizarlos en la plataforma. También creamos, actualizamos y eliminamos eventos en tu calendario en tu nombre —incluida la generación de enlaces de Google Meet— cuando agendas, reprogramas o cancelas citas desde SellNode.
 
 Google Drive (solo lectura): cuando una reunión de tu calendario tiene adjunta una transcripción (Google Doc) o una grabación (video) generada por Google Meet, accedemos a ese archivo en modo solo lectura con el único fin de obtener la transcripción de la llamada y generar la auditoría correspondiente. No accedemos a ningún otro archivo de tu Drive.
 
@@ -52,9 +52,9 @@ Terceros con los que se comparten datos de Google: Supabase Inc. (almacenamiento
 
 No vendemos, alquilamos ni transferimos datos de usuarios de Google a terceros con fines comerciales, publicitarios o de elaboración de perfiles.
 
-El uso y la transferencia por parte de Sell-Fy de la información recibida de las APIs de Google se ajustará a la Política de Datos de Usuario de los Servicios de las API de Google, incluidos los requisitos de Uso Limitado (Limited Use).
+El uso y la transferencia por parte de SellNode de la información recibida de las APIs de Google se ajustará a la Política de Datos de Usuario de los Servicios de las API de Google, incluidos los requisitos de Uso Limitado (Limited Use).
 
-Sell-Fy's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.
+SellNode's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.
 
 8. ALMACENAMIENTO Y TRANSFERENCIA INTERNACIONAL
 
@@ -73,7 +73,7 @@ Organizativas: Acceso restringido bajo mínimo privilegio, política de no acces
 
 11. COOKIES
 
-Sell-Fy utiliza únicamente cookies estrictamente necesarias. NO utiliza cookies de rastreo, publicidad de terceros, Meta Pixel ni Google Analytics.
+SellNode utiliza únicamente cookies estrictamente necesarias. NO utiliza cookies de rastreo, publicidad de terceros, Meta Pixel ni Google Analytics.
 
 12. MENORES DE EDAD
 
@@ -85,23 +85,23 @@ Cambios sustanciales notificados por correo y aviso en la Plataforma con al meno
 
 Flow State IA SAS
 NIT: 901470221-5
-Sell-Fy — sell-fy.app — privacidad@sell-fy.app
+SellNode — sell-fy.app — privacidad@sell-fy.app
 Calle 42 D Sur, Medellín, Colombia`
 
-export const termsContent = `TÉRMINOS Y CONDICIONES DEL SERVICIO — SELL-FY
+export const termsContent = `TÉRMINOS Y CONDICIONES DEL SERVICIO — SellNode
 Entidad operadora: Flow State IA SAS
 Calle 42 D Sur, Medellín, Colombia
 privacidad@sell-fy.app
 
 1. PARTES Y ACEPTACIÓN
 
-Los presentes Términos regulan el acceso y uso de la plataforma Sell-Fy, disponible en sell-fy.app, operada por Flow State IA SAS, sociedad constituida bajo las leyes de la República de Colombia.
+Los presentes Términos regulan el acceso y uso de la plataforma SellNode, disponible en sell-fy.app, operada por Flow State IA SAS, sociedad constituida bajo las leyes de la República de Colombia.
 
 Al acceder, registrarse o utilizar la Plataforma, el usuario y/o la Organización contratante ("el Cliente") aceptan estos Términos en su totalidad.
 
 2. DESCRIPCIÓN DEL SERVICIO
 
-Sell-Fy es una plataforma SaaS diseñada para negocios de ventas B2B. El acceso no se comercializa de forma individual: se provee como parte de una consultoría integral que incluye software, onboarding, configuración y acompañamiento operativo.
+SellNode es una plataforma SaaS diseñada para negocios de ventas B2B. El acceso no se comercializa de forma individual: se provee como parte de una consultoría integral que incluye software, onboarding, configuración y acompañamiento operativo.
 
 Funcionalidades: Gestión de ventas y pipeline comercial. Comisiones y liquidaciones para closers y setters. Gestión de cobros y seguimiento de pagos. Agendamiento y seguimiento de citas. Analítica y métricas de rendimiento. Gestión de equipos y funnels. Auditoría de llamadas con inteligencia artificial.
 
@@ -111,7 +111,7 @@ El acceso se activa tras la firma del acuerdo de servicio y el onboarding guiado
 
 Roles: Propietario (acceso total), Administrador/Manager (acceso operativo amplio), Closer (ventas y comisiones propias), Setter (agendas y comisiones propias).
 
-4. OBLIGACIONES DE SELL-FY
+4. OBLIGACIONES DE SellNode
 
 Disponibilidad: Uptime objetivo del 99% mensual, excluyendo mantenimientos programados (notificados con 24h de antelación) y fuerza mayor.
 Seguridad: Medidas técnicas y organizativas para proteger los datos.
@@ -126,7 +126,7 @@ Usar la Plataforma para fines comerciales lícitos. No intentar acceder a datos 
 
 6. PROPIEDAD INTELECTUAL
 
-De Sell-Fy: Todo el software, código, diseño, marcas y elementos de la Plataforma son propiedad exclusiva de Flow State IA SAS.
+De SellNode: Todo el software, código, diseño, marcas y elementos de la Plataforma son propiedad exclusiva de Flow State IA SAS.
 Del Cliente: Todos los datos e información comercial ingresados son propiedad exclusiva del Cliente.
 
 7. PAGOS Y FACTURACIÓN
@@ -141,14 +141,14 @@ Proveedores: Anthropic (Claude) para análisis de transcripciones y N8N para aut
 
 9. LIMITACIÓN DE RESPONSABILIDAD
 
-Sell-Fy no será responsable por pérdidas indirectas, interrupciones por fuerza mayor, fallos de proveedores (Supabase, AWS, Vercel), decisiones comerciales basadas en métricas de la Plataforma, ni errores en datos ingresados por el Cliente.
+SellNode no será responsable por pérdidas indirectas, interrupciones por fuerza mayor, fallos de proveedores (Supabase, AWS, Vercel), decisiones comerciales basadas en métricas de la Plataforma, ni errores en datos ingresados por el Cliente.
 
 Responsabilidad máxima: valor total pagado por el Cliente en los 3 meses previos al evento.
 
 10. TERMINACIÓN
 
 Por el Cliente: Aviso de 15 días a privacidad@sell-fy.app. Sin reembolso por períodos parciales.
-Por Sell-Fy: Incumplimiento grave, mora >30 días, uso ilegal, o solicitud del Cliente.
+Por SellNode: Incumplimiento grave, mora >30 días, uso ilegal, o solicitud del Cliente.
 Efectos: 30 días para exportar datos, luego eliminación segura e irreversible.
 
 11. LEY APLICABLE
@@ -160,5 +160,5 @@ Leyes de la República de Colombia. Las controversias se resolverán mediante ne
 Cláusulas inválidas no afectan las demás. La falta de ejercicio de un derecho no implica renuncia. Estos Términos constituyen el acuerdo completo entre las partes.
 
 Flow State IA SAS
-Sell-Fy — sell-fy.app — privacidad@sell-fy.app
+SellNode — sell-fy.app — privacidad@sell-fy.app
 Calle 42 D Sur, Medellín, Colombia`

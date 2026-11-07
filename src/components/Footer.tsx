@@ -1,4 +1,4 @@
-import logoImg from '../assets/logo.png'
+import logoImg from '../assets/sellnode-logo-inversa.svg'
 import { COPYRIGHT } from '../content/site'
 
 export function Footer() {
@@ -6,7 +6,7 @@ export function Footer() {
     <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '32px 0' }}>
       <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="flex items-center gap-4">
-          <img src={logoImg} alt="Sell-fy" style={{ height: 20 }} />
+          <img src={logoImg} alt="SellNode" style={{ height: 24 }} />
           <span style={{ fontSize: 12, color: '#484b52' }}>{COPYRIGHT}</span>
         </div>
 

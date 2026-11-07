@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import {
   AudioLines,
   BarChart3,
+  CalendarCheck,
   CalendarDays,
   Calculator,
   GraduationCap,
@@ -14,9 +15,9 @@ import {
   Wallet,
 } from 'lucide-react'
 
-import logoImg from '../assets/logo.png'
+import logoImg from '../assets/sellnode-logo-inversa.svg'
 import { BRAND_IMAGES, CONNECT_LOGOS } from '../components/brandLogoMaps'
-import { COPYRIGHT, WHOP_CHECKOUT_URL } from '../content/site'
+import { COPYRIGHT, PRICE_FROM, WHOP_CHECKOUT_URL } from '../content/site'
 import type { PainIcon, ReplaceIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
@@ -36,6 +37,15 @@ import {
 } from '../content/demo'
 
 /* ─────────────────────────── Primitivas ─────────────────────────── */
+
+/** Rótulo chico de cada bloque de precio dentro de una tarjeta de plan. */
+const PLAN_LABEL: React.CSSProperties = {
+  fontSize: 11,
+  fontWeight: 600,
+  textTransform: 'uppercase',
+  letterSpacing: '0.06em',
+  color: '#8a8f98',
+}
 
 function CtaButton({
   label,
@@ -57,8 +67,8 @@ function CtaButton({
     <div className={`flex flex-col gap-2 ${center ? 'items-center' : 'items-start'}`}>
       <a
         href={href}
-        target="_blank"
-        rel="noopener noreferrer"
+        // Los CTA de la página bajan a #planes; solo un checkout abre pestaña nueva.
+        {...(href.startsWith('#') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
         className="inline-block transition-opacity hover:opacity-90"
         style={{
           padding: size === 'lg' ? '14px 32px' : '10px 24px',
@@ -87,8 +97,8 @@ function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?:
           un cambio de plan dejaba la página diciendo dos precios distintos. */}
       <CtaButton
         label="Empezar ahora"
-        sub={`Plan de lanzamiento · ${pricing.recurring.amount} USD${pricing.recurring.period.replace(' ', '')}`}
-        href={WHOP_CHECKOUT_URL}
+        sub={`Planes desde ${PRICE_FROM} USD/mes`}
+        href="#planes"
         size={size}
         center={center}
         variant="solid"
@@ -207,11 +217,9 @@ function DemoHeader() {
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-6 h-full flex items-center justify-between gap-3">
         {/* Sin link a home: en una página de embudo no se ofrecen salidas */}
-        <img src={logoImg} alt="Sell-fy" className="h-12 sm:h-16 w-auto flex-shrink-0" />
+        <img src={logoImg} alt="SellNode" className="h-6 sm:h-7 w-auto flex-shrink-0" />
         <a
-          href={WHOP_CHECKOUT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#planes"
           // whitespace-nowrap: "Empezar ahora" se partía en dos líneas y el
           // botón crecía a 55px dentro de un header de 64.
           className="transition-opacity hover:opacity-90 whitespace-nowrap flex-shrink-0
@@ -323,7 +331,7 @@ function VideoEmbed() {
       {LOOM_VIDEO_ID ? (
         <iframe
           src={`https://www.loom.com/embed/${LOOM_VIDEO_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
-          title="Sell-Fy en 5 minutos"
+          title="SellNode en 5 minutos"
           allowFullScreen
           style={{ width: '100%', height: '100%', border: 0 }}
         />
@@ -771,76 +779,141 @@ export function Demo() {
           ))}
         </div>
 
-        {/* Estructura de precio: setup único (incluye 1er mes) + mensualidad */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto w-full"
-          style={{ marginTop: 56, maxWidth: 680 }}
-        >
-          {[
-            { ...pricing.setup, highlight: false },
-            { ...pricing.recurring, highlight: true },
-          ].map(p => (
-            <div
-              key={p.label}
-              style={{
-                padding: 28,
-                borderRadius: 12,
-                border: p.highlight
-                  ? '1px solid rgba(229,83,75,0.35)'
-                  : '1px solid rgba(255,255,255,0.07)',
-                backgroundColor: p.highlight ? '#0d0e10' : 'transparent',
-              }}
-            >
+        {/* Planes. Cada tarjeta lleva su propio checkout; el resto de los CTA de
+            la página baja aquí (#planes) para que el cliente elija. */}
+        <div id="planes" style={{ marginTop: 88, scrollMarginTop: 88 }}>
+          <div className="text-center mx-auto" style={{ maxWidth: 640 }}>
+            <SectionTitle center>{pricing.title}</SectionTitle>
+            <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 14 }}>
+              {pricing.subtitle}
+            </p>
+          </div>
+
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto w-full items-stretch"
+            style={{ marginTop: 40, maxWidth: 840 }}
+          >
+            {pricing.plans.map(plan => (
               <div
+                key={plan.name}
+                className="flex flex-col p-6 sm:p-8"
                 style={{
-                  fontSize: 11,
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: p.highlight ? '#e5534b' : '#8a8f98',
+                  borderRadius: 12,
+                  border: plan.highlight
+                    ? '1px solid rgba(229,83,75,0.35)'
+                    : '1px solid rgba(255,255,255,0.07)',
+                  backgroundColor: plan.highlight ? '#0d0e10' : 'transparent',
                 }}
               >
-                {p.label}
-              </div>
-              <div className="flex items-baseline gap-2" style={{ marginTop: 16 }}>
-                <span style={{ fontSize: 13, color: '#6b6f76' }}>{p.unit}</span>
-                <span
-                  style={{
-                    fontSize: 36,
-                    fontWeight: 510,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1,
-                    color: '#f7f8f8',
-                  }}
-                >
-                  {p.amount}
-                </span>
-                <span style={{ fontSize: 14, color: '#6b6f76' }}>{p.period}</span>
-              </div>
-              <p style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98', marginTop: 14 }}>
-                {p.note}
-              </p>
-              {p.items.length > 0 && (
-                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
-                  {p.items.map(item => (
-                    <li
-                      key={item}
-                      className="flex gap-3"
-                      style={{ fontSize: 14, lineHeight: '22px' }}
+                <div className="flex items-center justify-between gap-3">
+                  <span style={{ fontSize: 20, fontWeight: 700, color: '#f7f8f8' }}>{plan.name}</span>
+                  {plan.badge && (
+                    <span
+                      style={{
+                        padding: '4px 10px',
+                        borderRadius: 999,
+                        border: '1px solid rgba(229,83,75,0.35)',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.06em',
+                        color: '#e5534b',
+                      }}
                     >
+                      {plan.badge}
+                    </span>
+                  )}
+                </div>
+                {/* Alto fijo de dos líneas: así las cifras de las dos tarjetas quedan a la misma altura */}
+                <p className="md:min-h-[42px]" style={{ fontSize: 14, lineHeight: '21px', color: '#8a8f98', marginTop: 8 }}>
+                  {plan.tagline}
+                </p>
+
+                {/* Implementación: pago inicial que ya incluye el primer mes */}
+                <div style={{ marginTop: 24 }}>
+                  <div style={PLAN_LABEL}>{pricing.setupLabel}</div>
+                  <div className="flex items-baseline gap-2" style={{ marginTop: 8 }}>
+                    <span style={{ fontSize: 13, color: '#6b6f76' }}>USD</span>
+                    <span
+                      className="font-mono"
+                      style={{ fontSize: 36, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1, color: '#f7f8f8' }}
+                    >
+                      {plan.setup}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98', marginTop: 8 }}>
+                    {pricing.setupNote}
+                  </p>
+                </div>
+
+                {/* Mensualidad, desde el segundo mes */}
+                <div style={{ marginTop: 18, paddingTop: 18, borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div style={PLAN_LABEL}>{pricing.monthlyLabel}</div>
+                  <div className="flex items-baseline gap-2" style={{ marginTop: 8 }}>
+                    <span style={{ fontSize: 13, color: '#6b6f76' }}>USD</span>
+                    <span className="font-mono" style={{ fontSize: 24, fontWeight: 700, lineHeight: 1, color: '#f7f8f8' }}>
+                      {plan.monthly}
+                    </span>
+                    <span style={{ fontSize: 14, color: '#6b6f76' }}>{plan.monthlyPeriod}</span>
+                  </div>
+                </div>
+
+                {/* El booking nativo va aparte: es lo que más pesa al elegir Pro */}
+                {plan.featured && (
+                  <div
+                    style={{
+                      marginTop: 22,
+                      padding: 16,
+                      borderRadius: 10,
+                      border: '1px solid rgba(229,83,75,0.35)',
+                      backgroundColor: 'rgba(229,83,75,0.07)',
+                    }}
+                  >
+                    <div className="flex items-center gap-2" style={{ fontSize: 14, fontWeight: 700, color: '#f7f8f8' }}>
+                      <CalendarCheck size={16} strokeWidth={1.8} color="#e5534b" />
+                      {plan.featured.title}
+                    </div>
+                    <p style={{ fontSize: 13, lineHeight: '20px', color: '#d0d6e0', marginTop: 6 }}>
+                      {plan.featured.desc}
+                    </p>
+                  </div>
+                )}
+
+                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
+                  {plan.items.map(item => (
+                    <li key={item} className="flex gap-3" style={{ fontSize: 14, lineHeight: '22px' }}>
                       <span style={{ color: '#e5534b', flexShrink: 0 }}>✓</span>
                       <span style={{ color: '#d0d6e0' }}>{item}</span>
                     </li>
                   ))}
                 </ul>
-              )}
-            </div>
-          ))}
-        </div>
 
-        <div className="flex flex-col items-center" style={{ marginTop: 40 }}>
-          <CtaPair size="lg" center />
-          <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
+                <div className="mt-auto" style={{ paddingTop: 28 }}>
+                  <a
+                    href={plan.checkoutUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center transition-opacity hover:opacity-90"
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: 6,
+                      fontSize: 14,
+                      fontWeight: 500,
+                      backgroundColor: plan.highlight ? '#e6e6e6' : 'transparent',
+                      color: plan.highlight ? '#08090a' : '#d0d6e0',
+                      border: plan.highlight ? 'none' : '1px solid rgba(255,255,255,0.14)',
+                    }}
+                  >
+                    Empezar con {plan.name}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center" style={{ fontSize: 13, color: '#6b6f76', marginTop: 24 }}>
+            {pricing.note}
+          </p>
         </div>
 
         {/* Siguiente escalón. Ancla de precio y destino del upsell — deliberadamente

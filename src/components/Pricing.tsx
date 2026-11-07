@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-import { PRICE, WHOP_CHECKOUT_URL } from '../content/site'
+import { PLANS } from '../content/site'
 
 const includes = [
   {
@@ -57,7 +57,7 @@ export function Pricing() {
           </div>
           <div>
             <p style={{ fontSize: 17, lineHeight: '26px', color: '#d0d6e0' }}>
-              Sell-fy no se vende como herramienta suelta. Es parte de una consultoría integral
+              SellNode no se vende como herramienta suelta. Es parte de una consultoría integral
               donde configuramos, acompañamos y escalamos tu operación comercial.
             </p>
           </div>
@@ -92,60 +92,61 @@ export function Pricing() {
           ))}
         </motion.div>
 
-        {/* CTA bar */}
+        {/* Planes. Mismas cifras que /demo: salen de PLANS (site.ts). */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
-          style={{
-            marginTop: 48,
-            padding: '32px',
-            borderRadius: 8,
-            border: '1px solid rgba(255,255,255,0.06)',
-            backgroundColor: '#0d0e10',
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          style={{ marginTop: 48 }}
         >
-          <div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 15, fontWeight: 500, color: '#f7f8f8' }}>
-                {PRICE.planName}
-              </span>
-              <span
-                style={{
-                  fontSize: 22,
-                  fontWeight: 560,
-                  color: '#f7f8f8',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                {PRICE.monthly}
-              </span>
-              <span style={{ fontSize: 13, color: '#6b6f76' }}>USD {PRICE.monthlyPeriod}</span>
-            </div>
-            <div style={{ fontSize: 13, color: '#6b6f76' }}>
-              {`Hoy pagas ${PRICE.dueToday} USD (${PRICE.setup} de implementación + tu primer mes). Sin límites de usuarios, sin permanencia.`}
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0">
-            <a
-              href={WHOP_CHECKOUT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors text-center"
+          {[
+            { plan: PLANS.standard, highlight: false, extra: 'CRM, ventas, cobros, comisiones y auditorías con IA.' },
+            { plan: PLANS.pro, highlight: true, extra: 'Todo Standard + booking nativo (tu propio Calendly), Finanzas y Entrega de Servicio.' },
+          ].map(({ plan, highlight, extra }) => (
+            <div
+              key={plan.name}
+              className="flex flex-col justify-between gap-6"
               style={{
-                padding: '10px 24px',
-                backgroundColor: '#e6e6e6',
-                color: '#08090a',
-                borderRadius: 4,
-                fontSize: 13,
-                fontWeight: 500,
+                padding: '28px',
+                borderRadius: 8,
+                border: highlight ? '1px solid rgba(229,83,75,0.35)' : '1px solid rgba(255,255,255,0.06)',
+                backgroundColor: '#0d0e10',
               }}
             >
-              Empezar ahora
-            </a>
-          </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: '#f7f8f8' }}>{plan.name}</span>
+                  <span className="font-mono" style={{ fontSize: 22, fontWeight: 700, color: '#f7f8f8' }}>
+                    {plan.monthly}
+                  </span>
+                  <span style={{ fontSize: 13, color: '#6b6f76', whiteSpace: 'nowrap' }}>USD {plan.monthlyPeriod}</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98' }}>{extra}</div>
+                <div style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 4 }}>
+                  {`Implementación ${plan.setup} USD, incluye tu primer mes. Mensualidad desde el segundo mes.`}
+                </div>
+              </div>
+              <a
+                href={plan.checkoutUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-opacity hover:opacity-90 text-center self-stretch sm:self-start"
+                style={{
+                  padding: '10px 24px',
+                  backgroundColor: highlight ? '#e6e6e6' : 'transparent',
+                  color: highlight ? '#08090a' : '#d0d6e0',
+                  border: highlight ? 'none' : '1px solid rgba(255,255,255,0.14)',
+                  borderRadius: 4,
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                Empezar con {plan.name}
+              </a>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
