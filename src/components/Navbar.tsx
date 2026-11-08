@@ -26,7 +26,7 @@ export function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
         <a href="/" style={{ marginLeft: -4 }}>
-          <img src={logoImg} alt="Sell-fy" style={{ height: 80 }} />
+          <img src={logoImg} alt="SellNode" style={{ height: 24 }} />
         </a>
 
         <nav className="flex items-center gap-6 sm:gap-8">
@@ -45,7 +45,7 @@ export function Navbar() {
             Pricing
           </a>
           <a
-            href="https://app.sell-fy.app"
+            href="https://app.sell-node.com"
             style={{ fontSize: 13, color: '#8a8f98' }}
             className="hover:!text-[#f7f8f8] transition-colors"
           >

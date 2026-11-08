@@ -57,7 +57,7 @@ export function Pricing() {
           </div>
           <div>
             <p style={{ fontSize: 17, lineHeight: '26px', color: '#d0d6e0' }}>
-              Sell-fy no se vende como herramienta suelta. Es parte de una consultoría integral
+              SellNode no se vende como herramienta suelta. Es parte de una consultoría integral
               donde configuramos, acompañamos y escalamos tu operación comercial.
             </p>
           </div>

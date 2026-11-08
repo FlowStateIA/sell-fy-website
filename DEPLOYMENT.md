@@ -1,4 +1,4 @@
-# Guía de Deployment - Sell-Fy Marketing Website
+# Guía de Deployment - SellNode Marketing Website
 
 ## 📋 Pre-requisitos
 

@@ -1,6 +1,6 @@
-# Sell-Fy Marketing Website
+# SellNode Marketing Website
 
-Sitio web de marketing para Sell-Fy, construido con React, TypeScript y Vite.
+Sitio web de marketing para SellNode, construido con React, TypeScript y Vite.
 
 ## 🚀 Tech Stack
 

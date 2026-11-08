@@ -56,7 +56,7 @@ export function Hero() {
           >
             <img
               src={dashboardImg}
-              alt="Sell-fy Dashboard"
+              alt="SellNode Dashboard"
               className="w-full"
               style={{ display: 'block' }}
             />
