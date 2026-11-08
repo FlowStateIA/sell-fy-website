@@ -207,7 +207,7 @@ function DemoHeader() {
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-6 h-full flex items-center justify-between gap-3">
         {/* Sin link a home: en una página de embudo no se ofrecen salidas */}
-        <img src={logoImg} alt="Sell-fy" className="h-12 sm:h-16 w-auto flex-shrink-0" />
+        <img src={logoImg} alt="SellNode" className="h-5 sm:h-6 w-auto flex-shrink-0" />
         <a
           href={WHOP_CHECKOUT_URL}
           target="_blank"
@@ -323,7 +323,7 @@ function VideoEmbed() {
       {LOOM_VIDEO_ID ? (
         <iframe
           src={`https://www.loom.com/embed/${LOOM_VIDEO_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
-          title="Sell-Fy en 5 minutos"
+          title="SellNode en 5 minutos"
           allowFullScreen
           style={{ width: '100%', height: '100%', border: 0 }}
         />
@@ -552,7 +552,7 @@ export function Demo() {
 
         {/* Mapeo uno a uno: cada herramienta que paga hoy contra el módulo que
             la absorbe. En tarjetas y no en tabla porque el protagonista debe ser
-            el módulo de Sell-Fy; la herramienta que se cae va debajo, tachada. */}
+            el módulo de SellNode; la herramienta que se cae va debajo, tachada. */}
         <div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
           style={{ marginTop: 48 }}

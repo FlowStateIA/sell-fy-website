@@ -4,7 +4,7 @@ const pillars = [
   {
     fig: 'FIG 0.1',
     title: 'Tu cliente ya te dijo cómo venderle',
-    description: 'Cada llamada tiene dolores, objeciones y aspiraciones. Sell-fy las extrae y te entrega el perfil psicológico de tu avatar sin que tengas que analizar nada.',
+    description: 'Cada llamada tiene dolores, objeciones y aspiraciones. SellNode las extrae y te entrega el perfil psicológico de tu avatar sin que tengas que analizar nada.',
     svg: (
       <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
         {/* Isometric layered discs — data layers */}
@@ -101,7 +101,7 @@ export function Manifesto() {
               Menos del 10% opera desde la data real de su negocio.
             </span>
             <br />
-            <span style={{ color: '#f7f8f8' }}>Sell-fy </span>
+            <span style={{ color: '#f7f8f8' }}>SellNode </span>
             <span style={{ color: '#484b52' }}>
               convierte cada llamada en inteligencia accionable.
             </span>
