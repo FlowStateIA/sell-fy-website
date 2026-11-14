@@ -38,7 +38,7 @@ export function Navbar() {
           height: 58,
           padding: '0 10px 0 20px',
           borderRadius: radius.pill,
-          backgroundColor: scrolled ? 'rgba(18,20,21,0.78)' : 'transparent',
+          backgroundColor: scrolled ? 'rgba(18,20,21,0.9)' : 'transparent',
           boxShadow: scrolled ? '0 18px 40px -24px rgba(0,0,0,0.9)' : 'none',
         }}
       >

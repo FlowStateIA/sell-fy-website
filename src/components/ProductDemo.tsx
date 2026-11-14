@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
@@ -26,7 +26,9 @@ import {
   tablero,
   type DemoTabId,
 } from '../content/productDemo'
+import { cell, fig, toneColor } from '../lib/demoStyle'
 import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
+import { Bar, Card, TableHead, WindowChrome } from './demoKit'
 import { Label } from './ui'
 
 /**
@@ -61,120 +63,6 @@ const NAV_ICONS: Record<string, LucideIcon> = {
 
 /** Cada cuánto cambia de pestaña cuando nadie la toca. */
 const AUTOPLAY_MS = 6500
-
-type Tone = 'good' | 'bad' | 'neutral'
-const toneColor = (tone: Tone) =>
-  tone === 'good' ? color.sage : tone === 'bad' ? color.red : onDark.primary
-
-/* ─────────────────────────── Piezas de la recreación ─────────────────────────── */
-
-const fig: CSSProperties = { ...type.figure, fontWeight: 700 }
-
-function Card({
-  title,
-  meta,
-  children,
-  className,
-  style,
-}: {
-  title?: string
-  meta?: string
-  children: ReactNode
-  className?: string
-  style?: CSSProperties
-}) {
-  return (
-    <div
-      className={className}
-      style={{
-        borderRadius: radius.md,
-        border: `1px solid ${onDark.lineSoft}`,
-        backgroundColor: 'rgba(246,245,240,0.022)',
-        padding: 16,
-        ...style,
-      }}
-    >
-      {title && (
-        <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: 14 }}>
-          <span style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>{title}</span>
-          {meta && (
-            <span className="truncate" style={{ fontSize: 11, color: onDark.tertiary }}>
-              {meta}
-            </span>
-          )}
-        </div>
-      )}
-      {children}
-    </div>
-  )
-}
-
-/** Barra que crece al entrar la pestaña. */
-function Bar({
-  pct,
-  tone = 'neutral',
-  height = 6,
-  delay = 0,
-}: {
-  pct: number
-  tone?: Tone
-  height?: number
-  delay?: number
-}) {
-  return (
-    <div
-      style={{
-        height,
-        borderRadius: radius.pill,
-        backgroundColor: 'rgba(246,245,240,0.07)',
-        overflow: 'hidden',
-      }}
-    >
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: `${pct}%` }}
-        transition={{ duration: 0.9, delay, ease: mo.ease }}
-        style={{
-          height: '100%',
-          borderRadius: radius.pill,
-          backgroundColor: tone === 'neutral' ? 'rgba(246,245,240,0.55)' : toneColor(tone),
-        }}
-      />
-    </div>
-  )
-}
-
-function TableHead({ columns, template }: { columns: string[]; template: string }) {
-  return (
-    <div
-      className="grid items-center"
-      style={{
-        gridTemplateColumns: template,
-        gap: 10,
-        paddingBottom: 9,
-        borderBottom: `1px solid ${onDark.lineSoft}`,
-      }}
-    >
-      {columns.map((c, i) => (
-        <span
-          key={c}
-          style={{
-            fontSize: 10,
-            fontWeight: 700,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: onDark.faint,
-            textAlign: i === 0 ? 'left' : 'right',
-          }}
-        >
-          {c}
-        </span>
-      ))}
-    </div>
-  )
-}
-
-const cell: CSSProperties = { ...type.figure, fontSize: 12.5, color: onDark.secondary, textAlign: 'right' }
 
 /* ─────────────────────────── Pantallas ─────────────────────────── */
 
@@ -687,42 +575,7 @@ export function ProductDemo() {
           boxShadow: `${depth.card}, 0 60px 120px -60px rgba(236,60,50,0.28)`,
         }}
       >
-        {/* Barra del navegador */}
-        <div
-          className="relative flex items-center gap-3"
-          style={{
-            padding: '0 16px',
-            height: 42,
-            borderBottom: `1px solid ${onDark.lineSoft}`,
-            backgroundColor: color.surfaceRaised,
-          }}
-        >
-          <span className="flex items-center gap-1.5">
-            {[0, 1, 2].map(i => (
-              <span
-                key={i}
-                style={{
-                  width: 9,
-                  height: 9,
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(246,245,240,0.13)',
-                }}
-              />
-            ))}
-          </span>
-          <span
-            className="flex-1 text-center truncate"
-            style={{ ...type.figure, fontSize: 11, color: onDark.faint }}
-          >
-            {tab.url}
-          </span>
-          <span className="flex items-center" style={{ gap: 6 }}>
-            <span
-              style={{ width: 5, height: 5, borderRadius: '50%', backgroundColor: color.sage }}
-            />
-            <Label tone="muted">{demoMeta.badge}</Label>
-          </span>
-
+        <WindowChrome url={tab.url} badge={demoMeta.badge}>
           {/* Avance de la pestaña mientras corre sola */}
           {playing && (
             <motion.span
@@ -734,7 +587,7 @@ export function ProductDemo() {
               style={{ height: 1, backgroundColor: color.red, opacity: 0.7 }}
             />
           )}
-        </div>
+        </WindowChrome>
 
         <div className="flex">
           {/* Menú lateral */}

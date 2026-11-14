@@ -37,8 +37,8 @@ export function Home() {
         <div className="mx-auto px-6" style={{ maxWidth: space.maxWidth, paddingTop: 104 }}>
           <Label>{productChapter.eyebrow}</Label>
         </div>
-        {featureSections.map(section => (
-          <FeatureSection key={section.title} {...section} />
+        {featureSections.map((section, i) => (
+          <FeatureSection key={section.title} {...section} flip={i % 2 === 1} />
         ))}
       </div>
 

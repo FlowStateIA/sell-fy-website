@@ -26,6 +26,8 @@ export const demoMeta = {
   caption: 'Recreación de la interfaz. Datos de ejemplo, del mismo período en todas las pestañas.',
   pause: 'Pausar',
   play: 'Reanudar',
+  /** Pie de las pantallas del capítulo 04: avisa que se pueden tocar. */
+  touchHint: 'Pantalla de ejemplo. Puedes tocarla.',
 }
 
 export const demoTabs: {
@@ -176,3 +178,143 @@ export const cobros = {
 
 /** Dinero con el mismo formato que usa la app: $84,500. */
 export const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Pantallas del capítulo 04 («Así se ve»).
+
+   Misma operación de ejemplo que el hero, así que las cifras tienen que seguir
+   cuadrando con las de arriba:
+     - 96 llamadas auditadas = las 96 que «asistieron» = 58 + 38 por oferta
+     - Comisión liberada 5.230 = 10 % de lo cobrado (52.300)
+     - Comisión bloqueada 3.220 = 10 % de lo por cobrar (32.200)
+     - En mora 4.100 = 1.400 + 1.500 + 1.200
+     - Las duplas de cada closer suman sus llamadas, ventas y cobro del ranking
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+export type OfferId = 'todas' | 'mentoria' | 'intensivo'
+
+/** Inteligencia de clientes: lo que dicen en las llamadas, agrupado por oferta. */
+export const clientes = {
+  url: 'app.sell-fy.app/inteligencia/clientes',
+  filterLabel: 'Filtrar por oferta',
+  offers: [
+    { id: 'todas' as OfferId, label: 'Todas las ofertas', calls: 96 },
+    { id: 'mentoria' as OfferId, label: 'Mentoría 12 semanas', calls: 58 },
+    { id: 'intensivo' as OfferId, label: 'Programa intensivo', calls: 38 },
+  ],
+  callsLabel: 'llamadas auditadas',
+  countLabel: 'llamadas',
+  groups: [
+    {
+      title: 'Dolores que más se repiten',
+      tone: 'neutral' as const,
+      rows: [
+        { quote: '«Llevo meses aplicando y no me llaman»', counts: { todas: 41, mentoria: 26, intensivo: 15 } },
+        { quote: '«No sé cómo cobrar en dólares»', counts: { todas: 28, mentoria: 17, intensivo: 11 } },
+        { quote: '«Me da miedo dejar mi trabajo actual»', counts: { todas: 19, mentoria: 9, intensivo: 10 } },
+      ],
+    },
+    {
+      title: 'Objeciones antes de decidir',
+      tone: 'bad' as const,
+      rows: [
+        { quote: '«Tengo que consultarlo con mi pareja»', counts: { todas: 22, mentoria: 13, intensivo: 9 } },
+        { quote: '«Ahora no tengo el dinero»', counts: { todas: 17, mentoria: 8, intensivo: 9 } },
+        { quote: '«Ya probé un curso y no funcionó»', counts: { todas: 11, mentoria: 7, intensivo: 4 } },
+      ],
+    },
+  ],
+}
+
+/** Mapa de una llamada: sus tramos, con marca de tiempo, puntaje y una nota revisable. */
+export const mapa = {
+  url: 'app.sell-fy.app/llamadas/auditoria',
+  title: 'Mapa de la llamada',
+  meta: 'Carla P. · closer Laura M. · 46 min',
+  segmentsLabel: 'Tramos de la llamada',
+  /** Duración total en segundos, para repartir el ancho de los tramos. */
+  total: 46 * 60,
+  reviewBelow: 70,
+  segments: [
+    { id: 'apertura', label: 'Apertura', start: '0:00', seconds: 220, score: 90, note: 'Marcó la agenda de la llamada y pidió permiso para preguntar.' },
+    { id: 'descubrimiento', label: 'Descubrimiento', start: '3:40', seconds: 510, score: 85, note: 'Tres preguntas sobre la situación actual. Faltó ponerle número al costo de no cambiar.' },
+    { id: 'presentacion', label: 'Presentación', start: '12:10', seconds: 295, score: 88, note: 'Conectó el programa con el dolor que el cliente nombró primero.' },
+    { id: 'oferta', label: 'Oferta', start: '17:05', seconds: 85, score: 86, note: 'Dijo el precio una sola vez y sin justificarlo.' },
+    { id: 'objeciones', label: 'Objeciones', start: '18:30', seconds: 890, score: 62, note: 'El presupuesto apareció después de la oferta. Revisa ese fragmento con el closer.' },
+    { id: 'cierre', label: 'Cierre', start: '33:20', seconds: 760, score: 80, note: 'Acordó el siguiente paso con fecha.' },
+  ],
+  planTitle: 'Plan de mejora de Laura M.',
+  planMeta: 'Sale de sus llamadas del mes',
+  plan: [
+    { action: 'Pregunta por el presupuesto antes de presentar la oferta.', impact: 'Impacto alto' },
+    { action: 'Resume el dolor con las palabras del cliente antes de decir el precio.', impact: 'Impacto medio' },
+    { action: 'Responde cada objeción con una pregunta, no con un argumento.', impact: 'Impacto medio' },
+  ],
+}
+
+export type CobroViewId = 'comisiones' | 'mora'
+
+/** Comisiones (liberadas con el cobro, no con la venta) y cuotas en mora. */
+export const comisiones = {
+  url: 'app.sell-fy.app/ventas/comisiones',
+  viewLabel: 'Vista',
+  views: [
+    { id: 'comisiones' as CobroViewId, label: 'Comisiones' },
+    { id: 'mora' as CobroViewId, label: 'En mora' },
+  ],
+  table: {
+    title: 'Comisiones del período',
+    meta: '10 % por venta',
+    columns: ['Closer', 'Liberada', 'Bloqueada', 'Liquidada'],
+    rows: [
+      { name: 'Laura M.', liberada: 1980, bloqueada: 1170, liquidada: 1200 },
+      { name: 'Andrés R.', liberada: 1460, bloqueada: 990, liquidada: 900 },
+      { name: 'Camila T.', liberada: 1120, bloqueada: 680, liquidada: 700 },
+      { name: 'Mateo G.', liberada: 670, bloqueada: 380, liquidada: 400 },
+    ],
+    totalLabel: 'Total',
+    note: 'La comisión se libera cuando el dinero entra. Lo bloqueado corresponde a cuotas que todavía no se cobran.',
+  },
+  overdue: {
+    title: 'Cuotas en mora',
+    meta: '$4,100 en 3 cuotas',
+    rows: [
+      { name: 'Diego R.', detail: 'Cuota 2 de 3 · venció hace 9 días', amount: 1400 },
+      { name: 'Sofía L.', detail: 'Cuota 3 de 4 · venció hace 4 días', amount: 1500 },
+      { name: 'Iván C.', detail: 'Cuota 2 de 2 · venció hace 2 días', amount: 1200 },
+    ],
+    statusLabel: 'Vencida',
+    note: 'El closer de cada venta recibió el aviso por WhatsApp el día del vencimiento.',
+  },
+}
+
+export type CompareViewId = 'embudos' | 'closers' | 'duplas'
+
+/** Comparación en el mismo período. Embudos y closers reutilizan los datos del hero. */
+export const comparar = {
+  url: 'app.sell-fy.app/analitica',
+  viewLabel: 'Comparar por',
+  views: [
+    { id: 'embudos' as CompareViewId, label: 'Embudos' },
+    { id: 'closers' as CompareViewId, label: 'Closers' },
+    { id: 'duplas' as CompareViewId, label: 'Duplas' },
+  ],
+  columns: {
+    embudos: ['Embudo', 'Agendas', 'Ventas', 'Cobrado'],
+    closers: ['Closer', 'Llamadas', 'Cierre', 'Cobrado'],
+    duplas: ['Setter + closer', 'Llamadas', 'Cierre', 'Cobrado'],
+  },
+  duplas: [
+    { name: 'Dani V. + Laura M.', llamadas: 18, cierre: '33%', cobrado: 13400 },
+    { name: 'Dani V. + Andrés R.', llamadas: 15, cierre: '27%', cobrado: 8300 },
+    { name: 'Sara N. + Camila T.', llamadas: 12, cierre: '25%', cobrado: 6900 },
+    { name: 'Sara N. + Laura M.', llamadas: 14, cierre: '21%', cobrado: 6400 },
+    { name: 'Sara N. + Andrés R.', llamadas: 13, cierre: '23%', cobrado: 6300 },
+  ],
+  /** La guía pide decir siempre qué se midió y sobre qué denominador. */
+  notes: {
+    embudos: 'Agendas, ventas y dinero cobrado de cada embudo, este mes.',
+    closers: 'Tasa de cierre = ventas ÷ llamadas realizadas por cada closer, este mes.',
+    duplas: 'Las cinco duplas con más cobro. Tasa de cierre = ventas ÷ llamadas realizadas de la dupla.',
+  },
+}

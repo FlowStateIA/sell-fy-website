@@ -18,19 +18,6 @@
 
 import type { FeatureSectionData } from '../components/FeatureSection'
 
-import dataImg from '../assets/data.png'
-import data2Img from '../assets/data2.png'
-import audit1Img from '../assets/audit1.png'
-import audit2Img from '../assets/audit2.png'
-import audit3Img from '../assets/audit3.png'
-import audit4Img from '../assets/audit4.png'
-import ventas1Img from '../assets/ventas1.png'
-import ventas2Img from '../assets/ventas2.png'
-import ventas3Img from '../assets/ventas3.png'
-import ventas4Img from '../assets/ventas4.png'
-import analytics1Img from '../assets/analytics1.png'
-import analytics2Img from '../assets/analytics2.png'
-
 /** El único CTA de la página. Si cambia, cambia en un solo lugar. */
 export const CTA_LABEL = 'Agendar demo'
 
@@ -132,12 +119,11 @@ export const productChapter = {
 
 export const featureSections: FeatureSectionData[] = [
   {
+    kicker: 'Inteligencia de clientes',
     title: 'Tu cliente ya te dijo\ncómo venderle',
     description:
       'Cada llamada trae los dolores, las objeciones y las aspiraciones que tu cliente dice en voz alta. SellNode las extrae y las agrupa por oferta, para que el copy de tu embudo use las palabras del cliente y no las tuyas.',
-    images: [dataImg, data2Img],
-    url: 'app.sell-fy.app/inteligencia/clientes',
-    expects: 'src/assets/data.png · data2.png',
+    panel: 'clientes',
     subFeatures: [
       {
         number: '1.1',
@@ -172,12 +158,11 @@ export const featureSections: FeatureSectionData[] = [
     ],
   },
   {
+    kicker: 'Auditoría de llamadas',
     title: 'Las llamadas de esta semana,\nauditadas todas.',
     description:
       'Score por fase de la llamada, mapa con marcas de tiempo, el momento donde se puso en riesgo la venta y un plan de mejora por closer. Sin abrir una grabación.',
-    images: [audit1Img, audit2Img, audit3Img, audit4Img],
-    url: 'app.sell-fy.app/llamadas',
-    expects: 'src/assets/audit1.png … audit4.png',
+    panel: 'auditoria',
     subFeatures: [
       {
         number: '2.1',
@@ -212,12 +197,11 @@ export const featureSections: FeatureSectionData[] = [
     ],
   },
   {
+    kicker: 'Ventas, cobros y comisiones',
     title: 'Vendido y cobrado\nno son el mismo número.',
     description:
       'Ventas, cuotas, renovaciones y reembolsos, cada uno en su fecha. Comisiones que se calculan al registrar la venta y se desbloquean cuando el dinero entra. Aviso cuando una cuota vence.',
-    images: [ventas1Img, ventas2Img, ventas3Img, ventas4Img],
-    url: 'app.sell-fy.app/ventas',
-    expects: 'src/assets/ventas1.png … ventas4.png',
+    panel: 'cobro',
     subFeatures: [
       {
         number: '3.1',
@@ -252,12 +236,11 @@ export const featureSections: FeatureSectionData[] = [
     ],
   },
   {
+    kicker: 'Analítica',
     title: 'Dos embudos. El mismo volumen.\nDistinto cobro.',
     description:
       'Compara embudos, closers y duplas en el mismo período. La tasa de cierre dice sobre qué llamadas se calculó, y cada cifra se puede abrir hasta la venta que la originó.',
-    images: [analytics1Img, analytics2Img],
-    url: 'app.sell-fy.app/analitica',
-    expects: 'src/assets/analytics1.png · analytics2.png',
+    panel: 'comparar',
     subFeatures: [
       {
         number: '4.1',

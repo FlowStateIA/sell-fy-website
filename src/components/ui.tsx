@@ -1,10 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react'
 
-import { color, depth, onDark, onLight, radius, type } from '../lib/theme'
+import { color, onDark, onLight, radius, type } from '../lib/theme'
 
 /**
  * Primitivas de interfaz. Todo lo que se repetía a mano en cada componente
- * —botones, rótulos, marcos de captura— vive acá y sale de los tokens.
+ * —botones, rótulos, cápsulas— vive acá y sale de los tokens.
  */
 
 /** Rótulo en versalitas. Sobre oscuro va en rojo nodo; sobre marfil, en pizarra. */
@@ -107,115 +107,5 @@ export function Button({
         />
       </svg>
     </a>
-  )
-}
-
-/**
- * Marco de captura de producto.
- *
- * La barra superior con la dirección hace que la imagen se lea como el producto
- * y no como un dibujo. Si todavía no hay imagen, en lugar de romperse muestra
- * el hueco con el nombre exacto del archivo que hay que dejar, para que
- * reemplazar una captura no obligue a tocar código.
- */
-export function ProductShot({
-  src,
-  alt,
-  path,
-  url = 'app.sell-fy.app',
-  note,
-  maxHeight,
-}: {
-  src?: string
-  alt: string
-  /** Dónde va el archivo cuando todavía no existe. */
-  path?: string
-  url?: string
-  note?: string
-  maxHeight?: number
-}) {
-  return (
-    <figure style={{ margin: 0 }}>
-      <div
-        className="hairline overflow-hidden"
-        style={{
-          borderRadius: radius.lg,
-          backgroundColor: color.surface,
-          boxShadow: depth.card,
-        }}
-      >
-        {/* Barra del navegador */}
-        <div
-          className="flex items-center gap-3"
-          style={{
-            padding: '0 14px',
-            height: 38,
-            borderBottom: `1px solid ${onDark.lineSoft}`,
-            backgroundColor: color.surfaceRaised,
-          }}
-        >
-          <span className="flex items-center gap-1.5">
-            {[0, 1, 2].map(i => (
-              <span
-                key={i}
-                style={{
-                  width: 9,
-                  height: 9,
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(246,245,240,0.13)',
-                }}
-              />
-            ))}
-          </span>
-          <span
-            className="flex-1 text-center truncate"
-            style={{
-              ...type.figure,
-              fontSize: 11,
-              color: onDark.faint,
-            }}
-          >
-            {url}
-          </span>
-          <span style={{ width: 42 }} />
-        </div>
-
-        {src ? (
-          <div style={{ maxHeight, overflow: 'hidden' }}>
-            <img
-              src={src}
-              alt={alt}
-              className="w-full"
-              style={{ display: 'block', objectFit: 'cover', objectPosition: 'top' }}
-            />
-          </div>
-        ) : (
-          /* Hueco a la espera de la captura nueva. */
-          <div
-            className="flex flex-col items-center justify-center text-center"
-            style={{
-              aspectRatio: '16/9',
-              gap: 10,
-              padding: 24,
-              backgroundImage:
-                'repeating-linear-gradient(135deg, rgba(246,245,240,0.025) 0 10px, transparent 10px 20px)',
-            }}
-          >
-            <Label tone="muted">Falta la captura</Label>
-            <div style={{ ...type.h3, color: onDark.secondary }}>{alt}</div>
-            {path && (
-              <code style={{ ...type.figure, fontSize: 12, color: onDark.faint }}>{path}</code>
-            )}
-          </div>
-        )}
-      </div>
-      {note && (
-        <figcaption
-          style={{ marginTop: 12, fontSize: 12.5, color: onDark.faint, textAlign: 'center' }}
-        >
-          {note}
-        </figcaption>
-      )}
-    </figure>
   )
 }
