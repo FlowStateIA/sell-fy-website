@@ -61,6 +61,7 @@ export function Button({
   size = 'md',
   external = true,
   onLightBg = false,
+  block = false,
 }: {
   children: ReactNode
   href: string
@@ -68,6 +69,8 @@ export function Button({
   size?: 'md' | 'lg'
   external?: boolean
   onLightBg?: boolean
+  /** Ocupa todo el ancho del contenedor: los botones de las tarjetas de plan. */
+  block?: boolean
 }) {
   const primary = variant === 'primary'
   const ghostBorder = onLightBg ? onLight.line : 'rgba(246,245,240,0.16)'
@@ -79,7 +82,7 @@ export function Button({
       {...(external && !href.startsWith('#')
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : {})}
-      className="inline-flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-px"
+      className={`${block ? 'flex w-full' : 'inline-flex'} items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-px`}
       style={{
         padding: size === 'lg' ? '14px 26px' : '10px 18px',
         borderRadius: radius.pill,
