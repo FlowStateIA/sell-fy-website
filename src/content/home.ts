@@ -404,6 +404,86 @@ export const pricingCopy = {
   ],
 }
 
+/**
+ * Lo que te ahorras: lo que cuesta armar lo mismo con herramientas sueltas.
+ *
+ * ⚠️ Cada precio se consultó en la página del propio proveedor el día que dice
+ * `checkedOn`. Si se actualiza una fila, se actualiza esa fecha. Es una
+ * comparación pública contra terceros: no puede llevar una cifra que no esté
+ * en la fuente enlazada.
+ *
+ * ⚠️ Sólo van herramientas cuyo trabajo SellNode hace de verdad. No están
+ * PandaDoc ni Zapier (firma de contratos y envío de ventas a Meta): la app no
+ * tiene eso, y ponerlos sería prometer algo que no existe.
+ *
+ * El total y el ahorro se calculan en el componente a partir de estas filas y
+ * del plan Pro de site.ts; no se escriben a mano en ningún lado.
+ */
+export const savings = {
+  eyebrow: 'Lo que te ahorras',
+  /** {total} se reemplaza por la suma de las filas. */
+  title: 'Lo mismo, por separado,\ncuesta {total} al mes.',
+  body: 'Para un equipo de 5 personas —un director, 2 closers y 2 setters—, con el plan de cada herramienta que haría el mismo trabajo.',
+  headers: { tool: 'Por separado', price: 'Al mes' },
+  included: 'Incluido',
+  planLabel: 'Plan Pro',
+  totalLabel: 'Total',
+  /** {n} se reemplaza por la cantidad de filas. */
+  totalNote: '{n} herramientas, {n} facturas',
+  ourNote: 'al mes, usuarios ilimitados',
+  /** {month} y {year} se reemplazan por el ahorro calculado. */
+  savingLine: 'Te ahorras {month} al mes',
+  savingYear: '{year} al año',
+  checkedOn: '14 de noviembre de 2026',
+  rows: [
+    {
+      name: 'QuotaPath',
+      does: 'Comisiones',
+      price: 525,
+      plan: 'Growth, cuota de plataforma que cubre 5 usuarios, pago anual',
+      source: 'https://www.quotapath.com/pricing/',
+    },
+    {
+      name: 'Hyros',
+      does: 'Atribución de anuncios',
+      price: 230,
+      plan: 'precio de entrada, hasta 20.000 USD rastreados al mes, pago anual',
+      source: 'https://hyros.com/pricing-ai-tracking',
+    },
+    {
+      name: 'GoHighLevel',
+      does: 'CRM',
+      price: 97,
+      plan: 'Starter',
+      source: 'https://www.gohighlevel.com/pricing',
+    },
+    {
+      name: 'Calendly',
+      does: 'Agenda',
+      price: 80,
+      plan: 'Teams, 16 USD × 5, pago anual',
+      source: 'https://calendly.com/pricing',
+    },
+    {
+      name: 'Typeform',
+      does: 'Cuestionarios',
+      price: 79,
+      plan: 'Plus, pago mensual',
+      source: 'https://www.typeform.com/pricing',
+    },
+    {
+      name: 'Notion',
+      does: 'Entrega del servicio',
+      price: 50,
+      plan: 'Plus, 10 USD × 5',
+      source: 'https://www.notion.com/pricing',
+    },
+  ],
+  /** {date}, {sources} y {setup} se arman en el componente. */
+  footnote:
+    'Precios públicos en USD, consultados el {date} en la página de cada proveedor: {sources}. Pueden cambiar. De SellNode se compara la mensualidad del plan Pro; la implementación es un pago único de {setup} USD que incluye el primer mes. Las marcas son de sus dueños y se citan solo para comparar.',
+}
+
 /** Cierre. Acá sí va el lema, que es donde la guía lo quiere en piezas institucionales. */
 export const finalCta = {
   title: 'Sigue cada venta hasta el cobro.',
