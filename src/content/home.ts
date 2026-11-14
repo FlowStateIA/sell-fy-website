@@ -52,8 +52,6 @@ export const hero = {
   subheadline:
     'SellNode es el CRM para equipos que venden por llamada. Conecta el origen, la llamada y el cobro de cada venta, para que la respuesta esté en una pantalla y no en tres hojas de cálculo.',
   ctaSub: 'Implementación acompañada. Tu equipo registrando su operación en menos de 8 días.',
-  /** Obligatorio por la guía: los datos de ejemplo se rotulan siempre. */
-  caption: 'Interfaz real. Datos de ejemplo, del mismo período en todas las pantallas.',
 }
 
 /**

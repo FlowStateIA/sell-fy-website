@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
 
-import dashboardImg from '../assets/dashboard.png'
 import { CTA_LABEL, hero } from '../content/home'
 import { CALENDLY_URL } from '../content/site'
-import { color, motion as mo, onDark, space, type } from '../lib/theme'
-import { Button, Pill, ProductShot } from './ui'
+import { motion as mo, onDark, space, type } from '../lib/theme'
+import { ProductDemo } from './ProductDemo'
+import { Button, Pill } from './ui'
 
 /**
  * Hero. Centrado y con el titular a dos tonos: la pregunta entera se lee, pero
@@ -18,7 +18,10 @@ export function Hero() {
   const [before, after] = hero.headline.split(hero.headlineEmphasis)
 
   return (
-    <section className="relative grain" style={{ paddingTop: 128, overflow: 'hidden' }}>
+    <section
+      className="relative grain"
+      style={{ paddingTop: 128, paddingBottom: 24, overflow: 'hidden' }}
+    >
       {/* Resplandor del rojo nodo, abierto y bajo */}
       <div
         className="absolute inset-x-0 top-0 pointer-events-none"
@@ -86,34 +89,15 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Captura del producto, presentada como producto */}
+        {/* El producto, vivo: pestañas navegables en vez de una captura. */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.32, ease: mo.ease }}
-          className="w-full relative"
-          style={{ marginTop: 72 }}
+          className="w-full"
+          style={{ marginTop: 64 }}
         >
-          <ProductShot
-            src={dashboardImg}
-            alt="Tablero de SellNode"
-            url="app.sell-fy.app/dashboard"
-            maxHeight={620}
-          />
-          {/* Disuelve el borde inferior de la captura contra la página */}
-          <div
-            className="absolute inset-x-0 bottom-0 pointer-events-none"
-            style={{
-              height: '34%',
-              background: `linear-gradient(to top, ${color.bg} 6%, transparent 100%)`,
-            }}
-          />
-          <div
-            className="absolute inset-x-0 text-center"
-            style={{ bottom: 10, fontSize: 12, color: onDark.faint }}
-          >
-            {hero.caption}
-          </div>
+          <ProductDemo />
         </motion.div>
       </div>
     </section>

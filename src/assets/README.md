@@ -7,9 +7,11 @@ hay que tocar código: `src/content/home.ts` las importa por nombre.
 Si borras un archivo, la sección no se rompe: muestra un hueco rotulado con el
 nombre que espera.
 
+> El hero ya no usa captura: muestra la demo viva (`src/components/ProductDemo.tsx`,
+> con sus datos en `src/content/productDemo.ts`). `dashboard.png` quedó sin uso.
+
 | Archivo | Pantalla que debe mostrar | Dónde sale |
 |---|---|---|
-| `dashboard.png` | Tablero, con el período y las tarjetas de salud financiera | Hero |
 | `data.png`, `data2.png` | Inteligencia de clientes: dolores, objeciones, patrones | Capítulo 04, sección 1 |
 | `audit1.png` … `audit4.png` | Auditoría de llamada: score por fase, mapa, plan de mejora | Capítulo 04, sección 2 |
 | `ventas1.png` … `ventas4.png` | Ventas, cuotas, cartera y comisiones | Capítulo 04, sección 3 |
