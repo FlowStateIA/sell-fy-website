@@ -425,3 +425,93 @@ export const journey = {
     ],
   },
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Jarvis, el asistente (capítulo «Pregúntale a tus datos»).
+
+   Las preguntas son del tipo que el asistente real sugiere, y cada respuesta
+   corresponde a algo que de verdad consulta: el resumen del período, lo que
+   dicen los clientes, las auditorías, el ranking del equipo y los seguimientos.
+
+   Las respuestas usan los mismos datos de ejemplo que el resto de la página:
+     - Resumen: 84.500 vendidos, 52.300 cobrados, 32.200 por cobrar, 4.100 en mora
+     - Objeciones: 22, 17 y 11 menciones en 96 llamadas (13 de 58 en Mentoría)
+     - Mateo G.: 3 ventas en 14 llamadas (21 %); el equipo, 24 en 96 (25 %)
+   Y siguen la voz de marca: dicen qué se midió y sobre qué, señalan algo
+   revisable y no juzgan a nadie.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+export const jarvis = {
+  name: 'Jarvis',
+  role: 'Asistente',
+  questionsLabel: 'Preguntas de ejemplo',
+  placeholder: 'Escribe tu pregunta…',
+  consulting: 'Consultando',
+  consultedLabel: 'Consultó',
+  note: 'Respuestas armadas con los datos de ejemplo de esta página.',
+  questions: [
+    {
+      id: 'resumen',
+      question: '¿Cómo vamos este mes?',
+      consulted: 'Resumen del período',
+      intro: 'Este mes llevas $84,500 vendidos y $52,300 cobrados.',
+      points: [
+        'Quedan $32,200 por cobrar; $4,100 de eso está en mora.',
+        '128 agendas, 96 llamadas realizadas: 75% de show rate.',
+        '24 ventas: 25% de cierre sobre las llamadas realizadas.',
+      ],
+      closing: 'La mora está en 3 cuotas. Conviene mirarlas antes de que termine el mes.',
+      actions: ['Ver tablero', 'Ver cobros'],
+    },
+    {
+      id: 'objeciones',
+      question: '¿Qué objeciones aparecen más este mes?',
+      consulted: 'Inteligencia de clientes · 96 llamadas auditadas',
+      intro: 'Tres objeciones se repiten en las 96 llamadas auditadas del mes:',
+      points: [
+        '«Tengo que consultarlo con mi pareja» — en 22 llamadas.',
+        '«Ahora no tengo el dinero» — en 17 llamadas.',
+        '«Ya probé un curso y no funcionó» — en 11 llamadas.',
+      ],
+      closing: 'La primera pesa más en Mentoría 12 semanas: aparece en 13 de sus 58 llamadas.',
+      actions: ['Ver inteligencia de clientes'],
+    },
+    {
+      id: 'entrenar',
+      question: '¿Qué debería entrenar con mi equipo?',
+      consulted: 'Auditorías del período',
+      intro: 'El tramo de objeciones es el de menor puntaje del equipo este mes.',
+      points: [
+        'En varias llamadas el presupuesto aparece después de la oferta.',
+        'Cuando se pregunta antes, el tramo de objeciones puntúa más alto.',
+      ],
+      closing:
+        'Para practicar: preguntar por el presupuesto antes de presentar la oferta. Hay un ejemplo en la llamada de Carla P., minuto 18:42.',
+      actions: ['Ver auditorías', 'Abrir la llamada'],
+    },
+    {
+      id: 'closer',
+      question: '¿Qué closer necesita apoyo?',
+      consulted: 'Ranking del equipo',
+      intro: 'Mateo G. cerró 3 de 14 llamadas este mes: 21%. El equipo cerró 24 de 96: 25%.',
+      points: [
+        'Con 14 llamadas la muestra es chica: una venta más lo deja en 29%.',
+        'También fue quien menos llamadas recibió del equipo.',
+      ],
+      closing: 'Antes de sacar una conclusión, revisa sus auditorías y cuántas agendas le llegan.',
+      actions: ['Ver perfil de Mateo', 'Ver reparto de agendas'],
+    },
+    {
+      id: 'seguimientos',
+      question: '¿Qué seguimientos están vencidos?',
+      consulted: 'Seguimientos',
+      intro: 'Hay 6 seguimientos vencidos y 4 programados para hoy.',
+      points: [
+        '4 vencidos son de Andrés R. y 2 de Camila T.',
+        'El más antiguo lleva 5 días sin gestión.',
+      ],
+      closing: 'Los de hoy están repartidos entre Laura M. y Mateo G.',
+      actions: ['Ver seguimientos'],
+    },
+  ],
+}

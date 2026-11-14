@@ -263,9 +263,24 @@ export const featureSections: FeatureSectionData[] = [
   },
 ]
 
-/** Capítulo 05 — la metodología. Mantener siempre el orden: comprender, implementar, acompañar. */
+/**
+ * Capítulo 05 — Jarvis, el asistente. Las preguntas y respuestas de la demo
+ * viven en productDemo.ts.
+ *
+ * ⚠️ Sin grandilocuencia: la guía prohíbe «IA revolucionaria» y «la IA sabe
+ * exactamente por qué perdiste». Lo que se promete es lo que hace: consultar
+ * tus datos y decir qué midió.
+ */
+export const jarvisChapter = {
+  eyebrow: '05 — Pregúntale a tus datos',
+  title: 'Pregunta en español.\nJarvis responde con tus números.',
+  body:
+    'Jarvis es el asistente de SellNode. Consulta tus ventas, tus llamadas auditadas y tu equipo, y contesta diciendo qué midió y sobre qué período. Si la respuesta está en una pantalla, te lleva a ella.',
+}
+
+/** Capítulo 06 — la metodología. Mantener siempre el orden: comprender, implementar, acompañar. */
 export const method = {
-  eyebrow: '05 — Cómo trabajamos',
+  eyebrow: '06 — Cómo trabajamos',
   title: 'Instalar el software no es el trabajo.\nEs el tercio del medio.',
   subtitle:
     'Control Comercial 360: comprende tu operación, organiza tus datos y acompaña a tu equipo para gestionar con mayor claridad.',
@@ -288,20 +303,20 @@ export const method = {
   ],
 }
 
-/** Capítulo 06 — los titulares. Las filas salen de shared.ts, que comparte con /demo. */
+/** Capítulo 07 — los titulares. Las filas salen de shared.ts, que comparte con /demo. */
 export const replace = {
-  eyebrow: '06 — Lo que dejas de pagar',
+  eyebrow: '07 — Lo que dejas de pagar',
   title: 'Cinco o seis suscripciones\nque no se hablan entre sí.',
   subtitle: 'SellNode se queda con el trabajo de todas. Con las que quieras conservar, se conecta.',
 }
 
 /**
- * Capítulo 07 — las objeciones reales del cliente, con la respuesta que la guía
+ * Capítulo 08 — las objeciones reales del cliente, con la respuesta que la guía
  * pide: mostrar, no prometer. No nombramos al competidor: la pelea es contra
  * las alternativas que el cliente ya usa.
  */
 export const objections = {
-  eyebrow: '07 — Lo que ya probaste',
+  eyebrow: '08 — Lo que ya probaste',
   title: 'El problema no es que esas herramientas sean malas.',
   subtitle:
     'Es que terminas pagando con tiempo y mantenimiento el trabajo de adaptarlas a tu operación.',
@@ -329,9 +344,9 @@ export const objections = {
   ],
 }
 
-/** Capítulo 08 — cualificación. Decir para quién no es también vende. */
+/** Capítulo 09 — cualificación. Decir para quién no es también vende. */
 export const fit = {
-  eyebrow: '08 — Si encaja o no',
+  eyebrow: '09 — Si encaja o no',
   title: 'No es para todos,\ny conviene saberlo antes de la llamada.',
   yes: {
     title: 'Encaja si',
@@ -355,9 +370,9 @@ export const fit = {
   },
 }
 
-/** Capítulo 09 — planes. Las cifras salen de site.ts; acá sólo va el copy. */
+/** Capítulo 10 — planes. Las cifras salen de site.ts; acá sólo va el copy. */
 export const pricingCopy = {
-  eyebrow: '09 — Planes',
+  eyebrow: '10 — Planes',
   title: 'No es una licencia.\nEs la implementación y el acompañamiento.',
   body:
     'El pago inicial cubre el diagnóstico, la configuración de tu operación y la capacitación de tu equipo. La mensualidad es la plataforma y el acompañamiento continuo.',

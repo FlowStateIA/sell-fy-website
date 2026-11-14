@@ -1,5 +1,14 @@
-import { mechanism, method, objections, problem, replace, whyNotCrm } from '../content/home'
+import {
+  jarvisChapter,
+  mechanism,
+  method,
+  objections,
+  problem,
+  replace,
+  whyNotCrm,
+} from '../content/home'
 import { Chapter, ChapterClose, ChapterGrid } from './ChapterKit'
+import { JarvisDemo } from './JarvisDemo'
 import { ReplaceGrid } from './ReplaceGrid'
 import { SaleJourney } from './SaleJourney'
 
@@ -45,7 +54,16 @@ export function WhyNotCrm() {
   )
 }
 
-/** 05 — Control Comercial 360. Mantener el orden: comprender, implementar, acompañar. */
+/** 05 — Jarvis: preguntas en español, respuestas con los datos de la operación. */
+export function AskJarvis() {
+  return (
+    <Chapter eyebrow={jarvisChapter.eyebrow} title={jarvisChapter.title} body={jarvisChapter.body}>
+      <JarvisDemo />
+    </Chapter>
+  )
+}
+
+/** 06 — Control Comercial 360. Mantener el orden: comprender, implementar, acompañar. */
 export function Method() {
   return (
     <Chapter tone="light" eyebrow={method.eyebrow} title={method.title} body={method.subtitle}>
@@ -54,7 +72,7 @@ export function Method() {
   )
 }
 
-/** 06 — lo que deja de pagar. La grilla sale de shared.ts, igual que en /demo. */
+/** 07 — lo que deja de pagar. La grilla sale de shared.ts, igual que en /demo. */
 export function Replace() {
   return (
     <Chapter shadeIndex={1} eyebrow={replace.eyebrow} title={replace.title} body={replace.subtitle}>
@@ -63,7 +81,7 @@ export function Replace() {
   )
 }
 
-/** 07 — las objeciones reales, contestadas mostrando y no prometiendo. */
+/** 08 — las objeciones reales, contestadas mostrando y no prometiendo. */
 export function Objections() {
   return (
     <Chapter

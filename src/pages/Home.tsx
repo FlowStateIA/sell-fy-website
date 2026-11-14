@@ -2,6 +2,7 @@ import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
 import {
+  AskJarvis,
   HowItConnects,
   Method,
   Objections,
@@ -52,6 +53,7 @@ export function Home() {
         ))}
       </div>
 
+      <AskJarvis />
       <Method />
       <Replace />
       <Objections />
