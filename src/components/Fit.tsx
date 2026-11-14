@@ -5,7 +5,7 @@ import { fit } from '../content/home'
 import { Chapter } from './ChapterKit'
 import { palette } from '../lib/tone'
 import { Label } from './ui'
-import { color, motion as mo, radius, type } from '../lib/theme'
+import { color, motion as mo, radius, space, type } from '../lib/theme'
 
 /**
  * Capítulo 08 — cualificación, en marfil. Tercer corte claro de la página, y el
@@ -23,7 +23,7 @@ export function Fit() {
 
   return (
     <Chapter tone="light" eyebrow={fit.eyebrow} title={fit.title}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4" style={{ marginTop: 56 }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4" style={{ marginTop: space.block }}>
         {columns.map((col, i) => (
           <motion.div
             key={col.title}

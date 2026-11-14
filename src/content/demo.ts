@@ -260,7 +260,7 @@ export const nextTier = {
  * información, más las decisiones que se toman sin data, más las
  * suscripciones sueltas que ya se están pagando.
  *
- * ⚠️ Sólo hay una tarjeta. El contrapeso de Sell-Fy es el bloque de precio
+ * ⚠️ Sólo hay una tarjeta. El contrapeso de SellNode es el bloque de precio
  * que va justo debajo ($500 de setup + $297/mes), no una segunda tarjeta.
  */
 export const costComparison = {

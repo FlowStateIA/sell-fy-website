@@ -40,25 +40,25 @@ export const demoTabs: {
   {
     id: 'tablero',
     label: 'Tablero',
-    url: 'app.sell-fy.app/dashboard',
+    url: 'app.sell-node.com/dashboard',
     toast: { title: 'Venta registrada', body: 'Laura M. cerró Mentoría 12 semanas · $3,000' },
   },
   {
     id: 'atribucion',
     label: 'Atribución',
-    url: 'app.sell-fy.app/atribucion/resultados',
+    url: 'app.sell-node.com/atribucion/resultados',
     toast: { title: 'Agenda nueva', body: 'Entró por el embudo Webinar · setter Dani V.' },
   },
   {
     id: 'llamadas',
     label: 'Llamadas',
-    url: 'app.sell-fy.app/llamadas',
+    url: 'app.sell-node.com/llamadas',
     toast: { title: 'Llamada auditada', body: 'Score 82 de 100 · un momento a revisar' },
   },
   {
     id: 'cobros',
     label: 'Cobros',
-    url: 'app.sell-fy.app/ventas/cobros',
+    url: 'app.sell-node.com/ventas/cobros',
     toast: { title: 'Cuota cobrada', body: 'Carla P. pagó $800 · quedan $1,200' },
   },
 ]
@@ -195,7 +195,7 @@ export type OfferId = 'todas' | 'mentoria' | 'intensivo'
 
 /** Inteligencia de clientes: lo que dicen en las llamadas, agrupado por oferta. */
 export const clientes = {
-  url: 'app.sell-fy.app/inteligencia/clientes',
+  url: 'app.sell-node.com/inteligencia/clientes',
   filterLabel: 'Filtrar por oferta',
   offers: [
     { id: 'todas' as OfferId, label: 'Todas las ofertas', calls: 96 },
@@ -228,7 +228,7 @@ export const clientes = {
 
 /** Mapa de una llamada: sus tramos, con marca de tiempo, puntaje y una nota revisable. */
 export const mapa = {
-  url: 'app.sell-fy.app/llamadas/auditoria',
+  url: 'app.sell-node.com/llamadas/auditoria',
   title: 'Mapa de la llamada',
   meta: 'Carla P. · closer Laura M. · 46 min',
   segmentsLabel: 'Tramos de la llamada',
@@ -256,7 +256,7 @@ export type CobroViewId = 'comisiones' | 'mora'
 
 /** Comisiones (liberadas con el cobro, no con la venta) y cuotas en mora. */
 export const comisiones = {
-  url: 'app.sell-fy.app/ventas/comisiones',
+  url: 'app.sell-node.com/ventas/comisiones',
   viewLabel: 'Vista',
   views: [
     { id: 'comisiones' as CobroViewId, label: 'Comisiones' },
@@ -292,7 +292,7 @@ export type CompareViewId = 'embudos' | 'closers' | 'duplas'
 
 /** Comparación en el mismo período. Embudos y closers reutilizan los datos del hero. */
 export const comparar = {
-  url: 'app.sell-fy.app/analitica',
+  url: 'app.sell-node.com/analitica',
   viewLabel: 'Comparar por',
   views: [
     { id: 'embudos' as CompareViewId, label: 'Embudos' },

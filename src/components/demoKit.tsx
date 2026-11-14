@@ -86,10 +86,25 @@ export function Bar({
   )
 }
 
-export function TableHead({ columns, template }: { columns: string[]; template: string }) {
+/**
+ * Cabecera de tabla. Las columnas se definen con `template` (en línea) o con
+ * `className` cuando la tabla cambia de columnas según el ancho; `mobileHidden`
+ * dice qué columnas no se muestran en teléfono.
+ */
+export function TableHead({
+  columns,
+  template,
+  className = '',
+  mobileHidden = [],
+}: {
+  columns: string[]
+  template?: string
+  className?: string
+  mobileHidden?: number[]
+}) {
   return (
     <div
-      className="grid items-center"
+      className={`grid items-center ${className}`}
       style={{
         gridTemplateColumns: template,
         gap: 10,
@@ -100,6 +115,7 @@ export function TableHead({ columns, template }: { columns: string[]; template: 
       {columns.map((c, i) => (
         <span
           key={c}
+          className={mobileHidden.includes(i) ? 'hidden sm:block' : undefined}
           style={{
             fontSize: 10,
             fontWeight: 700,

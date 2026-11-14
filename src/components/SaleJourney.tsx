@@ -13,7 +13,7 @@ import {
 
 import { journey, money, type JourneyStepId } from '../content/productDemo'
 import { cell, fig } from '../lib/demoStyle'
-import { color, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
 import { Bar } from './demoKit'
 import { Label } from './ui'
 
@@ -334,7 +334,7 @@ export function SaleJourney() {
     <div
       ref={ref}
       className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] gap-4 lg:gap-5"
-      style={{ marginTop: 56 }}
+      style={{ marginTop: space.block }}
     >
       {/* Los pasos */}
       <div
@@ -407,8 +407,8 @@ export function SaleJourney() {
 
       {/* La escena */}
       <div
-        className="glass relative flex flex-col overflow-hidden"
-        style={{ borderRadius: radius.xl, minHeight: 440 }}
+        className="glass relative flex flex-col overflow-hidden min-h-[380px] lg:min-h-[440px]"
+        style={{ borderRadius: radius.xl }}
       >
         {/* Resplandor detrás de la escena */}
         <div
@@ -418,7 +418,7 @@ export function SaleJourney() {
               'radial-gradient(60% 55% at 50% 38%, rgba(236,60,50,0.13), transparent 70%)',
           }}
         />
-        <div className="relative flex-1 flex items-center justify-center" style={{ padding: 24 }}>
+        <div className="relative flex-1 flex items-center justify-center p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={step.id}

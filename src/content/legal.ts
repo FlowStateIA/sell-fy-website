@@ -10,7 +10,7 @@ NIT: 901470221-5
 Domicilio: Calle 42 D Sur, Medellín, Colombia
 Teléfono: +57 333 237 1945
 Correo de privacidad: privacidad@sell-fy.app
-La plataforma SellNode está disponible a través del dominio sell-fy.app y sus subdominios.
+La plataforma SellNode está disponible a través del dominio sell-node.com y sus subdominios.
 
 2. MARCO LEGAL APLICABLE
 
@@ -85,7 +85,7 @@ Cambios sustanciales notificados por correo y aviso en la Plataforma con al meno
 
 Flow State IA SAS
 NIT: 901470221-5
-SellNode — sell-fy.app — privacidad@sell-fy.app
+SellNode — sell-node.com — privacidad@sell-fy.app
 Calle 42 D Sur, Medellín, Colombia`
 
 export const termsContent = `TÉRMINOS Y CONDICIONES DEL SERVICIO — SellNode
@@ -95,7 +95,7 @@ privacidad@sell-fy.app
 
 1. PARTES Y ACEPTACIÓN
 
-Los presentes Términos regulan el acceso y uso de la plataforma SellNode, disponible en sell-fy.app, operada por Flow State IA SAS, sociedad constituida bajo las leyes de la República de Colombia.
+Los presentes Términos regulan el acceso y uso de la plataforma SellNode, disponible en sell-node.com, operada por Flow State IA SAS, sociedad constituida bajo las leyes de la República de Colombia.
 
 Al acceder, registrarse o utilizar la Plataforma, el usuario y/o la Organización contratante ("el Cliente") aceptan estos Términos en su totalidad.
 
@@ -160,5 +160,5 @@ Leyes de la República de Colombia. Las controversias se resolverán mediante ne
 Cláusulas inválidas no afectan las demás. La falta de ejercicio de un derecho no implica renuncia. Estos Términos constituyen el acuerdo completo entre las partes.
 
 Flow State IA SAS
-SellNode — sell-fy.app — privacidad@sell-fy.app
+SellNode — sell-node.com — privacidad@sell-fy.app
 Calle 42 D Sur, Medellín, Colombia`

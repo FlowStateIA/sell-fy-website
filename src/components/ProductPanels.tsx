@@ -40,7 +40,7 @@ function PanelWindow({ url, children }: { url: string; children: ReactNode }) {
         style={{ borderRadius: 16, backgroundColor: color.surface }}
       >
         <WindowChrome url={url} badge={demoMeta.badge} />
-        <div style={{ padding: 16 }}>{children}</div>
+        <div className="p-3 sm:p-4">{children}</div>
       </div>
     </div>
   )
@@ -384,7 +384,14 @@ function CompararPanel() {
   const [view, setView] = useState<CompareViewId>('embudos')
   const rows = COMPARE_ROWS[view]
   const max = Math.max(...rows.map(r => r.cobrado))
-  const template = 'minmax(0,1.6fr) 0.7fr 0.6fr 1.5fr'
+  // En teléfono quedan tres columnas: quién, su cierre y lo cobrado. Con cuatro,
+  // «Dani V. + Laura M.» no entraba y se cortaba justo el dato que importa.
+  const cols =
+    'grid-cols-[minmax(0,2fr)_0.6fr_1fr] sm:grid-cols-[minmax(0,1.6fr)_0.7fr_0.6fr_1.5fr]'
+  // Cuál se oculta depende de la vista: en embudos se conservan las agendas,
+  // porque el argumento es «mismo volumen, distinto cobro»; en closers y duplas,
+  // la tasa de cierre.
+  const hideFirst = view !== 'embudos'
 
   return (
     <PanelWindow url={comparar.url}>
@@ -411,23 +418,30 @@ function CompararPanel() {
 
       <Swap id={view}>
         <Card>
-          <TableHead columns={comparar.columns[view]} template={template} />
+          <TableHead
+            columns={comparar.columns[view]}
+            className={cols}
+            mobileHidden={[hideFirst ? 1 : 2]}
+          />
           {rows.map((row, i) => (
             <div
               key={row.name}
-              className="grid items-center"
+              className={`grid items-center ${cols}`}
               style={{
-                gridTemplateColumns: template,
                 gap: 10,
                 padding: '11px 0',
                 borderBottom: rowBorder(i, rows.length),
               }}
             >
-              <span className="truncate" style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>
+              <span className="sm:truncate" style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>
                 {row.name}
               </span>
-              <span style={cell}>{row.a}</span>
-              <span style={cell}>{row.b}</span>
+              <span className={hideFirst ? 'hidden sm:block' : undefined} style={cell}>
+                {row.a}
+              </span>
+              <span className={hideFirst ? undefined : 'hidden sm:block'} style={cell}>
+                {row.b}
+              </span>
               <span className="flex items-center justify-end" style={{ gap: 10 }}>
                 <span className="hidden sm:block flex-1" style={{ maxWidth: 84 }}>
                   <Bar pct={(row.cobrado / max) * 100} tone="good" height={4} delay={i * 0.07} />

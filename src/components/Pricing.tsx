@@ -5,7 +5,7 @@ import { pricingCopy } from '../content/home'
 import { Chapter, DemoCta } from './ChapterKit'
 import { palette } from '../lib/tone'
 import { Label } from './ui'
-import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, depth, motion as mo, radius, space, type } from '../lib/theme'
 
 /**
  * Capítulo 10 — planes.
@@ -33,17 +33,20 @@ export function Pricing() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: mo.base, delay: 0.1, ease: mo.ease }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px overflow-hidden"
-        style={{
-          marginTop: 64,
-          borderRadius: radius.lg,
-          border: `1px solid ${onDark.lineSoft}`,
-          backgroundColor: onDark.lineSoft,
-          overflow: 'hidden',
-        }}
+        // En teléfono, una fila que se desliza (seis tarjetas apiladas eran más de
+        // una pantalla). Desde md, la grilla con costuras de un píxel.
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 scroll-px-6
+                   md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-px md:overflow-hidden
+                   md:rounded-[18px] md:border md:border-[rgba(246,245,240,0.055)] md:bg-[rgba(246,245,240,0.055)]"
+        style={{ marginTop: space.block }}
       >
         {pricingCopy.includes.map(item => (
-          <div key={item.title} style={{ padding: '30px 28px', backgroundColor: color.bg }}>
+          <div
+            key={item.title}
+            className="glass md:!border-0 md:!shadow-none md:![background-image:none] snap-start shrink-0 w-[82%] md:w-auto
+                       rounded-[18px] md:rounded-none px-6 py-6 md:px-7 md:py-[30px]"
+            style={{ backgroundColor: color.bg }}
+          >
             <div style={{ ...type.h3, fontSize: 15, color: c.primary, marginBottom: 8 }}>
               {item.title}
             </div>

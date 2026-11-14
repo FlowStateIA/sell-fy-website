@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 import { savings } from '../content/home'
 import { PLANS } from '../content/site'
-import { color, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
 import { Chapter } from './ChapterKit'
 import { Label } from './ui'
 
@@ -48,12 +48,12 @@ export function SavingsTable() {
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: mo.base, ease: mo.ease }}
         className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_240px]"
-        style={{ marginTop: 60 }}
+        style={{ marginTop: space.block }}
       >
         {/* Por separado */}
         <div
           className="glass md:!rounded-r-none"
-          style={{ borderRadius: radius.xl, padding: '8px 26px 0' }}
+          style={{ borderRadius: radius.xl, padding: '8px clamp(16px, 4vw, 26px) 0' }}
         >
           <div
             className="flex items-center justify-between"

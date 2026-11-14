@@ -36,7 +36,7 @@ export function Home() {
       <Navbar />
       <Hero />
 
-      <div style={{ padding: '56px 0 72px' }}>
+      <div style={{ padding: 'clamp(36px, 5vw, 56px) 0 clamp(44px, 6vw, 72px)' }}>
         <IntegrationsMarquee label={integrationsLabel} />
       </div>
 
@@ -47,7 +47,7 @@ export function Home() {
 
       {/* 04 — Así se ve. El rótulo abre el capítulo y las cuatro secciones son su cuerpo. */}
       <div id="producto" style={{ scrollMarginTop: 80, backgroundColor: shade[1] }}>
-        <div className="mx-auto px-6" style={{ maxWidth: space.maxWidth, paddingTop: 96 }}>
+        <div className="mx-auto px-6" style={{ maxWidth: space.maxWidth, paddingTop: 'clamp(60px, 8vw, 96px)' }}>
           <Label>{productChapter.eyebrow}</Label>
         </div>
         {featureSections.map((section, i) => (

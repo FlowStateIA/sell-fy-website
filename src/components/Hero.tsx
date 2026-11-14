@@ -20,7 +20,7 @@ export function Hero() {
   return (
     <section
       className="relative grain"
-      style={{ paddingTop: 148, paddingBottom: 28, overflow: 'hidden' }}
+      style={{ paddingTop: 'clamp(112px, 15vw, 148px)', paddingBottom: 28, overflow: 'hidden' }}
     >
       {/* El resplandor del rojo de marca queda detrás de la ventana de producto,
           no arriba: es la ventana la que tiene que parecer encendida. */}
@@ -96,7 +96,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.32, ease: mo.ease }}
           className="w-full"
-          style={{ marginTop: 64 }}
+          style={{ marginTop: 'clamp(40px, 6vw, 64px)' }}
         >
           <ProductDemo />
         </motion.div>

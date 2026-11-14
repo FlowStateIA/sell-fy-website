@@ -18,10 +18,12 @@ import {
 import {
   atribucion,
   cobros,
+  comisiones,
   demoMeta,
   demoNav,
   demoTabs,
   llamada,
+  mapa,
   money,
   tablero,
   type DemoTabId,
@@ -71,7 +73,9 @@ function PanelTablero() {
   const cobradoPct = (revenue.cobrado / revenue.vendido) * 100
   const maxFunnel = funnel.rows[0].value
   const maxCobrado = closers.rows[0].cobrado
-  const template = 'minmax(0,1.5fr) 0.7fr 0.6fr 0.6fr 1fr'
+  // En teléfono no caben cinco columnas: quedan el closer, su cierre y lo cobrado.
+  const cols =
+    'grid-cols-[minmax(0,1.5fr)_0.6fr_1fr] sm:grid-cols-[minmax(0,1.5fr)_0.7fr_0.6fr_0.6fr_1fr]'
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
@@ -150,13 +154,12 @@ function PanelTablero() {
       </Card>
 
       <Card className="lg:col-span-12" title={closers.title} meta={closers.meta}>
-        <TableHead columns={closers.columns} template={template} />
+        <TableHead columns={closers.columns} className={cols} mobileHidden={[1, 2]} />
         {closers.rows.map((row, i) => (
           <div
             key={row.name}
-            className="grid items-center"
+            className={`grid items-center ${cols}`}
             style={{
-              gridTemplateColumns: template,
               gap: 10,
               padding: '9px 0',
               borderBottom:
@@ -171,8 +174,12 @@ function PanelTablero() {
                 {row.name}
               </span>
             </span>
-            <span style={cell}>{row.llamadas}</span>
-            <span style={cell}>{row.ventas}</span>
+            <span className="hidden sm:block" style={cell}>
+              {row.llamadas}
+            </span>
+            <span className="hidden sm:block" style={cell}>
+              {row.ventas}
+            </span>
             <span style={cell}>{row.cierre}</span>
             <span className="flex items-center justify-end" style={{ gap: 10 }}>
               <span className="hidden sm:block flex-1" style={{ maxWidth: 70 }}>
@@ -351,6 +358,29 @@ function PanelLlamada() {
           })}
         </div>
       </Card>
+
+      {/* Sólo en escritorio: completa la pantalla, que quedaba con media ventana
+          vacía. En teléfono la demo ya es larga y esto está más abajo, en la
+          sección de auditoría. */}
+      <Card className="hidden lg:block lg:col-span-12" title={mapa.planTitle} meta={mapa.planMeta}>
+        <ol className="grid grid-cols-3" style={{ gap: 18 }}>
+          {mapa.plan.map((item, i) => (
+            <li key={item.action} className="flex items-start" style={{ gap: 10 }}>
+              <span style={{ ...type.figure, fontSize: 11.5, color: onDark.faint, marginTop: 2 }}>
+                {i + 1}
+              </span>
+              <span>
+                <span className="block" style={{ fontSize: 12.5, lineHeight: '19px', color: onDark.primary }}>
+                  {item.action}
+                </span>
+                <span className="block" style={{ fontSize: 11, color: onDark.tertiary, marginTop: 4 }}>
+                  {item.impact}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </Card>
     </div>
   )
 }
@@ -437,6 +467,29 @@ function PanelCobros() {
           </div>
         </Card>
       </div>
+
+      {/* Sólo en escritorio, por la misma razón que el plan de mejora de Llamadas. */}
+      <Card
+        className="hidden lg:block lg:col-span-12"
+        title={comisiones.overdue.title}
+        meta={comisiones.overdue.meta}
+      >
+        <div className="grid grid-cols-3" style={{ gap: 18 }}>
+          {comisiones.overdue.rows.map(row => (
+            <div key={row.name} className="flex items-center justify-between" style={{ gap: 10 }}>
+              <span className="min-w-0">
+                <span className="block" style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>
+                  {row.name}
+                </span>
+                <span className="block truncate" style={{ fontSize: 11, color: onDark.tertiary, marginTop: 2 }}>
+                  {row.detail}
+                </span>
+              </span>
+              <span style={{ ...cell, fontWeight: 700, color: color.red }}>{money(row.amount)}</span>
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   )
 }
@@ -628,7 +681,7 @@ export function ProductDemo() {
           </aside>
 
           {/* Pantalla */}
-          <div className="flex-1 min-w-0" style={{ padding: 16 }}>
+          <div className="flex-1 min-w-0 p-3 sm:p-4">
             <div
               className="flex items-center justify-between"
               style={{ marginBottom: 14, gap: 12 }}

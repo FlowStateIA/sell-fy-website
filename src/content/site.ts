@@ -3,7 +3,17 @@
  * Centralizadas para que un cambio de URL o de precio no haya que buscarlo en varios archivos.
  */
 
-export const APP_URL = 'https://app.sell-fy.app'
+/**
+ * La app. El dominio viejo (app.sell-fy.app) redirige acá desde la migración a
+ * SellNode, así que se enlaza directo al nuevo.
+ */
+export const APP_URL = 'https://app.sell-node.com'
+/**
+ * ⚠️ Las dos direcciones de abajo (Calendly y el checkout Standard de Whop)
+ * todavía llevan «sell-fy» en la ruta. No se pueden cambiar desde el código:
+ * son el nombre de la cuenta en cada servicio. Cuando se renombren allá, se
+ * actualizan acá; mientras tanto, cambiarlas a mano las rompería.
+ */
 export const CALENDLY_URL = 'https://calendly.com/sell-fy/30min'
 
 /**

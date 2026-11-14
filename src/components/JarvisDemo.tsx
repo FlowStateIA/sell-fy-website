@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-mot
 import { ArrowUp, MessageSquareText } from 'lucide-react'
 
 import { demoMeta, jarvis } from '../content/productDemo'
-import { color, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
 import { WindowChrome } from './demoKit'
 import { Label } from './ui'
 
@@ -65,7 +65,7 @@ export function JarvisDemo() {
     <div
       ref={ref}
       className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-4 lg:gap-5"
-      style={{ marginTop: 56 }}
+      style={{ marginTop: space.block }}
     >
       {/* Las preguntas */}
       <div>
@@ -141,9 +141,9 @@ export function JarvisDemo() {
       <div className="bezel" style={{ borderRadius: radius.xl }}>
         <div
           className="relative flex flex-col overflow-hidden text-left"
-          style={{ borderRadius: 16, backgroundColor: color.surface, minHeight: 470 }}
+          style={{ borderRadius: 16, backgroundColor: color.surface, minHeight: 440 }}
         >
-          <WindowChrome url="app.sell-fy.app/asistente" badge={demoMeta.badge} />
+          <WindowChrome url="app.sell-node.com/asistente" badge={demoMeta.badge} />
 
           {/* Resplandor de fondo */}
           <div

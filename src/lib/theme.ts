@@ -71,14 +71,14 @@ export const weight = { regular: 400, bold: 700 } as const
 export const type = {
   /** Titular del hero. */
   display: {
-    fontSize: 'clamp(38px, 5.6vw, 68px)',
+    fontSize: 'clamp(33px, 5.6vw, 68px)',
     lineHeight: 1.04,
     letterSpacing: '-0.055em',
     fontWeight: weight.regular,
   },
   /** Titular de capítulo. */
   h2: {
-    fontSize: 'clamp(29px, 3.9vw, 46px)',
+    fontSize: 'clamp(27px, 3.9vw, 46px)',
     lineHeight: 1.08,
     letterSpacing: '-0.052em',
     fontWeight: weight.regular,
@@ -132,8 +132,12 @@ export const radius = {
 
 /** Ritmo vertical. */
 export const space = {
-  section: 'clamp(84px, 9vw, 132px)',
-  sectionTight: 'clamp(64px, 7vw, 100px)',
+  // El mínimo es lo que se ve en un teléfono: con 84px por sección la página
+  // medía 27 pantallas de alto.
+  section: 'clamp(60px, 9vw, 132px)',
+  sectionTight: 'clamp(48px, 7vw, 100px)',
+  /** Separación entre el encabezado de un capítulo y su pieza. */
+  block: 'clamp(36px, 5vw, 60px)',
   gutter: 24,
   maxWidth: 1180,
 } as const

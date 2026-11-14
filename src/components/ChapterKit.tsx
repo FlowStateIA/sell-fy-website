@@ -117,7 +117,13 @@ export function ChapterGrid({
         : 'sm:grid-cols-2 lg:grid-cols-3'
 
   return (
-    <div className={`grid grid-cols-1 ${colClass} gap-3 md:gap-4`} style={{ marginTop: 60 }}>
+    // En teléfono las tarjetas van en una fila que se desliza, con la siguiente
+    // asomando: apiladas, cuatro o cinco tarjetas eran pantalla y media de scroll.
+    <div
+      className={`flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 scroll-px-6
+                  sm:grid sm:mx-0 sm:px-0 sm:overflow-visible ${colClass} md:gap-4`}
+      style={{ marginTop: space.block }}
+    >
       {items.map((item, i) => {
         const accent = accentLast && i === items.length - 1
         const skin = accent ? 'glass-accent' : light ? 'paper' : 'glass'
@@ -130,7 +136,7 @@ export function ChapterGrid({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: mo.fast, delay: Math.min(i, 4) * 0.07, ease: mo.ease }}
-            className={skin}
+            className={`${skin} snap-start shrink-0 w-[82%] sm:w-auto`}
             style={{ padding: '24px 22px 26px', borderRadius: radius.lg }}
           >
             {item.tag && (
@@ -161,8 +167,8 @@ export function ChapterClose({ children }: { children: ReactNode }) {
   return (
     <p
       style={{
-        marginTop: 52,
-        paddingTop: 28,
+        marginTop: 'clamp(32px, 4.5vw, 52px)',
+        paddingTop: 26,
         borderTop: `1px solid ${c.line}`,
         ...(type.lead as CSSProperties),
         color: c.primary,
