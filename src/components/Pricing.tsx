@@ -3,6 +3,9 @@ import { motion } from 'framer-motion'
 import { PLANS } from '../content/site'
 import { pricingCopy } from '../content/home'
 import { Chapter, DemoCta } from './ChapterKit'
+import { palette } from '../lib/tone'
+import { Label } from './ui'
+import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
 
 /**
  * Capítulo 10 — planes.
@@ -16,6 +19,7 @@ import { Chapter, DemoCta } from './ChapterKit'
  * que sea agendar demo. La compra directa sigue viva en /demo.
  */
 export function Pricing() {
+  const c = palette('dark')
   return (
     <Chapter
       id="precios"
@@ -28,21 +32,22 @@ export function Pricing() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: mo.base, delay: 0.1, ease: mo.ease }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px overflow-hidden"
         style={{
-          marginTop: 56,
-          borderRadius: 8,
-          border: '1px solid rgba(255,255,255,0.06)',
-          backgroundColor: 'rgba(255,255,255,0.04)',
+          marginTop: 64,
+          borderRadius: radius.lg,
+          border: `1px solid ${onDark.lineSoft}`,
+          backgroundColor: onDark.lineSoft,
+          overflow: 'hidden',
         }}
       >
         {pricingCopy.includes.map(item => (
-          <div key={item.title} style={{ padding: '32px', backgroundColor: '#08090a' }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', marginBottom: 8 }}>
+          <div key={item.title} style={{ padding: '30px 28px', backgroundColor: color.bg }}>
+            <div style={{ ...type.h3, fontSize: 15, color: c.primary, marginBottom: 8 }}>
               {item.title}
             </div>
-            <div style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76' }}>{item.desc}</div>
+            <div style={{ ...type.body, fontSize: 13.5, color: c.secondary }}>{item.desc}</div>
           </div>
         ))}
       </motion.div>
@@ -52,9 +57,9 @@ export function Pricing() {
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.4, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
-        style={{ marginTop: 32 }}
+        transition={{ duration: mo.base, delay: 0.18, ease: mo.ease }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"
+        style={{ marginTop: 16 }}
       >
         {[
           {
@@ -71,29 +76,42 @@ export function Pricing() {
         ].map(({ plan, highlight, extra }) => (
           <div
             key={plan.name}
+            className="hairline relative"
             style={{
-              padding: '28px',
-              borderRadius: 8,
-              border: highlight
-                ? '1px solid rgba(229,83,75,0.35)'
-                : '1px solid rgba(255,255,255,0.06)',
-              backgroundColor: '#0d0e10',
+              padding: '30px 28px',
+              borderRadius: radius.lg,
+              backgroundColor: highlight ? 'rgba(236,60,50,0.05)' : color.surface,
+              boxShadow: depth.card,
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-              <span style={{ fontSize: 15, fontWeight: 700, color: '#f7f8f8' }}>{plan.name}</span>
+            {highlight && (
               <span
-                className="font-mono"
-                style={{ fontSize: 22, fontWeight: 700, color: '#f7f8f8' }}
+                className="absolute"
+                style={{
+                  top: 30,
+                  right: 28,
+                  padding: '5px 10px',
+                  borderRadius: radius.pill,
+                  backgroundColor: 'rgba(236,60,50,0.14)',
+                  border: `1px solid rgba(236,60,50,0.3)`,
+                }}
               >
+                <Label>Recomendado</Label>
+              </span>
+            )}
+            <Label tone="muted" style={{ marginBottom: 14 }}>
+              {plan.name}
+            </Label>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 10 }}>
+              <span style={{ ...type.figure, fontSize: 38, fontWeight: 700, color: c.primary }}>
                 {plan.monthly}
               </span>
-              <span style={{ fontSize: 13, color: '#6b6f76', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 13, color: c.tertiary, whiteSpace: 'nowrap' }}>
                 USD {plan.monthlyPeriod}
               </span>
             </div>
-            <div style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98' }}>{extra}</div>
-            <div style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 4 }}>
+            <div style={{ ...type.body, color: c.secondary }}>{extra}</div>
+            <div style={{ ...type.body, fontSize: 13.5, color: c.tertiary, marginTop: 8 }}>
               {`Implementación ${plan.setup} USD, incluye tu primer mes. Mensualidad desde el segundo mes.`}
             </div>
           </div>

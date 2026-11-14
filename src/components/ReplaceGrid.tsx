@@ -10,6 +10,7 @@ import {
 
 import { CONNECT_LOGOS } from './brandLogoMaps'
 import { connectsWith, insteadOfLabel, replaceRows, type ReplaceIcon } from '../content/shared'
+import { color, depth, onDark, radius, type } from '../lib/theme'
 
 /**
  * El bloque «en lugar de»: cada módulo de SellNode contra la herramienta que
@@ -37,12 +38,12 @@ export function ReplaceIconChip({ name }: { name: ReplaceIcon }) {
       style={{
         width: 36,
         height: 36,
-        borderRadius: 9,
-        border: '1px solid rgba(220,38,38,0.22)',
-        backgroundColor: 'rgba(220,38,38,0.07)',
+        borderRadius: radius.sm,
+        border: `1px solid rgba(236,60,50,0.24)`,
+        backgroundColor: 'rgba(236,60,50,0.08)',
       }}
     >
-      <Icon size={17} strokeWidth={1.6} color="#e5534b" />
+      <Icon size={17} strokeWidth={1.7} color={color.red} />
     </div>
   )
 }
@@ -57,16 +58,16 @@ export function ReplaceGrid() {
         {replaceRows.map(row => (
           <div
             key={row.inside}
-            className="flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
+            className="hairline flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
             style={{
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: '#0b0c0e',
+              borderRadius: radius.md,
+              backgroundColor: color.surface,
+              boxShadow: depth.card,
             }}
           >
             <ReplaceIconChip name={row.icon} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: 14, fontWeight: 550, lineHeight: '20px', color: '#f7f8f8' }}>
+              <div style={{ ...type.h3, fontSize: 14.5, lineHeight: '20px', color: onDark.primary }}>
                 {row.inside}
               </div>
               {/* En móvil el rótulo va en la misma línea que la herramienta:
@@ -77,8 +78,8 @@ export function ReplaceGrid() {
                     fontSize: 10,
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: '0.07em',
-                    color: '#484b52',
+                    letterSpacing: '0.1em',
+                    color: onDark.faint,
                   }}
                 >
                   {insteadOfLabel}
@@ -88,9 +89,9 @@ export function ReplaceGrid() {
                   style={{
                     fontSize: 13,
                     lineHeight: '19px',
-                    color: '#6b6f76',
+                    color: onDark.tertiary,
                     textDecoration: 'line-through',
-                    textDecorationColor: 'rgba(229,83,75,0.45)',
+                    textDecorationColor: 'rgba(236,60,50,0.5)',
                   }}
                 >
                   {row.outside}
@@ -113,8 +114,8 @@ export function ReplaceGrid() {
             fontSize: 12,
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            color: '#6b6f76',
+            letterSpacing: '0.12em',
+            color: onDark.tertiary,
           }}
         >
           {connectsWith.title}
@@ -128,11 +129,11 @@ export function ReplaceGrid() {
                 className="inline-flex items-center gap-2.5"
                 style={{
                   padding: '9px 16px',
-                  borderRadius: 999,
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  borderRadius: radius.pill,
+                  border: `1px solid ${onDark.line}`,
+                  backgroundColor: 'rgba(246,245,240,0.03)',
                   fontSize: 13,
-                  color: '#d0d6e0',
+                  color: onDark.secondary,
                 }}
               >
                 {Logo && <Logo size={20} />}

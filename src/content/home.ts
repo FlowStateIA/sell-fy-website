@@ -47,6 +47,8 @@ export const nav = {
 export const hero = {
   eyebrow: 'Del embudo a la llamada al cobro',
   headline: '¿Qué embudo te dejó más dinero cobrado este mes?',
+  /** La parte del titular que va en marfil pleno; el resto queda un tono abajo. */
+  headlineEmphasis: 'más dinero cobrado',
   subheadline:
     'SellNode es el CRM para equipos que venden por llamada. Conecta el origen, la llamada y el cobro de cada venta, para que la respuesta esté en una pantalla y no en tres hojas de cálculo.',
   ctaSub: 'Implementación acompañada. Tu equipo registrando su operación en menos de 8 días.',
@@ -136,6 +138,8 @@ export const featureSections: FeatureSectionData[] = [
     description:
       'Cada llamada trae los dolores, las objeciones y las aspiraciones que tu cliente dice en voz alta. SellNode las extrae y las agrupa por oferta, para que el copy de tu embudo use las palabras del cliente y no las tuyas.',
     images: [dataImg, data2Img],
+    url: 'app.sell-fy.app/inteligencia/clientes',
+    expects: 'src/assets/data.png · data2.png',
     subFeatures: [
       {
         number: '1.1',
@@ -174,6 +178,8 @@ export const featureSections: FeatureSectionData[] = [
     description:
       'Score por fase de la llamada, mapa con marcas de tiempo, el momento donde se puso en riesgo la venta y un plan de mejora por closer. Sin abrir una grabación.',
     images: [audit1Img, audit2Img, audit3Img, audit4Img],
+    url: 'app.sell-fy.app/llamadas',
+    expects: 'src/assets/audit1.png … audit4.png',
     subFeatures: [
       {
         number: '2.1',
@@ -212,6 +218,8 @@ export const featureSections: FeatureSectionData[] = [
     description:
       'Ventas, cuotas, renovaciones y reembolsos, cada uno en su fecha. Comisiones que se calculan al registrar la venta y se desbloquean cuando el dinero entra. Aviso cuando una cuota vence.',
     images: [ventas1Img, ventas2Img, ventas3Img, ventas4Img],
+    url: 'app.sell-fy.app/ventas',
+    expects: 'src/assets/ventas1.png … ventas4.png',
     subFeatures: [
       {
         number: '3.1',
@@ -250,6 +258,8 @@ export const featureSections: FeatureSectionData[] = [
     description:
       'Compara embudos, closers y duplas en el mismo período. La tasa de cierre dice sobre qué llamadas se calculó, y cada cifra se puede abrir hasta la venta que la originó.',
     images: [analytics1Img, analytics2Img],
+    url: 'app.sell-fy.app/analitica',
+    expects: 'src/assets/analytics1.png · analytics2.png',
     subFeatures: [
       {
         number: '4.1',

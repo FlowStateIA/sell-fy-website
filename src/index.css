@@ -43,6 +43,47 @@
   }
 }
 
+@layer utilities {
+  /* Grano. Una capa casi invisible que le quita el aspecto de degradado digital
+     a los fondos oscuros; sin esto, las zonas grandes de negro se bandean. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Retícula de fondo: da escala y profundidad al hero sin dibujar nada. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(246,245,240,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(246,245,240,0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 75%);
+  }
+
+  /* Borde de una sola línea que se aclara arriba: el truco que hace que una
+     tarjeta parezca tener canto en vez de un contorno plano. */
+  .hairline {
+    position: relative;
+  }
+  .hairline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, rgba(246,245,240,0.16), rgba(246,245,240,0.03) 45%, rgba(246,245,240,0.02));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -51,13 +92,14 @@
   }
 
   body {
-    background-color: #08090a;
-    color: #f7f8f8;
+    background-color: #0A0B0C;
+    color: #F6F5F0;
     font-family: 'DejaVu Sans', -apple-system, system-ui, sans-serif;
   }
 
+  /* Rojo nodo, el del manual de marca. Antes había tres rojos distintos. */
   ::selection {
-    background: rgba(220, 38, 38, 0.15);
-    color: #f7f8f8;
+    background: rgba(236, 60, 50, 0.22);
+    color: #F6F5F0;
   }
 }

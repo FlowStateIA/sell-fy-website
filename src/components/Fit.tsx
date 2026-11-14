@@ -3,62 +3,55 @@ import { motion } from 'framer-motion'
 
 import { fit } from '../content/home'
 import { Chapter } from './ChapterKit'
+import { palette } from '../lib/tone'
+import { Label } from './ui'
+import { color, motion as mo, onLight, radius, type } from '../lib/theme'
 
 /**
- * Capítulo 08 — cualificación. Decir para quién NO es también vende: le ahorra
- * la llamada a quien no encaja y le da confianza a quien sí.
+ * Capítulo 08 — cualificación, en marfil. Tercer corte claro de la página, y el
+ * que más conviene que sea legible: es el que decide si el visitante agenda.
  *
- * Color: salvia para lo que encaja, rojo para lo que no. Sin amarillo, que es
- * la regla de color del producto.
+ * Salvia para lo que encaja, rojo para lo que no. Sin amarillo, que es la regla
+ * de color del producto.
  */
 export function Fit() {
+  const c = palette('light')
   const columns = [
     { ...fit.yes, good: true },
     { ...fit.no, good: false },
   ]
 
   return (
-    <Chapter eyebrow={fit.eyebrow} title={fit.title}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ marginTop: 56 }}>
+    <Chapter tone="light" eyebrow={fit.eyebrow} title={fit.title}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4" style={{ marginTop: 56 }}>
         {columns.map((col, i) => (
           <motion.div
             key={col.title}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.45, delay: i * 0.1 }}
+            transition={{ duration: mo.fast, delay: i * 0.08, ease: mo.ease }}
             style={{
-              padding: '28px',
-              borderRadius: 12,
-              border: col.good
-                ? '1px solid rgba(132,169,140,0.28)'
-                : '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: '#0b0c0e',
+              padding: '30px 28px 32px',
+              borderRadius: radius.lg,
+              backgroundColor: col.good ? 'rgba(132,169,140,0.09)' : 'rgba(255,255,255,0.6)',
+              border: `1px solid ${col.good ? 'rgba(132,169,140,0.32)' : onLight.lineSoft}`,
             }}
           >
-            <div
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: col.good ? '#84a98c' : '#8a8f98',
-                marginBottom: 20,
-              }}
-            >
+            <Label style={{ color: col.good ? '#4F7256' : c.secondary, marginBottom: 22 }}>
               {col.title}
-            </div>
-            <ul className="flex flex-col gap-3">
+            </Label>
+            <ul className="flex flex-col gap-3.5">
               {col.items.map(item => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="flex-shrink-0" style={{ marginTop: 2 }}>
+                  <span className="flex-shrink-0" style={{ marginTop: 3 }}>
                     {col.good ? (
-                      <Check size={16} strokeWidth={2} color="#84a98c" />
+                      <Check size={15} strokeWidth={2.4} color={color.sage} />
                     ) : (
-                      <X size={16} strokeWidth={2} color="#e5534b" />
+                      <X size={15} strokeWidth={2.4} color={color.red} />
                     )}
                   </span>
-                  <span style={{ fontSize: 14, lineHeight: '22px', color: '#d0d6e0' }}>{item}</span>
+                  <span style={{ ...type.body, color: c.primary }}>{item}</span>
                 </li>
               ))}
             </ul>

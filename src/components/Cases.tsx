@@ -2,53 +2,66 @@ import { motion } from 'framer-motion'
 
 import { cases } from '../content/home'
 import { Chapter } from './ChapterKit'
+import { palette } from '../lib/tone'
+import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
+import { Label } from './ui'
 
 /**
- * Capítulo 09 — prueba social.
- *
- * Sólo Manstery y CSM, que son los dos casos autorizados, y SIN cifras de
- * crecimiento: no hay ninguna confirmada, y la nota al pie lo dice en voz alta
- * en lugar de disimularlo. El competidor directo no tiene ni un testimonio.
+ * Capítulo 09 — prueba social. Sólo Manstery y CSM, sin cifras de crecimiento,
+ * y la nota al pie lo dice en voz alta en vez de disimularlo.
  */
 export function Cases() {
+  const c = palette('dark')
+
   return (
     <Chapter eyebrow={cases.eyebrow} title={cases.title}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ marginTop: 56 }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4" style={{ marginTop: 56 }}>
         {cases.items.map((item, i) => (
           <motion.div
             key={item.name}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.45, delay: i * 0.1 }}
-            className="flex flex-col"
+            transition={{ duration: mo.fast, delay: i * 0.08, ease: mo.ease }}
+            className="hairline flex flex-col"
             style={{
-              padding: '32px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.07)',
-              backgroundColor: '#0b0c0e',
+              padding: '34px 30px',
+              borderRadius: radius.lg,
+              backgroundColor: color.surface,
+              boxShadow: depth.card,
             }}
           >
-            <div style={{ fontSize: 20, fontWeight: 550, color: '#f7f8f8', marginBottom: 6 }}>
-              {item.name}
-            </div>
+            {/* Una barra de acento por tarjeta, en vez de un borde entero */}
+            <span
+              style={{
+                width: 28,
+                height: 2,
+                borderRadius: 2,
+                backgroundColor: color.red,
+                marginBottom: 22,
+              }}
+            />
             <div
               style={{
-                fontSize: 12,
-                fontWeight: 500,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                color: '#6b6f76',
-                marginBottom: 20,
+                fontSize: 22,
+                fontWeight: 700,
+                letterSpacing: '-0.025em',
+                color: c.primary,
+                marginBottom: 8,
               }}
             >
-              {item.context}
+              {item.name}
             </div>
-            <p style={{ fontSize: 15, lineHeight: '24px', color: '#d0d6e0' }}>{item.body}</p>
+            <Label tone="muted" style={{ marginBottom: 20 }}>
+              {item.context}
+            </Label>
+            <p style={{ ...type.body, fontSize: 15, lineHeight: '25px', color: c.secondary }}>
+              {item.body}
+            </p>
           </motion.div>
         ))}
       </div>
-      <p style={{ marginTop: 24, fontSize: 13, color: '#6b6f76' }}>{cases.note}</p>
+      <p style={{ marginTop: 26, fontSize: 13, color: onDark.faint }}>{cases.note}</p>
     </Chapter>
   )
 }

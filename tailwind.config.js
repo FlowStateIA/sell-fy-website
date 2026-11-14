@@ -6,14 +6,15 @@ export default {
   ],
   theme: {
     extend: {
+      /* Paleta del manual de marca. Los valores viven en src/lib/theme.ts;
+         acá están sólo los que se usan como clases de Tailwind. */
       colors: {
-        bg: '#08090a',
-        'text-primary': '#f7f8f8',
-        'text-secondary': '#8a8f98',
-        'text-tertiary': '#6b6f76',
-        'text-quaternary': '#484b52',
-        'border-default': 'rgba(255,255,255,0.08)',
-        accent: '#dc2626',
+        bg: '#0A0B0C',
+        ink: '#121415',
+        ivory: '#F6F5F0',
+        mist: '#CDCFC9',
+        slate: '#51595B',
+        accent: '#EC3C32',
       },
       fontFamily: {
         sans: ['"DejaVu Sans"', '-apple-system', 'system-ui', 'sans-serif'],

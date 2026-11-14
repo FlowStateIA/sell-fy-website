@@ -2,6 +2,9 @@ import { motion } from 'framer-motion'
 
 import { mechanism } from '../content/home'
 import { Chapter, ChapterClose } from './ChapterKit'
+import { palette } from '../lib/tone'
+import { Label } from './ui'
+import { motion as mo, type } from '../lib/theme'
 
 /**
  * Capítulo 03 — el mecanismo: origen, llamada y cobro reunidos en un punto.
@@ -21,8 +24,8 @@ const figures = [
     <ellipse cx="100" cy="70" rx="70" ry="25" stroke="rgba(255,255,255,0.25)" strokeWidth="0.8" />
     <line x1="30" y1="70" x2="30" y2="150" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
     <line x1="170" y1="70" x2="170" y2="150" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
-    <circle cx="100" cy="70" r="3" fill="rgba(220,38,38,0.3)" />
-    <circle cx="100" cy="70" r="1.5" fill="rgba(220,38,38,0.6)" />
+    <circle cx="100" cy="70" r="3" fill="rgba(236,60,50,0.35)" />
+    <circle cx="100" cy="70" r="1.5" fill="rgba(236,60,50,0.75)" />
   </svg>,
   // Cubos: la llamada, descompuesta en fases.
   <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -55,11 +58,12 @@ const figures = [
 ]
 
 export function Mechanism() {
+  const c = palette('dark')
   return (
     <Chapter eyebrow={mechanism.eyebrow} title={mechanism.title} body={mechanism.body}>
       <div
         className="grid grid-cols-1 md:grid-cols-3"
-        style={{ marginTop: 72, borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        style={{ marginTop: 64, borderTop: `1px solid ${c.line}` }}
       >
         {mechanism.steps.map((step, i) => (
           <motion.div
@@ -67,30 +71,19 @@ export function Mechanism() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: i * 0.12 }}
+            transition={{ duration: mo.base, delay: i * 0.12, ease: mo.ease }}
             style={{
-              padding: '48px 32px 48px 0',
-              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+              paddingTop: 44,
+              paddingBottom: 44,
+              paddingRight: 32,
               paddingLeft: i > 0 ? 32 : 0,
+              borderRight: i < 2 ? `1px solid ${c.line}` : 'none',
             }}
           >
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.07em',
-                color: '#e5534b',
-                marginBottom: 28,
-              }}
-            >
-              {step.tag}
-            </div>
-            <div style={{ width: '100%', height: 180, marginBottom: 28 }}>{figures[i]}</div>
-            <h3 style={{ fontSize: 15, fontWeight: 550, color: '#f7f8f8', marginBottom: 8 }}>
-              {step.title}
-            </h3>
-            <p style={{ fontSize: 14, lineHeight: '22px', color: '#6b6f76' }}>{step.body}</p>
+            <Label style={{ marginBottom: 26 }}>{step.tag}</Label>
+            <div style={{ width: '100%', height: 170, marginBottom: 26 }}>{figures[i]}</div>
+            <h3 style={{ ...type.h3, color: c.primary, marginBottom: 8 }}>{step.title}</h3>
+            <p style={{ ...type.body, color: c.secondary }}>{step.body}</p>
           </motion.div>
         ))}
       </div>

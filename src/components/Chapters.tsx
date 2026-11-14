@@ -3,13 +3,12 @@ import { Chapter, ChapterClose, ChapterGrid } from './ChapterKit'
 import { ReplaceGrid } from './ReplaceGrid'
 
 /**
- * Los capítulos de la home que son encabezado + grilla. Están juntos porque son
- * la misma pieza con distinto contenido: separarlos en cinco archivos de diez
- * líneas no haría más fácil cambiar el argumento.
+ * Capítulos que son encabezado más grilla. Están juntos porque son la misma
+ * pieza con distinto contenido.
  *
- * El orden es el del VSL que ya usa el equipo: primero el dolor, después por
- * qué lo que probaste no alcanzó, después el mecanismo, y sólo entonces el
- * producto.
+ * El tono alterna a propósito: «Por qué un CRM no alcanza» y «Cómo trabajamos»
+ * van en marfil y cortan la pared de negro en los dos puntos donde el argumento
+ * cambia de tercio.
  */
 
 /** 01 — el dolor como cadena causal, no como lista de quejas. */
@@ -22,20 +21,25 @@ export function Problem() {
   )
 }
 
-/** 02 — el cambio de paradigma: por qué un CRM genérico no alcanza. */
+/** 02 — el cambio de paradigma. Primer corte en marfil. */
 export function WhyNotCrm() {
   return (
-    <Chapter eyebrow={whyNotCrm.eyebrow} title={whyNotCrm.title} body={whyNotCrm.body}>
+    <Chapter
+      tone="light"
+      eyebrow={whyNotCrm.eyebrow}
+      title={whyNotCrm.title}
+      body={whyNotCrm.body}
+    >
       <ChapterGrid items={whyNotCrm.items} cols={3} boxed />
     </Chapter>
   )
 }
 
-/** 05 — Control Comercial 360. Mantener el orden: comprender, implementar, acompañar. */
+/** 05 — Control Comercial 360. Segundo corte en marfil. */
 export function Method() {
   return (
-    <Chapter eyebrow={method.eyebrow} title={method.title} body={method.subtitle}>
-      <ChapterGrid items={method.pillars} cols={3} boxed />
+    <Chapter tone="light" eyebrow={method.eyebrow} title={method.title} body={method.subtitle}>
+      <ChapterGrid items={method.pillars} cols={3} boxed accentFirst />
     </Chapter>
   )
 }

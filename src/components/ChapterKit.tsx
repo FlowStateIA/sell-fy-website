@@ -1,81 +1,84 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
 import { CALENDLY_URL } from '../content/site'
 import { CTA_LABEL } from '../content/home'
+import { color, depth, motion as mo, onLight, radius, space, type } from '../lib/theme'
+import { ToneContext, palette, useTone, type Tone } from '../lib/tone'
+import { Button, Label } from './ui'
 
 /**
- * Primitivas de los capítulos de la home.
+ * Piezas de los capítulos de la home.
  *
- * La home es un argumento numerado, no un catálogo: cada capítulo lleva su
- * rótulo («01 — Dónde se pierde la respuesta») para que el lector sepa que va
- * por un camino. Estas piezas se comparten entre los capítulos para que el
- * ritmo y los tamaños sean los mismos en todos.
+ * La home alterna secciones en tinta y en marfil. No es decoración: doce
+ * secciones del mismo negro se leen como una sola pared, y el corte en claro
+ * marca dónde cambia el argumento. Los dos fondos salen del manual de marca.
  */
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <div
-      style={{
-        fontSize: 11,
-        fontWeight: 600,
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        color: '#6b6f76',
-        marginBottom: 20,
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-/** Encabezado de capítulo: rótulo, titular y un párrafo opcional al costado. */
 export function Chapter({
   eyebrow,
   title,
   body,
   id,
+  tone = 'dark',
   children,
 }: {
   eyebrow: string
   title: string
   body?: string
   id?: string
+  tone?: Tone
   children?: ReactNode
 }) {
+  const c = palette(tone)
+  const light = tone === 'light'
+
   return (
-    <section id={id} style={{ padding: '96px 0' }}>
-      <div className="max-w-[1200px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-        >
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <div className={body ? 'grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12' : ''}>
-            <h2
-              style={{
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                fontWeight: 510,
-                letterSpacing: '-0.022em',
-                lineHeight: 1.15,
-                color: '#f7f8f8',
-                whiteSpace: 'pre-line',
-                maxWidth: body ? undefined : 820,
-              }}
+    <ToneContext.Provider value={tone}>
+      <section
+        id={id}
+        className="relative"
+        style={{
+          padding: `${space.section} 0`,
+          backgroundColor: light ? color.ivory : 'transparent',
+          color: c.primary,
+          scrollMarginTop: 80,
+        }}
+      >
+        <div className="relative mx-auto px-6" style={{ maxWidth: space.maxWidth }}>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: mo.base, ease: mo.ease }}
+          >
+            <Label tone={light ? 'light' : 'accent'}>{eyebrow}</Label>
+            <div
+              className={body ? 'grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-7 md:gap-16' : ''}
+              style={{ marginTop: 22 }}
             >
-              {title}
-            </h2>
-            {body && (
-              <p style={{ fontSize: 17, lineHeight: '26px', color: '#8a8f98' }}>{body}</p>
-            )}
-          </div>
-        </motion.div>
-        {children}
-      </div>
-    </section>
+              <h2
+                style={{
+                  ...(type.h2 as CSSProperties),
+                  color: c.primary,
+                  whiteSpace: 'pre-line',
+                  textWrap: 'balance',
+                  maxWidth: body ? undefined : 860,
+                }}
+              >
+                {title}
+              </h2>
+              {body && (
+                <p style={{ ...(type.lead as CSSProperties), color: c.secondary, alignSelf: 'end' }}>
+                  {body}
+                </p>
+              )}
+            </div>
+          </motion.div>
+          {children}
+        </div>
+      </section>
+    </ToneContext.Provider>
   )
 }
 
@@ -86,19 +89,24 @@ export type ChapterItem = {
 }
 
 /**
- * Grilla de tarjetas de capítulo. La usan el dolor (4 pasos), los contrastes
- * contra un CRM (3), el mecanismo (3), los pilares del método (3) y las
- * objeciones (5), porque todas son lo mismo: rótulo opcional, título y texto.
+ * Grilla de tarjetas. La primera lleva el acento rojo: el manual reserva el rojo
+ * para una cosa por pieza, y en una grilla esa cosa es por dónde se empieza a leer.
  */
 export function ChapterGrid({
   items,
   cols = 3,
   boxed = false,
+  accentFirst = false,
 }: {
   items: ChapterItem[]
   cols?: 2 | 3 | 4
   boxed?: boolean
+  accentFirst?: boolean
 }) {
+  const tone = useTone()
+  const c = palette(tone)
+  const light = tone === 'light'
+
   const colClass =
     cols === 4
       ? 'sm:grid-cols-2 lg:grid-cols-4'
@@ -107,62 +115,67 @@ export function ChapterGrid({
         : 'sm:grid-cols-2 lg:grid-cols-3'
 
   return (
-    <div className={`grid grid-cols-1 ${colClass} gap-4`} style={{ marginTop: 56 }}>
-      {items.map((item, i) => (
-        <motion.div
-          key={item.title}
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.45, delay: Math.min(i, 3) * 0.08 }}
-          style={
-            boxed
-              ? {
-                  padding: '24px',
-                  borderRadius: 12,
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  backgroundColor: '#0b0c0e',
-                }
-              : { paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.1)' }
-          }
-        >
-          {item.tag && (
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.07em',
-                color: '#e5534b',
-                marginBottom: 12,
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {item.tag}
+    <div className={`grid grid-cols-1 ${colClass} gap-3 md:gap-4`} style={{ marginTop: 64 }}>
+      {items.map((item, i) => {
+        const accent = accentFirst && i === 0
+        return (
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: mo.fast, delay: Math.min(i, 4) * 0.07, ease: mo.ease }}
+            className={boxed && !light ? 'hairline' : undefined}
+            style={
+              boxed
+                ? {
+                    padding: '26px 24px 28px',
+                    borderRadius: radius.lg,
+                    backgroundColor: light
+                      ? 'rgba(255,255,255,0.6)'
+                      : accent
+                        ? 'rgba(236,60,50,0.05)'
+                        : color.surface,
+                    border: light ? `1px solid ${onLight.lineSoft}` : undefined,
+                    boxShadow: light ? 'none' : depth.card,
+                  }
+                : {
+                    paddingTop: 22,
+                    borderTop: `1px solid ${accent ? color.red : c.line}`,
+                  }
+            }
+          >
+            {item.tag && (
+              <Label
+                tone={light ? 'light' : accent || !boxed ? 'accent' : 'muted'}
+                style={{ marginBottom: 14 }}
+              >
+                {item.tag}
+              </Label>
+            )}
+            <div style={{ ...(type.h3 as CSSProperties), color: c.primary, marginBottom: 8 }}>
+              {item.title}
             </div>
-          )}
-          <div style={{ fontSize: 15, fontWeight: 550, color: '#f7f8f8', marginBottom: 8 }}>
-            {item.title}
-          </div>
-          <p style={{ fontSize: 14, lineHeight: '22px', color: '#6b6f76' }}>{item.body}</p>
-        </motion.div>
-      ))}
+            <p style={{ ...(type.body as CSSProperties), color: c.secondary }}>{item.body}</p>
+          </motion.div>
+        )
+      })}
     </div>
   )
 }
 
-/** Línea de cierre de capítulo: una frase que resume y empuja al siguiente. */
+/** Frase que cierra un capítulo y empuja al siguiente. */
 export function ChapterClose({ children }: { children: ReactNode }) {
+  const c = palette(useTone())
   return (
     <p
       style={{
-        marginTop: 48,
-        paddingTop: 28,
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        fontSize: 17,
-        lineHeight: '26px',
-        color: '#d0d6e0',
-        maxWidth: 720,
+        marginTop: 56,
+        paddingTop: 30,
+        borderTop: `1px solid ${c.line}`,
+        ...(type.lead as CSSProperties),
+        color: c.primary,
+        maxWidth: 760,
       }}
     >
       {children}
@@ -170,11 +183,7 @@ export function ChapterClose({ children }: { children: ReactNode }) {
   )
 }
 
-/**
- * El único CTA de la página: agendar demo. Decisión de David del 2026-11-13.
- * Un solo destino y un solo texto, los dos desde una constante, para que la
- * página no pueda terminar ofreciendo dos acciones distintas.
- */
+/** El único CTA de la página: agendar demo. */
 export function DemoCta({
   size = 'md',
   center = false,
@@ -184,29 +193,14 @@ export function DemoCta({
   center?: boolean
   sub?: string
 }) {
+  const tone = useTone()
+  const c = palette(tone)
   return (
     <div className={`flex flex-col gap-3 ${center ? 'items-center' : 'items-start'}`}>
-      <a
-        href={CALENDLY_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block transition-opacity hover:opacity-90"
-        style={{
-          padding: size === 'lg' ? '14px 32px' : '10px 24px',
-          backgroundColor: '#e6e6e6',
-          color: '#08090a',
-          border: 'none',
-          borderRadius: 6,
-          fontSize: size === 'lg' ? 15 : 13,
-          fontWeight: 500,
-          whiteSpace: 'nowrap',
-        }}
-      >
+      <Button href={CALENDLY_URL} size={size}>
         {CTA_LABEL}
-      </a>
-      {sub && (
-        <span style={{ fontSize: 13, color: '#6b6f76', maxWidth: 420 }}>{sub}</span>
-      )}
+      </Button>
+      {sub && <span style={{ fontSize: 13, color: c.tertiary, maxWidth: 440 }}>{sub}</span>}
     </div>
   )
 }
