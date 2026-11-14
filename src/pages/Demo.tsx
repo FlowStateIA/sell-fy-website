@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 
 import logoImg from '../assets/sellnode-logo-inversa.svg'
-import { BRAND_IMAGES, CONNECT_LOGOS } from '../components/brandLogoMaps'
+import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
 import { ReplaceGrid } from '../components/ReplaceGrid'
 import { Button, Label } from '../components/ui'
 import { COPYRIGHT, PRICE_FROM } from '../content/site'
@@ -22,7 +22,6 @@ import {
   LOOM_VIDEO_ID,
   hero,
   covers,
-  integrations,
   metrics,
   forWho,
   includes,
@@ -215,88 +214,12 @@ function DemoHeader() {
   )
 }
 
-/* ─────────────────────────── Banner de integraciones ─────────────────────────── */
-
-/**
- * Cinta infinita con las herramientas que se conectan. La lista va duplicada
- * y la pista se desplaza -50%: al reiniciar, la segunda copia está justo
- * donde estaba la primera, así que no se ve el corte.
- *
- * `aria-hidden` en la copia para que un lector de pantalla no lea dos veces
- * la misma lista.
- */
-function IntegrationLogo({ name }: { name: string }) {
-  const Svg = CONNECT_LOGOS[name]
-  if (Svg) return <Svg size={22} />
-
-  const src = BRAND_IMAGES[name]
-  if (!src) return null
-  // Los iconos descargados son cuadrados tipo app: el radio los uniforma
-  // con los SVG de al lado.
-  return (
-    <img
-      src={src}
-      alt=""
-      width={22}
-      height={22}
-      // Sin lazy: la cinta se mueve sola y un logo que todavía no cargó
-      // aparecería como hueco a los pocos segundos. Pesan entre 2 y 16 KB.
-      style={{ width: 22, height: 22, borderRadius: 5, objectFit: 'contain' }}
-    />
-  )
-}
-
-/** Una pasada de la lista. `copia` oculta el duplicado a lectores de pantalla. */
-function MarqueeTrack({ copia }: { copia: boolean }) {
-  return (
-    <ul className="flex items-center shrink-0" style={{ gap: 0 }} aria-hidden={copia || undefined}>
-      {integrations.map(name => (
-        <li
-          key={name}
-          className="flex items-center shrink-0"
-          style={{
-            gap: 9,
-            fontSize: 14,
-            color: onDark.secondary,
-            padding: '0 26px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <IntegrationLogo name={name} />
-          {name}
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-function IntegrationsMarquee() {
-  return (
-    <div
-      style={{
-        borderTop: `1px solid ${onDark.lineSoft}`,
-        borderBottom: `1px solid ${onDark.lineSoft}`,
-        padding: '18px 0',
-        overflow: 'hidden',
-        // Desvanece los extremos para que la cinta no "aparezca" de golpe.
-        maskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
-      }}
-    >
-      <div className="marquee-track flex w-max">
-        <MarqueeTrack copia={false} />
-        <MarqueeTrack copia />
-      </div>
-    </div>
-  )
-}
-
 /* ─────────────────────────── Video ─────────────────────────── */
 
 function VideoEmbed() {
   return (
     <div
-      className="hairline w-full overflow-hidden"
+      className="glass w-full overflow-hidden"
       style={{
         borderRadius: radius.lg,
         backgroundColor: color.surface,
@@ -634,7 +557,7 @@ export function Demo() {
             {pricing.plans.map(plan => (
               <div
                 key={plan.name}
-                className="hairline flex flex-col p-6 sm:p-8"
+                className="glass flex flex-col p-6 sm:p-8"
                 style={{
                   borderRadius: radius.lg,
                   backgroundColor: plan.highlight ? 'rgba(236,60,50,0.05)' : color.surface,
@@ -846,7 +769,7 @@ export function Demo() {
             {testimonials.map(t => (
               <div
                 key={t.name}
-                className="hairline"
+                className="glass"
                 style={{
                   padding: 28,
                   borderRadius: radius.lg,
@@ -871,7 +794,7 @@ export function Demo() {
       {guarantee && (
         <Section>
           <div
-            className="hairline"
+            className="glass"
             style={{
               padding: 40,
               borderRadius: radius.lg,
@@ -906,7 +829,7 @@ export function Demo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: mo.base, ease: mo.ease }}
-            className="hairline relative overflow-hidden px-6 py-12 sm:px-12 sm:py-14"
+            className="glass relative overflow-hidden px-6 py-12 sm:px-12 sm:py-14"
             style={{
               borderRadius: radius.xl,
               backgroundColor: color.surface,

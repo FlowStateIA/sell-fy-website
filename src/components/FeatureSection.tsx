@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
 import { ProductPanel, type PanelId } from './ProductPanels'
-import { Label } from './ui'
+import { Label, TwoTone } from './ui'
 
 export type SubFeature = {
   number: string
@@ -60,14 +60,13 @@ export function FeatureSection({
           <h2
             style={{
               ...(type.h2 as CSSProperties),
-              fontSize: 'clamp(26px, 3vw, 38px)',
-              color: onDark.primary,
+              fontSize: 'clamp(27px, 3.2vw, 40px)',
               whiteSpace: 'pre-line',
               textWrap: 'balance',
               marginTop: 16,
             }}
           >
-            {title}
+            <TwoTone text={title} />
           </h2>
           <p
             style={{

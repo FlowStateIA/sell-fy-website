@@ -58,7 +58,7 @@ export function ReplaceGrid() {
         {replaceRows.map(row => (
           <div
             key={row.inside}
-            className="hairline flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
+            className="glass flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
             style={{
               borderRadius: radius.md,
               backgroundColor: color.surface,

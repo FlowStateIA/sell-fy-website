@@ -64,3 +64,25 @@ export const connectsWith = {
   title: 'Se conecta con',
   items: ['Google Calendar', 'Google Meet', 'Calendly'],
 }
+
+/**
+ * Herramientas que se conectan. Es la cinta que cruza la home debajo del hero
+ * y /demo debajo del video.
+ *
+ * Los logos se resuelven por nombre en src/components/brandLogoMaps.ts:
+ * agregar una marca aquí sin logo allá la deja sin icono.
+ *
+ * ⚠️ Calendly aparece aquí Y tachado en las tarjetas de reemplazo. No es
+ * contradicción: el agendamiento propio reemplaza la suscripción, pero importa
+ * los datos desde Calendly para que nadie pierda su historial al migrar.
+ */
+export const integrations = [
+  'Calendly',
+  'Hotmart',
+  'Skool',
+  'Whop',
+  'Fathom',
+  'Google Calendar',
+  'Google Meet',
+  'WhatsApp',
+]

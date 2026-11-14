@@ -20,14 +20,15 @@ export function Hero() {
   return (
     <section
       className="relative grain"
-      style={{ paddingTop: 128, paddingBottom: 24, overflow: 'hidden' }}
+      style={{ paddingTop: 148, paddingBottom: 28, overflow: 'hidden' }}
     >
-      {/* Resplandor del rojo nodo, abierto y bajo */}
+      {/* El resplandor del rojo de marca queda detrás de la ventana de producto,
+          no arriba: es la ventana la que tiene que parecer encendida. */}
       <div
-        className="absolute inset-x-0 top-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          height: 'clamp(360px, 62vh, 640px)',
-          background: 'radial-gradient(52% 44% at 50% -6%, rgba(236,60,50,0.13), transparent 70%)',
+          background:
+            'radial-gradient(52% 44% at 50% 66%, rgba(236,60,50,0.26), rgba(236,60,50,0.07) 45%, transparent 72%)',
         }}
       />
       {/* Retícula */}

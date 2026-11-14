@@ -27,7 +27,7 @@ import {
   type DemoTabId,
 } from '../content/productDemo'
 import { cell, fig, toneColor } from '../lib/demoStyle'
-import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, type } from '../lib/theme'
 import { Bar, Card, TableHead, WindowChrome } from './demoKit'
 import { Label } from './ui'
 
@@ -486,16 +486,10 @@ export function ProductDemo() {
       {/* Pestañas */}
       <div className="flex justify-center" style={{ marginBottom: 18 }}>
         <div
-          className="hairline flex items-center overflow-x-auto no-scrollbar max-w-full"
+          className="well flex items-center overflow-x-auto no-scrollbar max-w-full"
           role="tablist"
           aria-label="Pantallas de la demo"
-          style={{
-            gap: 4,
-            padding: 5,
-            borderRadius: radius.pill,
-            backgroundColor: 'rgba(246,245,240,0.035)',
-            backdropFilter: 'blur(12px)',
-          }}
+          style={{ gap: 4, padding: 5, borderRadius: 17 }}
         >
           {demoTabs.map(t => {
             const Icon = TAB_ICONS[t.id]
@@ -512,8 +506,8 @@ export function ProductDemo() {
                 className="relative flex items-center flex-shrink-0 transition-colors duration-200"
                 style={{
                   gap: 8,
-                  padding: '9px 16px',
-                  borderRadius: radius.pill,
+                  padding: '10px 18px',
+                  borderRadius: 12,
                   border: 'none',
                   cursor: 'pointer',
                   fontSize: 13,
@@ -528,9 +522,12 @@ export function ProductDemo() {
                     className="absolute inset-0"
                     transition={{ type: 'spring', stiffness: 420, damping: 36 }}
                     style={{
-                      borderRadius: radius.pill,
-                      backgroundColor: 'rgba(246,245,240,0.09)',
-                      boxShadow: 'inset 0 1px 0 rgba(246,245,240,0.12)',
+                      borderRadius: 12,
+                      border: '1px solid rgba(246,245,240,0.12)',
+                      backgroundImage:
+                        'linear-gradient(180deg, rgba(246,245,240,0.14), rgba(246,245,240,0.05))',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.14), 0 6px 14px -8px rgba(0,0,0,0.8)',
                     }}
                   />
                 )}
@@ -567,13 +564,10 @@ export function ProductDemo() {
       </div>
 
       {/* Ventana */}
+      <div className="bezel" style={{ borderRadius: radius.xl }}>
       <div
-        className="hairline relative overflow-hidden text-left"
-        style={{
-          borderRadius: radius.xl,
-          backgroundColor: color.surface,
-          boxShadow: `${depth.card}, 0 60px 120px -60px rgba(236,60,50,0.28)`,
-        }}
+        className="relative overflow-hidden text-left"
+        style={{ borderRadius: 16, backgroundColor: color.surface }}
       >
         <WindowChrome url={tab.url} badge={demoMeta.badge}>
           {/* Avance de la pestaña mientras corre sola */}
@@ -681,7 +675,7 @@ export function ProductDemo() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.4, ease: mo.ease }}
-              className="hairline flex items-start"
+              className="glass flex items-start"
               aria-live="polite"
               style={{
                 position: 'absolute',
@@ -723,8 +717,9 @@ export function ProductDemo() {
           )}
         </AnimatePresence>
       </div>
+      </div>
 
-      <p style={{ marginTop: 16, fontSize: 12.5, color: onDark.faint, textAlign: 'center' }}>
+      <p style={{ marginTop: 18, fontSize: 12.5, color: onDark.faint, textAlign: 'center' }}>
         {demoMeta.caption}
       </p>
     </div>

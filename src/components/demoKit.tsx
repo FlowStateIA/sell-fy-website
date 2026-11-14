@@ -186,14 +186,8 @@ export function Segmented<T extends string>({
     <div
       role="tablist"
       aria-label={label}
-      className="inline-flex items-center overflow-x-auto no-scrollbar max-w-full"
-      style={{
-        gap: 2,
-        padding: 3,
-        borderRadius: radius.pill,
-        border: `1px solid ${onDark.lineSoft}`,
-        backgroundColor: 'rgba(246,245,240,0.03)',
-      }}
+      className="well inline-flex items-center overflow-x-auto no-scrollbar max-w-full"
+      style={{ gap: 2, padding: 3, borderRadius: 12 }}
     >
       {options.map(option => {
         const selected = option.id === value
@@ -206,7 +200,7 @@ export function Segmented<T extends string>({
             className="relative flex-shrink-0 transition-colors duration-200"
             style={{
               padding: '6px 12px',
-              borderRadius: radius.pill,
+              borderRadius: 9,
               border: 'none',
               cursor: 'pointer',
               fontSize: 12,
@@ -222,8 +216,11 @@ export function Segmented<T extends string>({
                 className="absolute inset-0"
                 transition={{ type: 'spring', stiffness: 420, damping: 36 }}
                 style={{
-                  borderRadius: radius.pill,
-                  backgroundColor: 'rgba(246,245,240,0.1)',
+                  borderRadius: 9,
+                  border: '1px solid rgba(246,245,240,0.12)',
+                  backgroundImage:
+                    'linear-gradient(180deg, rgba(246,245,240,0.14), rgba(246,245,240,0.05))',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.14)',
                 }}
               />
             )}

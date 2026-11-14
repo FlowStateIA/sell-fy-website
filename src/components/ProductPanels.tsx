@@ -16,7 +16,7 @@ import {
   type OfferId,
 } from '../content/productDemo'
 import { cell, fig } from '../lib/demoStyle'
-import { color, depth, motion as mo, onDark, radius, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, type } from '../lib/theme'
 import { Bar, Card, Segmented, TableHead, WindowChrome } from './demoKit'
 
 /**
@@ -34,16 +34,14 @@ export type PanelId = 'clientes' | 'auditoria' | 'cobro' | 'comparar'
 /** Ventana de una pantalla: la misma barra de navegador que la demo del hero. */
 function PanelWindow({ url, children }: { url: string; children: ReactNode }) {
   return (
-    <div
-      className="hairline relative overflow-hidden text-left"
-      style={{
-        borderRadius: radius.lg,
-        backgroundColor: color.surface,
-        boxShadow: `${depth.card}, 0 50px 100px -70px rgba(236,60,50,0.3)`,
-      }}
-    >
-      <WindowChrome url={url} badge={demoMeta.badge} />
-      <div style={{ padding: 16 }}>{children}</div>
+    <div className="bezel" style={{ borderRadius: radius.xl }}>
+      <div
+        className="relative overflow-hidden text-left"
+        style={{ borderRadius: 16, backgroundColor: color.surface }}
+      >
+        <WindowChrome url={url} badge={demoMeta.badge} />
+        <div style={{ padding: 16 }}>{children}</div>
+      </div>
     </div>
   )
 }

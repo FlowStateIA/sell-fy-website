@@ -76,7 +76,7 @@ export function Pricing() {
         ].map(({ plan, highlight, extra }) => (
           <div
             key={plan.name}
-            className="hairline relative"
+            className="glass relative"
             style={{
               padding: '30px 28px',
               borderRadius: radius.lg,

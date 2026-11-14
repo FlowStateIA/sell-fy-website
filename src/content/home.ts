@@ -11,7 +11,7 @@
  *  - Venta (lo acordado) y cobro (lo que entró) no se mezclan nunca.
  *  - Un solo CTA en toda la página: agendar demo. Decidido por David el 2026-11-13.
  *  - Ninguna cifra sin decir qué se midió y en qué período.
- *  - Prueba social: sólo Manstery y CSM, y sin porcentajes ni cifras de crecimiento.
+ *  - Sin prueba social en esta página: decisión de David del 2026-11-14.
  *  - El lema cierra la página, no la abre: el competidor usa un titular casi
  *    idéntico arriba, y abrir con el nuestro nos haría parecer la copia.
  */
@@ -20,6 +20,9 @@ import type { FeatureSectionData } from '../components/FeatureSection'
 
 /** El único CTA de la página. Si cambia, cambia en un solo lugar. */
 export const CTA_LABEL = 'Agendar demo'
+
+/** Rótulo de la cinta de herramientas que cruza la página debajo del hero. */
+export const integrationsLabel = 'Se conecta con lo que ya usas'
 
 export const nav = {
   producto: 'Producto',
@@ -42,12 +45,12 @@ export const hero = {
 }
 
 /**
- * Capítulo 01 — el dolor como cadena causal, no como lista de quejas.
+ * Capítulo 02 — el dolor como cadena causal, no como lista de quejas.
  * Sale del genoma de marketing: herramientas separadas → consolidación manual →
  * reportes tardíos → decisiones con información incompleta.
  */
 export const problem = {
-  eyebrow: '01 — Dónde se pierde la respuesta',
+  eyebrow: '02 — Dónde se pierde la respuesta',
   title: 'Tener datos no es tener control.',
   body:
     'Tu negocio ya registra todo. El CRM tiene los contactos, el calendario tiene las llamadas, la hoja de cálculo tiene las comisiones y el procesador tiene los pagos. El problema no es que falten datos: es que para saber qué pasó, alguien tiene que reunirlos.',
@@ -61,9 +64,9 @@ export const problem = {
     'Para entender una semana había que mirar tres fuentes, cuatro trackers y escribirle a los closers. De ahí salió nuestra forma de trabajar.',
 }
 
-/** Capítulo 02 — el cambio de paradigma: por qué un CRM genérico no alcanza. */
+/** Capítulo 03 — el cambio de paradigma: por qué un CRM genérico no alcanza. */
 export const whyNotCrm = {
-  eyebrow: '02 — Por qué un CRM no alcanza',
+  eyebrow: '03 — Por qué un CRM no alcanza',
   title: 'Un CRM genérico no conoce tu modelo de venta.',
   body:
     'Los CRM están hechos para pipelines de contactos. Tu operación tiene setters que agendan, closers que cierran, duplas que rinden distinto, cuotas que vencen, comisiones que se liquidan y una entrega que arranca cuando la venta termina. SellNode está construido sobre esa forma de vender.',
@@ -84,31 +87,15 @@ export const whyNotCrm = {
 }
 
 /**
- * Capítulo 03 — el mecanismo. Es la idea del nodo del logo: tres entradas que
+ * Capítulo 01 — el mecanismo. Es la idea del nodo del logo: tres entradas que
  * viven separadas y se reúnen en un punto, leídas de origen a resultado.
+ * Los pasos los cuenta el recorrido interactivo (journey, en productDemo.ts).
  */
 export const mechanism = {
-  eyebrow: '03 — Cómo se conecta',
+  eyebrow: '01 — Cómo se conecta',
   title: 'Conecta el origen, la llamada y el cobro de cada venta.',
   body:
     'Es la idea del nodo de nuestro logo: tres entradas que suelen vivir separadas y se reúnen en un punto. Se lee de izquierda a derecha, del origen al resultado.',
-  steps: [
-    {
-      tag: '01 / Origen',
-      title: 'De qué embudo vino',
-      body: 'Cada agenda carga su embudo y su setter, así la venta nace con el origen puesto.',
-    },
-    {
-      tag: '02 / La llamada',
-      title: 'Qué pasó adentro',
-      body: 'La grabación se audita sola: score por fase, el momento que conviene revisar y la objeción que apareció.',
-    },
-    {
-      tag: '03 / El cobro',
-      title: 'Cuánto entró y cuánto falta',
-      body: 'Cuotas, renovaciones, cartera y la comisión que se desbloquea cuando el dinero entra.',
-    },
-  ],
   close: 'Con las tres piezas unidas, la pregunta del dueño se contesta en una pantalla.',
 }
 
@@ -368,31 +355,9 @@ export const fit = {
   },
 }
 
-/**
- * Capítulo 09 — prueba social. Sólo Manstery y CSM, que son los dos casos
- * autorizados, y SIN cifras de crecimiento: no hay ninguna confirmada.
- */
-export const cases = {
-  eyebrow: '09 — Quiénes ya lo usan',
-  title: 'Dos operaciones distintas,\nel mismo problema.',
-  items: [
-    {
-      name: 'Manstery',
-      context: 'Mentoría de relaciones, 1,5 millones de seguidores',
-      body: 'Cinco embudos y dos setters, con la información repartida entre GoHighLevel y Google Sheets y sin poder atribuir cada venta a su embudo. Hoy tiene sus registros organizados, identifica mejor el origen de las ventas y trabaja con reportes más fiables. Su equipo recibió capacitación.',
-    },
-    {
-      name: 'CSM',
-      context: 'Más de cinco closers y dos setters',
-      body: 'Centralizó su operación y organizó sus métricas. A los tres meses consideró que la plataforma cubría su operación y pidió un módulo para gestionar la entrega del servicio, que se desarrolló en menos de un mes.',
-    },
-  ],
-  note: 'Sin cifras de crecimiento: contamos solo lo que podemos sostener.',
-}
-
-/** Capítulo 10 — planes. Las cifras salen de site.ts; acá sólo va el copy. */
+/** Capítulo 09 — planes. Las cifras salen de site.ts; acá sólo va el copy. */
 export const pricingCopy = {
-  eyebrow: '10 — Planes',
+  eyebrow: '09 — Planes',
   title: 'No es una licencia.\nEs la implementación y el acompañamiento.',
   body:
     'El pago inicial cubre el diagnóstico, la configuración de tu operación y la capacitación de tu equipo. La mensualidad es la plataforma y el acompañamiento continuo.',

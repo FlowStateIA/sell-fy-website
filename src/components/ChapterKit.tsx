@@ -3,16 +3,17 @@ import { motion } from 'framer-motion'
 
 import { CALENDLY_URL } from '../content/site'
 import { CTA_LABEL } from '../content/home'
-import { color, depth, motion as mo, onLight, radius, space, type } from '../lib/theme'
+import { color, motion as mo, onDark, radius, shade, space, type } from '../lib/theme'
 import { ToneContext, palette, useTone, type Tone } from '../lib/tone'
-import { Button, Label } from './ui'
+import { Button, Label, TwoTone } from './ui'
 
 /**
  * Piezas de los capítulos de la home.
  *
- * La home alterna secciones en tinta y en marfil. No es decoración: doce
+ * La home alterna secciones en tinta y en marfil. No es decoración: muchas
  * secciones del mismo negro se leen como una sola pared, y el corte en claro
- * marca dónde cambia el argumento. Los dos fondos salen del manual de marca.
+ * marca dónde cambia el argumento. Entre dos oscuras seguidas cambia apenas el
+ * tono (`shade`), por la misma razón.
  */
 
 export function Chapter({
@@ -21,6 +22,7 @@ export function Chapter({
   body,
   id,
   tone = 'dark',
+  shadeIndex = 0,
   children,
 }: {
   eyebrow: string
@@ -28,6 +30,8 @@ export function Chapter({
   body?: string
   id?: string
   tone?: Tone
+  /** Cuál de los tonos oscuros usa la sección (0, 1 o 2). */
+  shadeIndex?: 0 | 1 | 2
   children?: ReactNode
 }) {
   const c = palette(tone)
@@ -40,7 +44,7 @@ export function Chapter({
         className="relative"
         style={{
           padding: `${space.section} 0`,
-          backgroundColor: light ? color.ivory : 'transparent',
+          backgroundColor: light ? color.ivory : shade[shadeIndex],
           color: c.primary,
           scrollMarginTop: 80,
         }}
@@ -54,19 +58,18 @@ export function Chapter({
           >
             <Label tone={light ? 'light' : 'accent'}>{eyebrow}</Label>
             <div
-              className={body ? 'grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-7 md:gap-16' : ''}
-              style={{ marginTop: 22 }}
+              className={body ? 'grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-16' : ''}
+              style={{ marginTop: 20 }}
             >
               <h2
                 style={{
                   ...(type.h2 as CSSProperties),
-                  color: c.primary,
                   whiteSpace: 'pre-line',
                   textWrap: 'balance',
                   maxWidth: body ? undefined : 860,
                 }}
               >
-                {title}
+                <TwoTone text={title} light={light} />
               </h2>
               {body && (
                 <p style={{ ...(type.lead as CSSProperties), color: c.secondary, alignSelf: 'end' }}>
@@ -89,19 +92,18 @@ export type ChapterItem = {
 }
 
 /**
- * Grilla de tarjetas. La primera lleva el acento rojo: el manual reserva el rojo
- * para una cosa por pieza, y en una grilla esa cosa es por dónde se empieza a leer.
+ * Grilla de tarjetas: vidrio sobre oscuro, papel sobre marfil. Con `accentLast`
+ * la última va en rojo nodo — el manual reserva el rojo para una cosa por
+ * pieza, y en una secuencia esa cosa es adónde se llega.
  */
 export function ChapterGrid({
   items,
   cols = 3,
-  boxed = false,
-  accentFirst = false,
+  accentLast = false,
 }: {
   items: ChapterItem[]
   cols?: 2 | 3 | 4
-  boxed?: boolean
-  accentFirst?: boolean
+  accentLast?: boolean
 }) {
   const tone = useTone()
   const c = palette(tone)
@@ -115,49 +117,38 @@ export function ChapterGrid({
         : 'sm:grid-cols-2 lg:grid-cols-3'
 
   return (
-    <div className={`grid grid-cols-1 ${colClass} gap-3 md:gap-4`} style={{ marginTop: 64 }}>
+    <div className={`grid grid-cols-1 ${colClass} gap-3 md:gap-4`} style={{ marginTop: 60 }}>
       {items.map((item, i) => {
-        const accent = accentFirst && i === 0
+        const accent = accentLast && i === items.length - 1
+        const skin = accent ? 'glass-accent' : light ? 'paper' : 'glass'
+        const ink = accent ? color.surface : c.primary
+        const soft = accent ? 'rgba(18,20,21,0.72)' : c.secondary
         return (
-          <motion.div
+          <motion.article
             key={item.title}
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: mo.fast, delay: Math.min(i, 4) * 0.07, ease: mo.ease }}
-            className={boxed && !light ? 'hairline' : undefined}
-            style={
-              boxed
-                ? {
-                    padding: '26px 24px 28px',
-                    borderRadius: radius.lg,
-                    backgroundColor: light
-                      ? 'rgba(255,255,255,0.6)'
-                      : accent
-                        ? 'rgba(236,60,50,0.05)'
-                        : color.surface,
-                    border: light ? `1px solid ${onLight.lineSoft}` : undefined,
-                    boxShadow: light ? 'none' : depth.card,
-                  }
-                : {
-                    paddingTop: 22,
-                    borderTop: `1px solid ${accent ? color.red : c.line}`,
-                  }
-            }
+            className={skin}
+            style={{ padding: '24px 22px 26px', borderRadius: radius.lg }}
           >
             {item.tag && (
-              <Label
-                tone={light ? 'light' : accent || !boxed ? 'accent' : 'muted'}
-                style={{ marginBottom: 14 }}
+              <div
+                style={{
+                  ...(type.label as CSSProperties),
+                  color: accent ? 'rgba(18,20,21,0.62)' : light ? c.secondary : onDark.tertiary,
+                  marginBottom: 34,
+                }}
               >
                 {item.tag}
-              </Label>
+              </div>
             )}
-            <div style={{ ...(type.h3 as CSSProperties), color: c.primary, marginBottom: 8 }}>
+            <div style={{ ...(type.h3 as CSSProperties), color: ink, marginBottom: 9 }}>
               {item.title}
             </div>
-            <p style={{ ...(type.body as CSSProperties), color: c.secondary }}>{item.body}</p>
-          </motion.div>
+            <p style={{ ...(type.body as CSSProperties), fontSize: 13.5, color: soft }}>{item.body}</p>
+          </motion.article>
         )
       })}
     </div>
@@ -170,8 +161,8 @@ export function ChapterClose({ children }: { children: ReactNode }) {
   return (
     <p
       style={{
-        marginTop: 56,
-        paddingTop: 30,
+        marginTop: 52,
+        paddingTop: 28,
         borderTop: `1px solid ${c.line}`,
         ...(type.lead as CSSProperties),
         color: c.primary,
@@ -193,8 +184,7 @@ export function DemoCta({
   center?: boolean
   sub?: string
 }) {
-  const tone = useTone()
-  const c = palette(tone)
+  const c = palette(useTone())
   return (
     <div className={`flex flex-col gap-3 ${center ? 'items-center' : 'items-start'}`}>
       <Button href={CALENDLY_URL} size={size}>

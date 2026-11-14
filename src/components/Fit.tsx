@@ -5,7 +5,7 @@ import { fit } from '../content/home'
 import { Chapter } from './ChapterKit'
 import { palette } from '../lib/tone'
 import { Label } from './ui'
-import { color, motion as mo, onLight, radius, type } from '../lib/theme'
+import { color, motion as mo, radius, type } from '../lib/theme'
 
 /**
  * Capítulo 08 — cualificación, en marfil. Tercer corte claro de la página, y el
@@ -31,11 +31,16 @@ export function Fit() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: mo.fast, delay: i * 0.08, ease: mo.ease }}
+            className="paper"
             style={{
               padding: '30px 28px 32px',
               borderRadius: radius.lg,
-              backgroundColor: col.good ? 'rgba(132,169,140,0.09)' : 'rgba(255,255,255,0.6)',
-              border: `1px solid ${col.good ? 'rgba(132,169,140,0.32)' : onLight.lineSoft}`,
+              ...(col.good
+                ? {
+                    borderColor: 'rgba(132,169,140,0.5)',
+                    backgroundImage: 'linear-gradient(180deg, #F5F9F5, #EDF4EE)',
+                  }
+                : {}),
             }}
           >
             <Label style={{ color: col.good ? '#4F7256' : c.secondary, marginBottom: 22 }}>

@@ -318,3 +318,110 @@ export const comparar = {
     duplas: 'Las cinco duplas con más cobro. Tasa de cierre = ventas ÷ llamadas realizadas de la dupla.',
   },
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   El recorrido de una venta, paso a paso (capítulo «Cómo se conecta»).
+
+   Es la misma venta que aparece en el hero: Carla P., embudo Webinar, setter
+   Dani V., closer Laura M., Mentoría 12 semanas por 3.000 en tres cuotas.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+export type JourneyStepId = 'agenda' | 'llamada' | 'auditoria' | 'venta' | 'cobro' | 'tablero'
+
+export const journey = {
+  stepsLabel: 'Pasos de la venta',
+  steps: [
+    {
+      id: 'agenda' as JourneyStepId,
+      label: 'Entra la agenda',
+      caption: 'La agenda nace con su embudo y su setter. El origen queda puesto desde el primer minuto.',
+    },
+    {
+      id: 'llamada' as JourneyStepId,
+      label: 'Se hace la llamada',
+      caption: 'El closer marca qué pasó: asistió, cerró, quedó en seguimiento o no se presentó.',
+    },
+    {
+      id: 'auditoria' as JourneyStepId,
+      label: 'La llamada se audita sola',
+      caption: 'La grabación recibe un puntaje por fase y señala el momento que conviene revisar.',
+    },
+    {
+      id: 'venta' as JourneyStepId,
+      label: 'Se registra la venta',
+      caption: 'Lo acordado y el plan de pagos quedan en la misma ficha. La comisión se calcula sola.',
+    },
+    {
+      id: 'cobro' as JourneyStepId,
+      label: 'Entra cada cobro',
+      caption: 'Cada cuota que entra baja la cartera y libera su parte de la comisión.',
+    },
+    {
+      id: 'tablero' as JourneyStepId,
+      label: 'Lo ves en el tablero',
+      caption: 'La venta ya suma en su embudo, en su closer y en su dupla, sin que nadie arme un reporte.',
+    },
+  ],
+  agenda: {
+    title: 'Llamada de diagnóstico',
+    lead: 'Carla P.',
+    when: 'Jueves · 2:30 p. m.',
+    fields: [
+      { label: 'Embudo', value: 'Webinar' },
+      { label: 'Setter', value: 'Dani V.' },
+      { label: 'Closer', value: 'Laura M.' },
+    ],
+    status: 'Agendada',
+  },
+  llamada: {
+    title: 'Carla P. · Llamada de diagnóstico',
+    meta: 'Asistió · 46 min · grabación adjunta',
+    question: 'Resultado de la llamada',
+    outcomes: ['Venta', 'Seguimiento', 'No cerró', 'No asistió'],
+    selected: 'Venta',
+  },
+  auditoria: {
+    title: 'Auditoría',
+    score: 82,
+    scoreLabel: 'de 100',
+    phases: [
+      { label: 'Descubrimiento', value: 85 },
+      { label: 'Presentación', value: 88 },
+      { label: 'Objeciones', value: 62 },
+      { label: 'Cierre', value: 80 },
+    ],
+    reviewBelow: 70,
+    momentLabel: 'Momento a revisar · 18:42',
+    moment: 'El presupuesto apareció después de la oferta.',
+  },
+  venta: {
+    title: 'Venta registrada',
+    offer: 'Mentoría 12 semanas',
+    amount: 3000,
+    rows: [
+      { label: 'Plan de pagos', value: '3 cuotas' },
+      { label: 'Primer pago', value: '$1,000 · Stripe' },
+      { label: 'Comisión de Laura M.', value: '$300 · bloqueada hasta el cobro' },
+    ],
+  },
+  cobro: {
+    title: 'Cobros de la venta',
+    collectedLabel: 'Cobrado',
+    collected: 1800,
+    total: 3000,
+    rows: [
+      { label: 'Cuota 1', amount: 1000, status: 'Cobrada', good: true },
+      { label: 'Cuota 2', amount: 800, status: 'Cobrada', good: true },
+      { label: 'Cuota 3', amount: 1200, status: 'Por venir', good: false },
+    ],
+    commission: 'Comisión liberada: $180 de $300',
+  },
+  tablero: {
+    title: 'Dónde suma esta venta',
+    rows: [
+      { label: 'Embudo', value: 'Webinar', detail: '11 ventas · $24,900 cobrados' },
+      { label: 'Closer', value: 'Laura M.', detail: '9 ventas · $19,800 cobrados' },
+      { label: 'Dupla', value: 'Dani V. + Laura M.', detail: '33% de cierre · $13,400 cobrados' },
+    ],
+  },
+}

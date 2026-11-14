@@ -14,7 +14,7 @@
 import { PLANS, type Plan } from './site'
 
 /** Reexportado para no romper los imports que ya apuntaban a este archivo. */
-export { insteadOfLabel, replaceRows, connectsWith, type ReplaceIcon } from './shared'
+export { insteadOfLabel, replaceRows, connectsWith, integrations, type ReplaceIcon } from './shared'
 
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
@@ -142,27 +142,6 @@ export const includes = {
     },
   ],
 }
-
-/**
- * Banner de integraciones que cruza la página debajo del video.
- *
- * Los logos se resuelven por nombre en src/components/brandLogoMaps.ts:
- * agregar una marca aquí sin logo allá la deja sin icono.
- *
- * ⚠️ Calendly aparece aquí Y tachado en las tarjetas de reemplazo. No es
- * contradicción: Calend-Fy reemplaza la suscripción, pero importa los datos
- * desde Calendly para que nadie pierda su historial al migrar.
- */
-export const integrations = [
-  'Calendly',
-  'Hotmart',
-  'Skool',
-  'Whop',
-  'Fathom',
-  'Google Calendar',
-  'Google Meet',
-  'WhatsApp',
-]
 
 /**
  * Reemplaza y centraliza. Las filas y los logos conectados viven en
