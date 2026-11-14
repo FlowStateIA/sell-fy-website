@@ -13,6 +13,9 @@
 
 import { PLANS, type Plan } from './site'
 
+/** Reexportado para no romper los imports que ya apuntaban a este archivo. */
+export { insteadOfLabel, replaceRows, connectsWith, type ReplaceIcon } from './shared'
+
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
 
@@ -161,62 +164,16 @@ export const integrations = [
   'WhatsApp',
 ]
 
-/** Claves de icono de las tarjetas de reemplazo. Se mapean a lucide-react en Demo.tsx */
-export type ReplaceIcon =
-  'calendar' | 'kanban' | 'calculator' | 'graduation' | 'audio' | 'wallet' | 'chart'
-
+/**
+ * Reemplaza y centraliza. Las filas y los logos conectados viven en
+ * `shared.ts`, porque la home muestra el mismo bloque: si cambia qué
+ * herramienta absorbe cada módulo, cambia en los dos sitios a la vez.
+ * Aquí quedan sólo los titulares, que son propios de esta página.
+ */
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
     'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. SellNode se queda con el trabajo de todas.',
-  /** Etiqueta que une las dos mitades de cada tarjeta. */
-  insteadOf: 'En lugar de',
-  /** Mapeo uno a uno del brief de negocio. Cada fila es una herramienta que el cliente deja de pagar. */
-  rows: [
-    {
-      icon: 'calendar' as ReplaceIcon,
-      inside: 'Calend-Fy',
-      outside: 'Calendly o similar para agendar llamadas',
-    },
-    {
-      icon: 'kanban' as ReplaceIcon,
-      inside: 'CRM + Ventas',
-      outside: 'Un CRM genérico para el pipeline comercial',
-    },
-    {
-      icon: 'calculator' as ReplaceIcon,
-      inside: 'Comisiones',
-      outside: 'Hojas de cálculo de comisiones y liquidaciones',
-    },
-    {
-      icon: 'graduation' as ReplaceIcon,
-      inside: 'Entrega de Servicio',
-      outside: 'Notion o un tablero suelto para la entrega del programa',
-    },
-    {
-      icon: 'audio' as ReplaceIcon,
-      inside: 'Auditorías + Inteligencia',
-      outside: 'Una herramienta de grabación y auditoría de llamadas',
-    },
-    {
-      icon: 'wallet' as ReplaceIcon,
-      inside: 'Finanzas',
-      outside: 'Hojas de gastos, nómina y caja del negocio',
-    },
-    {
-      icon: 'chart' as ReplaceIcon,
-      inside: 'Analítica + Informes',
-      outside: 'Dashboards armados a mano cada semana',
-    },
-  ],
-  /**
-   * Calendly volvió: el booking nativo (Calend-Fy) solo viene en el plan Pro,
-   * así que quien toma Standard sigue agendando con Calendly y se integra.
-   */
-  connects: {
-    title: 'Se conecta con',
-    items: ['Google Calendar', 'Google Meet', 'Calendly'],
-  },
 }
 
 /**

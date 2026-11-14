@@ -1,5 +1,6 @@
 import logoImg from '../assets/sellnode-logo-inversa.svg'
-import { COPYRIGHT } from '../content/site'
+import { APP_URL, COPYRIGHT } from '../content/site'
+import { nav } from '../content/home'
 
 export function Footer() {
   return (
@@ -11,6 +12,13 @@ export function Footer() {
         </div>
 
         <div className="flex items-center gap-5">
+          <a
+            href={APP_URL}
+            style={{ fontSize: 12, color: '#484b52' }}
+            className="hover:!text-[#8a8f98] transition-colors"
+          >
+            {nav.entrar}
+          </a>
           <a
             href="/privacidad"
             style={{ fontSize: 12, color: '#484b52' }}

@@ -41,7 +41,7 @@ export function FeatureSection({
   }, [allImages.length])
 
   return (
-    <section id="producto" style={{ padding: '96px 0 128px' }}>
+    <section style={{ padding: '96px 0 128px' }}>
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Header — 2 column grid: title left, description right */}
         <motion.div
@@ -221,7 +221,7 @@ export function FeatureSection({
               {/* Header */}
               <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
                 <span style={{ fontSize: 11, color: '#484b52', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>
-                  Tech Specs
+                  Detalle
                 </span>
                 <button
                   onClick={() => setOpenDetail(null)}

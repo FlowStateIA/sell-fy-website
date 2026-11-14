@@ -1,26 +1,32 @@
 import { motion } from 'framer-motion'
 
 import dashboardImg from '../assets/dashboard.png'
+import { hero } from '../content/home'
+import { DemoCta, Eyebrow } from './ChapterKit'
 
 export function Hero() {
   return (
     <section style={{ paddingTop: 140, paddingBottom: 0 }}>
       <div className="max-w-[1200px] mx-auto px-6">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{
-            fontSize: 'clamp(40px, 5vw, 64px)',
-            fontWeight: 510,
-            letterSpacing: '-0.022em',
-            lineHeight: 1,
-            color: '#f7f8f8',
-            maxWidth: 720,
-          }}
         >
-          Escala tu equipo de ventas desde la data
-        </motion.h1>
+          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <h1
+            style={{
+              fontSize: 'clamp(38px, 5vw, 60px)',
+              fontWeight: 510,
+              letterSpacing: '-0.022em',
+              lineHeight: 1.05,
+              color: '#f7f8f8',
+              maxWidth: 820,
+            }}
+          >
+            {hero.headline}
+          </h1>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -28,22 +34,31 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           style={{
             marginTop: 24,
-            fontSize: 15,
-            lineHeight: '24px',
+            fontSize: 17,
+            lineHeight: '26px',
             color: '#8a8f98',
-            maxWidth: 460,
+            maxWidth: 620,
           }}
         >
-          IA que audita cada llamada, extrae el perfil psicológico de tu cliente
-          y te dice exactamente qué mejorar para cerrar más.
+          {hero.subheadline}
         </motion.p>
 
-        {/* Product screenshot — full width like Linear */}
+        {/* El único CTA de la página. Antes el hero no tenía ninguno. */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+          style={{ marginTop: 32 }}
+        >
+          <DemoCta size="lg" sub={hero.ctaSub} />
+        </motion.div>
+
+        {/* Captura del producto */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{ marginTop: 64 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          style={{ marginTop: 56 }}
           className="relative"
         >
           <div
@@ -56,12 +71,12 @@ export function Hero() {
           >
             <img
               src={dashboardImg}
-              alt="SellNode Dashboard"
+              alt="Tablero de SellNode"
               className="w-full"
               style={{ display: 'block' }}
             />
           </div>
-          {/* Fade to black — Linear style */}
+          {/* Degradado al fondo de la página */}
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
@@ -69,6 +84,13 @@ export function Hero() {
               background: 'linear-gradient(to top, #08090a 0%, #08090a 10%, transparent 100%)',
             }}
           />
+          {/* Obligatorio por la guía de marca: los datos de ejemplo se rotulan. */}
+          <div
+            className="absolute left-0 right-0 text-center"
+            style={{ bottom: 8, fontSize: 12, color: '#484b52' }}
+          >
+            {hero.caption}
+          </div>
         </motion.div>
       </div>
     </section>

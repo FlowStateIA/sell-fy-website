@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 
 import logoImg from '../assets/sellnode-logo-inversa.svg'
+import { nav } from '../content/home'
+import { APP_URL } from '../content/site'
+import { DemoCta } from './ChapterKit'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -26,31 +29,33 @@ export function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
         <a href="/" style={{ marginLeft: -4 }}>
-          <img src={logoImg} alt="SellNode" style={{ height: 24 }} />
+          <img src={logoImg} alt="SellNode" style={{ height: 27 }} />
         </a>
 
-        <nav className="flex items-center gap-6 sm:gap-8">
+        <nav className="flex items-center gap-4 sm:gap-7 flex-shrink-0">
+          {/* En español: decía «Pricing» y «Log in» en una página en español. */}
           <a
-            href="/demo"
+            href="/#producto"
             style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
+            className="hidden sm:inline hover:!text-[#f7f8f8] transition-colors"
           >
-            Demo
+            {nav.producto}
           </a>
           <a
             href="/#precios"
             style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
+            className="hidden sm:inline hover:!text-[#f7f8f8] transition-colors"
           >
-            Pricing
+            {nav.precios}
           </a>
           <a
-            href="https://app.sell-fy.app"
+            href={APP_URL}
             style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
+            className="hidden sm:inline hover:!text-[#f7f8f8] transition-colors"
           >
-            Log in
+            {nav.entrar}
           </a>
+          <DemoCta />
         </nav>
       </div>
     </header>
