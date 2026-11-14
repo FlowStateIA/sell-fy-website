@@ -55,6 +55,17 @@ export const covers = [
 ]
 
 /**
+ * La demo interactiva, debajo del video: para quien prefiere tocar el producto
+ * antes que verlo. Las pantallas y sus datos son los mismos de la home
+ * (src/content/productDemo.ts).
+ */
+export const tour = {
+  title: 'Recórrelo por dentro.\nSin crear una cuenta.',
+  subtitle:
+    'Cuatro pantallas con datos de ejemplo. Cambia de pestaña y mira qué muestra cada una.',
+}
+
+/**
  * Métricas de validación. Vacío = la sección no se muestra.
  * Sólo números reales y verificables.
  */

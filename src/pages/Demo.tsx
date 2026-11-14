@@ -14,13 +14,17 @@ import {
 
 import logoImg from '../assets/sellnode-logo-inversa.svg'
 import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
+import { ProductDemo } from '../components/ProductDemo'
+import { SaleJourney } from '../components/SaleJourney'
+import { SavingsTable } from '../components/SavingsTable'
 import { ReplaceGrid } from '../components/ReplaceGrid'
-import { Button, Label } from '../components/ui'
+import { Button, Label, TwoTone } from '../components/ui'
 import { COPYRIGHT, PRICE_FROM } from '../content/site'
 import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
+  tour,
   covers,
   metrics,
   forWho,
@@ -33,7 +37,8 @@ import {
   guarantee,
   finalCta,
 } from '../content/demo'
-import { color, depth, motion as mo, onDark, onLight, radius, space, type } from '../lib/theme'
+import { mechanism } from '../content/home'
+import { color, motion as mo, onDark, onLight, radius, shade, space, type } from '../lib/theme'
 import { ToneContext, palette, type Tone } from '../lib/tone'
 
 /**
@@ -71,7 +76,7 @@ function SectionTitle({
   center = false,
   tone = 'dark',
 }: {
-  children: ReactNode
+  children: string
   max?: number
   center?: boolean
   tone?: Tone
@@ -80,13 +85,13 @@ function SectionTitle({
     <h2
       style={{
         ...(type.h2 as CSSProperties),
-        fontSize: 'clamp(26px, 3.4vw, 42px)',
-        color: palette(tone).primary,
+        fontSize: 'clamp(27px, 3.5vw, 42px)',
         maxWidth: center ? undefined : max,
+        whiteSpace: 'pre-line',
         textWrap: 'balance',
       }}
     >
-      {children}
+      <TwoTone text={children} light={tone === 'light'} />
     </h2>
   )
 }
@@ -146,10 +151,13 @@ function Section({
   children,
   id,
   tone = 'dark',
+  shadeIndex = 0,
 }: {
   children: ReactNode
   id?: string
   tone?: Tone
+  /** Cuál de los tonos oscuros usa la sección, para que dos seguidas no se fundan. */
+  shadeIndex?: 0 | 1 | 2
 }) {
   const light = tone === 'light'
   return (
@@ -158,7 +166,7 @@ function Section({
         id={id}
         style={{
           padding: `${space.sectionTight} 0`,
-          backgroundColor: light ? color.ivory : 'transparent',
+          backgroundColor: light ? color.ivory : shade[shadeIndex],
           color: palette(tone).primary,
         }}
       >
@@ -181,17 +189,18 @@ function Section({
 
 function DemoHeader() {
   return (
-    <header
-      className="fixed top-0 w-full z-50 backdrop-blur-md"
-      style={{
-        height: 64,
-        backgroundColor: 'rgba(10,11,12,0.8)',
-        borderBottom: `1px solid ${onDark.lineSoft}`,
-      }}
-    >
+    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-5" style={{ paddingTop: 14 }}>
       <div
-        className="mx-auto px-5 sm:px-6 h-full flex items-center justify-between gap-3"
-        style={{ maxWidth: space.maxWidth }}
+        className="glass mx-auto flex items-center justify-between"
+        style={{
+          maxWidth: space.maxWidth + 24,
+          height: 62,
+          padding: '0 11px 0 20px',
+          borderRadius: radius.xl,
+          backgroundColor: 'rgba(14,15,16,0.72)',
+          backdropFilter: 'blur(22px) saturate(1.8)',
+          WebkitBackdropFilter: 'blur(22px) saturate(1.8)',
+        }}
       >
         {/* Sin link a home: en una página de embudo no se ofrecen salidas.
             En móvil va el símbolo solo, igual que en la home: la firma completa
@@ -218,14 +227,10 @@ function DemoHeader() {
 
 function VideoEmbed() {
   return (
+    <div className="bezel w-full" style={{ borderRadius: radius.xl }}>
     <div
-      className="glass w-full overflow-hidden"
-      style={{
-        borderRadius: radius.lg,
-        backgroundColor: color.surface,
-        boxShadow: depth.card,
-        aspectRatio: '16 / 9',
-      }}
+      className="w-full overflow-hidden"
+      style={{ borderRadius: 16, backgroundColor: color.surface, aspectRatio: '16 / 9' }}
     >
       {LOOM_VIDEO_ID ? (
         <iframe
@@ -246,6 +251,7 @@ function VideoEmbed() {
         </div>
       )}
     </div>
+    </div>
   )
 }
 
@@ -263,14 +269,14 @@ export function Demo() {
           en el primer pantallazo. En una VSL el video es la página. */}
       <section
         className="relative grain"
-        style={{ paddingTop: 100, paddingBottom: 28, overflow: 'hidden' }}
+        style={{ paddingTop: 112, paddingBottom: 28, overflow: 'hidden' }}
       >
+        {/* El resplandor queda detrás del video, que es lo que tiene que verse encendido. */}
         <div
-          className="absolute inset-x-0 top-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            height: 'clamp(360px, 62vh, 640px)',
             background:
-              'radial-gradient(52% 44% at 50% -6%, rgba(236,60,50,0.13), transparent 70%)',
+              'radial-gradient(50% 46% at 50% 62%, rgba(236,60,50,0.24), rgba(236,60,50,0.06) 46%, transparent 72%)',
           }}
         />
         <div
@@ -363,6 +369,17 @@ export function Demo() {
         <IntegrationsMarquee />
       </div>
 
+      {/* La demo viva: para quien prefiere tocar el producto antes que verlo. */}
+      <Section shadeIndex={1}>
+        <div className="text-center mx-auto" style={{ maxWidth: 720, marginBottom: 44 }}>
+          <SectionTitle center>{tour.title}</SectionTitle>
+          <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 16 }}>
+            {tour.subtitle}
+          </p>
+        </div>
+        <ProductDemo />
+      </Section>
+
       {/* Métricas — sólo si hay datos reales */}
       {metrics.length > 0 && (
         <Section>
@@ -410,13 +427,8 @@ export function Demo() {
           {forWho.cards.map(card => (
             <div
               key={card.title}
-              className="flex gap-4"
-              style={{
-                padding: 24,
-                borderRadius: radius.lg,
-                border: `1px solid ${onLight.lineSoft}`,
-                backgroundColor: 'rgba(255,255,255,0.6)',
-              }}
+              className="paper flex gap-4"
+              style={{ padding: 24, borderRadius: radius.lg }}
             >
               <PainIconChip name={card.icon} />
               <div>
@@ -432,8 +444,15 @@ export function Demo() {
         </div>
       </Section>
 
-      {/* Centralización — reemplaza vs se conecta */}
+      {/* Cómo sigue SellNode una venta: el mismo recorrido de la home. */}
       <Section>
+        <SectionTitle max={720}>{mechanism.title}</SectionTitle>
+        <SectionLead>{mechanism.body}</SectionLead>
+        <SaleJourney />
+      </Section>
+
+      {/* Centralización — reemplaza vs se conecta */}
+      <Section shadeIndex={1}>
         <SectionTitle max={680}>{centralize.title}</SectionTitle>
         <SectionLead>{centralize.subtitle}</SectionLead>
         <ReplaceGrid />
@@ -455,13 +474,8 @@ export function Demo() {
           {includes.items.map(item => (
             <div
               key={item.title}
-              className="snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto"
-              style={{
-                padding: '26px 24px 28px',
-                borderRadius: radius.lg,
-                border: `1px solid ${onLight.lineSoft}`,
-                backgroundColor: 'rgba(255,255,255,0.6)',
-              }}
+              className="paper snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto"
+              style={{ padding: '26px 24px 28px', borderRadius: radius.lg }}
             >
               <div style={{ ...type.h3, fontSize: 15.5, color: onLight.primary, marginBottom: 8 }}>
                 {item.title}
@@ -540,9 +554,15 @@ export function Demo() {
           </div>
         </div>
 
+      </Section>
+
+      {/* Lo que cuesta armar lo mismo con herramientas sueltas. Misma tabla que la home. */}
+      <SavingsTable />
+
+      <Section shadeIndex={2}>
         {/* Planes. Cada tarjeta lleva su propio checkout; el resto de los CTA de
             la página baja aquí (#planes) para que el cliente elija. */}
-        <div id="planes" style={{ marginTop: 96, scrollMarginTop: 88 }}>
+        <div id="planes" style={{ scrollMarginTop: 96 }}>
           <div className="text-center mx-auto" style={{ maxWidth: 640 }}>
             <SectionTitle center>{pricing.title}</SectionTitle>
             <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 14 }}>
@@ -561,7 +581,6 @@ export function Demo() {
                 style={{
                   borderRadius: radius.lg,
                   backgroundColor: plan.highlight ? 'rgba(236,60,50,0.05)' : color.surface,
-                  boxShadow: depth.card,
                 }}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -774,7 +793,6 @@ export function Demo() {
                   padding: 28,
                   borderRadius: radius.lg,
                   backgroundColor: color.surface,
-                  boxShadow: depth.card,
                 }}
               >
                 <p style={{ ...type.body, fontSize: 15, lineHeight: '25px', color: onDark.secondary }}>
@@ -799,7 +817,6 @@ export function Demo() {
               padding: 40,
               borderRadius: radius.lg,
               backgroundColor: color.surface,
-              boxShadow: depth.card,
               maxWidth: 760,
             }}
           >
@@ -833,7 +850,6 @@ export function Demo() {
             style={{
               borderRadius: radius.xl,
               backgroundColor: color.surface,
-              boxShadow: depth.card,
             }}
           >
             {/* El resplandor del hero vuelve en el cierre, desde la esquina. */}
