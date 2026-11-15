@@ -247,3 +247,74 @@ export function Segmented<T extends string>({
     </div>
   )
 }
+
+/**
+ * Aviso de «lo que acaba de pasar» que se asoma sobre la ventana de producto:
+ * una venta cerrada, una cuota cobrada. Va como hijo directo de AnimatePresence
+ * para que también anime al salir. Lo usan el hero y la demo de pestañas.
+ */
+export function SaleToast({
+  title,
+  body,
+  amount,
+}: {
+  title: string
+  body: string
+  /** Cifra a la derecha (en salvia): lo que entró. Opcional. */
+  amount?: string
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -14, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -8, scale: 0.98 }}
+      transition={{ duration: 0.4, ease: mo.ease }}
+      className="glass flex items-start sale-toast"
+      aria-live="polite"
+      style={{
+        position: 'absolute',
+        top: 54,
+        right: 12,
+        maxWidth: 'min(340px, calc(100% - 24px))',
+        gap: 12,
+        padding: '12px 14px',
+        borderRadius: radius.md,
+        backgroundColor: 'rgba(24,26,28,0.92)',
+        backdropFilter: 'blur(14px)',
+        boxShadow: '0 24px 50px -18px rgba(0,0,0,0.9)',
+      }}
+    >
+      <span
+        className="relative flex items-center justify-center flex-shrink-0"
+        style={{
+          width: 30,
+          height: 30,
+          borderRadius: radius.sm,
+          backgroundColor: 'rgba(236,60,50,0.12)',
+          border: '1px solid rgba(236,60,50,0.28)',
+        }}
+      >
+        <img src="/brand/sellnode-simbolo.svg" alt="" style={{ height: 12 }} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block" style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>
+          {title}
+        </span>
+        <span
+          className="block"
+          style={{ fontSize: 12, lineHeight: '17px', color: onDark.secondary, marginTop: 2 }}
+        >
+          {body}
+        </span>
+      </span>
+      {amount && (
+        <span
+          className="flex-shrink-0"
+          style={{ ...type.figure, fontSize: 13, fontWeight: 700, color: color.sage, marginTop: 1 }}
+        >
+          {amount}
+        </span>
+      )}
+    </motion.div>
+  )
+}

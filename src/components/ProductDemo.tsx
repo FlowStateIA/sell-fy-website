@@ -30,7 +30,7 @@ import {
 } from '../content/productDemo'
 import { cell, fig, toneColor } from '../lib/demoStyle'
 import { color, motion as mo, onDark, radius, type } from '../lib/theme'
-import { Bar, Card, TableHead, WindowChrome } from './demoKit'
+import { Bar, Card, SaleToast, TableHead, WindowChrome } from './demoKit'
 import { Label } from './ui'
 
 /**
@@ -722,51 +722,7 @@ export function ProductDemo() {
         {/* Lo que acaba de pasar en esta pantalla */}
         <AnimatePresence>
           {toastVisible && (
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: -14, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.4, ease: mo.ease }}
-              className="glass flex items-start"
-              aria-live="polite"
-              style={{
-                position: 'absolute',
-                top: 54,
-                right: 12,
-                maxWidth: 'min(320px, calc(100% - 24px))',
-                gap: 12,
-                padding: '12px 14px',
-                borderRadius: radius.md,
-                backgroundColor: 'rgba(24,26,28,0.92)',
-                backdropFilter: 'blur(14px)',
-                boxShadow: '0 24px 50px -18px rgba(0,0,0,0.9)',
-              }}
-            >
-              <span
-                className="flex items-center justify-center flex-shrink-0"
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: radius.sm,
-                  backgroundColor: 'rgba(236,60,50,0.12)',
-                  border: '1px solid rgba(236,60,50,0.28)',
-                }}
-              >
-                <img src="/brand/sellnode-simbolo.svg" alt="" style={{ height: 12 }} />
-              </span>
-              <span className="min-w-0">
-                <span className="block" style={{ fontSize: 12.5, fontWeight: 700, color: onDark.primary }}>
-                  {tab.toast.title}
-                </span>
-                <span
-                  className="block"
-                  style={{ fontSize: 12, lineHeight: '17px', color: onDark.secondary, marginTop: 2 }}
-                >
-                  {tab.toast.body}
-                </span>
-              </span>
-            </motion.div>
+            <SaleToast key={active} title={tab.toast.title} body={tab.toast.body} />
           )}
         </AnimatePresence>
       </div>

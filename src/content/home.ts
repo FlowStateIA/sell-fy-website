@@ -491,3 +491,25 @@ export const finalCta = {
     'En la demo vemos tu propia operación: qué se centraliza, qué se conecta y qué necesita tu equipo para registrarla. Si no encaja, es mejor saberlo en esa llamada.',
   ctaSub: 'Treinta minutos. Revisamos tus embudos y tu forma de vender.',
 }
+
+/**
+ * El video del hero: una grabación REAL de la app (no una recreación) con los
+ * datos de ejemplo de «Academia Norte». Sobre el video entra el aviso de una
+ * venta nueva, hecho con código para poder traducirlo y cambiarlo sin regrabar.
+ * El aviso cuenta una venta que está en los datos del video (Julián S., 14 nov).
+ */
+export const heroVideo = {
+  url: 'app.sell-node.com/dashboard',
+  src: '/clips/hero-tablero.mp4',
+  poster: '/clips/hero-tablero-portada.jpg',
+  alt: 'Tablero de SellNode: ventas, cobrado del mes y embudo, con datos de ejemplo.',
+  caption: 'Grabación de la app. Datos de ejemplo, del 1 al 14 de noviembre.',
+  toast: {
+    title: 'Venta registrada',
+    body: 'Laura M. cerró Programa intensivo',
+    amount: '+$3,500',
+    /** Segundos del video en los que se ve el aviso: entra con el cursor sobre el gráfico y sale antes del scroll. */
+    from: 1.1,
+    to: 4.6,
+  },
+} as const
