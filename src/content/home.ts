@@ -110,7 +110,11 @@ export const featureSections: FeatureSectionData[] = [
     title: 'Tu cliente ya te dijo\ncómo venderle',
     description:
       'Cada llamada trae los dolores, las objeciones y las aspiraciones que tu cliente dice en voz alta. SellNode las extrae y las agrupa por oferta, para que el copy de tu embudo use las palabras del cliente y no las tuyas.',
-    panel: 'clientes',
+    shot: {
+      src: '/capturas/prod-clientes.webp',
+      alt: 'Inteligencia de clientes en SellNode: dolores y aspiraciones que dicen los prospectos en las llamadas, con cuántas veces se repite cada uno.',
+      url: 'app.sell-node.com/inteligencia/clientes',
+    },
     subFeatures: [
       {
         number: '1.1',
@@ -149,7 +153,11 @@ export const featureSections: FeatureSectionData[] = [
     title: 'Las llamadas de esta semana,\nauditadas todas.',
     description:
       'Score por fase de la llamada, mapa con marcas de tiempo, el momento donde se puso en riesgo la venta y un plan de mejora por closer. Sin abrir una grabación.',
-    panel: 'auditoria',
+    shot: {
+      src: '/capturas/prod-auditoria.webp',
+      alt: 'Auditoría de una llamada en SellNode: el mapa de la llamada con el puntaje de cada fase y los insights clave.',
+      url: 'app.sell-node.com/auditorias',
+    },
     subFeatures: [
       {
         number: '2.1',
@@ -188,7 +196,11 @@ export const featureSections: FeatureSectionData[] = [
     title: 'Vendido y cobrado\nno son el mismo número.',
     description:
       'Ventas, cuotas, renovaciones y reembolsos, cada uno en su fecha. Comisiones que se calculan al registrar la venta y se desbloquean cuando el dinero entra. Aviso cuando una cuota vence.',
-    panel: 'cobro',
+    shot: {
+      src: '/capturas/prod-cobros.webp',
+      alt: 'Cartera de cobros de SellNode: total por cobrar, cartera vencida y el detalle de cada venta.',
+      url: 'app.sell-node.com/ventas/cobros',
+    },
     subFeatures: [
       {
         number: '3.1',
@@ -227,7 +239,11 @@ export const featureSections: FeatureSectionData[] = [
     title: 'Dos embudos. El mismo volumen.\nDistinto cobro.',
     description:
       'Compara embudos, closers y duplas en el mismo período. La tasa de cierre dice sobre qué llamadas se calculó, y cada cifra se puede abrir hasta la venta que la originó.',
-    panel: 'comparar',
+    shot: {
+      src: '/capturas/prod-analitica.webp',
+      alt: 'Analítica de SellNode: resumen ejecutivo del mes con revenue, cash collected, tasa de cierre y comparación con el período anterior.',
+      url: 'app.sell-node.com/ventas/analitica',
+    },
     subFeatures: [
       {
         number: '4.1',
@@ -493,23 +509,49 @@ export const finalCta = {
 }
 
 /**
- * El video del hero: una grabación REAL de la app (no una recreación) con los
- * datos de ejemplo de «Academia Norte». Sobre el video entra el aviso de una
- * venta nueva, hecho con código para poder traducirlo y cambiarlo sin regrabar.
- * El aviso cuenta una venta que está en los datos del video (Julián S., 14 nov).
+ * Las pantallas del hero: capturas REALES de la app (no recreaciones) con los
+ * datos de ejemplo de «Academia Norte», todas del mismo período. Cada pestaña
+ * trae el aviso de lo que «acaba de pasar» ahí, hecho con código para poder
+ * traducirlo y cambiarlo sin volver a capturar. Cada aviso cuenta algo que está
+ * en los datos de esa captura.
  */
-export const heroVideo = {
-  url: 'app.sell-node.com/dashboard',
-  src: '/clips/hero-tablero.mp4',
-  poster: '/clips/hero-tablero-portada.jpg',
-  alt: 'Tablero de SellNode: ventas, cobrado del mes y embudo, con datos de ejemplo.',
-  caption: 'Grabación de la app. Datos de ejemplo, del 1 al 14 de noviembre.',
-  toast: {
-    title: 'Venta registrada',
-    body: 'Laura M. cerró Programa intensivo',
-    amount: '+$3,500',
-    /** Segundos del video en los que se ve el aviso: entra con el cursor sobre el gráfico y sale antes del scroll. */
-    from: 1.1,
-    to: 4.6,
-  },
+export const heroShots = {
+  badge: 'Demo',
+  caption: 'Capturas de la app. Datos de ejemplo, del 1 al 14 de noviembre.',
+  tabs: [
+    {
+      id: 'tablero',
+      label: 'Tablero',
+      url: 'app.sell-node.com/dashboard',
+      src: '/capturas/hero-tablero.webp',
+      alt: 'Tablero de SellNode: ventas, cobrado del mes y embudo, con datos de ejemplo.',
+      toast: { title: 'Venta registrada', body: 'Laura M. cerró Programa intensivo', amount: '+$3,500' },
+    },
+    {
+      id: 'llamadas',
+      label: 'Llamadas',
+      url: 'app.sell-node.com/llamadas',
+      src: '/capturas/hero-llamadas.webp',
+      alt: 'Llamadas de SellNode: 96 llamadas del mes, con su closer, su grabación y su resultado.',
+      toast: { title: 'Llamada registrada', body: 'Julián S. con Laura M. · Venta' },
+    },
+    {
+      id: 'cobros',
+      label: 'Cobros',
+      url: 'app.sell-node.com/ventas/cobros',
+      src: '/capturas/hero-cobros.webp',
+      alt: 'Cartera de cobros de SellNode: total por cobrar, cartera vencida y el detalle de cada venta.',
+      toast: { title: 'Cuota cobrada', body: 'Carla P. pagó Mentoría', amount: '+$800' },
+    },
+    {
+      id: 'auditoria',
+      label: 'Auditoría',
+      url: 'app.sell-node.com/auditorias',
+      src: '/capturas/hero-auditoria.webp',
+      alt: 'Auditoría de una llamada en SellNode: score general y puntaje de cada fase.',
+      toast: { title: 'Llamada auditada', body: 'Bruno I. · score 81 de 100' },
+    },
+  ],
 } as const
+
+export type HeroShotId = (typeof heroShots.tabs)[number]['id']

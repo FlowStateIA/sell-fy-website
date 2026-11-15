@@ -199,15 +199,15 @@
   }
 }
 
-/* Cuadro del video del hero: 16:9 en escritorio; en móvil, 4:3 recortado para que el tablero se vea más grande. */
-.hero-video-cuadro { aspect-ratio: 16 / 9; }
+/* Cuadro de las capturas: 16:9. Las del hero (.shot-cuadro--recorte), que traen el menú lateral, en móvil se
+   recortan a 4:3 alineadas a la derecha: sale el menú y queda el contenido, más grande. */
+.shot-cuadro { aspect-ratio: 16 / 9; }
 @media (max-width: 639px) {
-  .hero-video-cuadro { aspect-ratio: 4 / 3; }
-  /* Alineado a la derecha: se recorta el menú lateral y queda el tablero. */
-  .hero-video-cuadro video, .hero-video-cuadro img { object-position: 76% 0; }
+  .shot-cuadro--recorte { aspect-ratio: 4 / 3; }
+  .shot-cuadro--recorte img { object-position: 76% 0; }
 }
-/* El aviso del hero se asoma arriba a la derecha, bajo la campana, como una notificación; más chico en móvil. */
-.hero-video-cuadro .sale-toast { top: 14px !important; right: 14px !important; }
+/* El aviso se asoma arriba a la derecha, bajo la campana, como una notificación; más chico en móvil. */
+.shot-cuadro .sale-toast { top: 14px !important; right: 14px !important; }
 @media (max-width: 639px) {
-  .hero-video-cuadro .sale-toast { top: 8px !important; right: 8px !important; zoom: 0.72; }
+  .shot-cuadro .sale-toast { top: 8px !important; right: 8px !important; zoom: 0.72; }
 }

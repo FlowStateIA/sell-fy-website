@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { motion } from 'framer-motion'
+import { Pause, Play, type LucideIcon } from 'lucide-react'
 
 import { color, motion as mo, onDark, radius, type } from '../lib/theme'
 import { toneColor, type DemoTone } from '../lib/demoStyle'
@@ -316,5 +317,160 @@ export function SaleToast({
         </span>
       )}
     </motion.div>
+  )
+}
+
+/**
+ * Las pestañas de las demos: un selector con icono, y un botón para pausar el
+ * avance automático. Lo usan la demo de /demo y las fotos del hero, para que
+ * las dos se manejen igual.
+ */
+export function DemoTabBar<Id extends string>({
+  tabs,
+  icons,
+  active,
+  playing,
+  onSelect,
+  onTogglePlay,
+  layoutId,
+  pauseLabel = 'Pausar',
+  playLabel = 'Reanudar',
+}: {
+  tabs: readonly { id: Id; label: string }[]
+  icons: Record<Id, LucideIcon>
+  active: Id
+  playing: boolean
+  onSelect: (id: Id) => void
+  onTogglePlay: () => void
+  /** Distinto por cada barra que haya en pantalla, para que el resaltado no salte entre ellas. */
+  layoutId: string
+  pauseLabel?: string
+  playLabel?: string
+}) {
+  return (
+    <div className="flex justify-center" style={{ marginBottom: 18 }}>
+      <div
+        className="well flex items-center overflow-x-auto no-scrollbar max-w-full"
+        role="tablist"
+        aria-label="Pantallas de la demo"
+        style={{ gap: 4, padding: 5, borderRadius: 17 }}
+      >
+        {tabs.map(t => {
+          const Icon: LucideIcon = icons[t.id]
+          const selected = t.id === active
+          return (
+            <button
+              key={t.id}
+              role="tab"
+              aria-selected={selected}
+              onClick={() => onSelect(t.id)}
+              className="relative flex items-center flex-shrink-0 transition-colors duration-200"
+              style={{
+                gap: 8,
+                padding: '10px 18px',
+                borderRadius: 12,
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 13,
+                fontWeight: 700,
+                color: selected ? onDark.primary : onDark.tertiary,
+                backgroundColor: 'transparent',
+              }}
+            >
+              {selected && (
+                <motion.span
+                  layoutId={layoutId}
+                  className="absolute inset-0"
+                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                  style={{
+                    borderRadius: 12,
+                    border: '1px solid rgba(246,245,240,0.12)',
+                    backgroundImage:
+                      'linear-gradient(180deg, rgba(246,245,240,0.14), rgba(246,245,240,0.05))',
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255,255,255,0.14), 0 6px 14px -8px rgba(0,0,0,0.8)',
+                  }}
+                />
+              )}
+              <Icon
+                size={14}
+                strokeWidth={2}
+                className="relative"
+                color={selected ? color.red : 'currentColor'}
+              />
+              <span className="relative">{t.label}</span>
+            </button>
+          )
+        })}
+
+        <button
+          onClick={onTogglePlay}
+          aria-label={playing ? pauseLabel : playLabel}
+          title={playing ? pauseLabel : playLabel}
+          className="flex items-center justify-center flex-shrink-0"
+          style={{
+            width: 32,
+            height: 32,
+            marginLeft: 2,
+            borderRadius: '50%',
+            border: 'none',
+            cursor: 'pointer',
+            color: onDark.tertiary,
+            backgroundColor: 'transparent',
+          }}
+        >
+          {playing ? <Pause size={13} strokeWidth={2.2} /> : <Play size={13} strokeWidth={2.2} />}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Una captura real de la app dentro de la ventana de la marca. Las capturas son
+ * 16:9 (ver .shot-cuadro en index.css). `children` se
+ * pinta encima de la imagen: el aviso que «acaba de pasar».
+ */
+export function ShotWindow({
+  src,
+  alt,
+  url,
+  badge,
+  priority = false,
+  recorteMovil = false,
+  children,
+}: {
+  src: string
+  alt: string
+  url: string
+  badge: string
+  /** El hero carga la imagen ya; las de más abajo, al acercarse. */
+  priority?: boolean
+  /** En móvil, recorta el menú lateral de la captura (sólo para capturas de pantalla completa). */
+  recorteMovil?: boolean
+  children?: ReactNode
+}) {
+  return (
+    <div className="bezel" style={{ borderRadius: radius.xl }}>
+      <div
+        className="relative overflow-hidden text-left"
+        style={{ borderRadius: 16, backgroundColor: color.surface }}
+      >
+        <WindowChrome url={url} badge={badge} />
+        <div className={`relative shot-cuadro${recorteMovil ? ' shot-cuadro--recorte' : ''}`} style={{ backgroundColor: '#0B0C0D' }}>
+          <img
+            src={src}
+            alt={alt}
+            width={2200}
+            height={1238}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            className="block w-full h-full"
+            style={{ objectFit: 'cover' }}
+          />
+          {children}
+        </div>
+      </div>
+    </div>
   )
 }

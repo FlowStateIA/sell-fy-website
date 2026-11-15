@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { CTA_LABEL, hero } from '../content/home'
 import { CALENDLY_URL } from '../content/site'
 import { motion as mo, onDark, space, type } from '../lib/theme'
-import { HeroVideo } from './HeroVideo'
+import { HeroShots } from './HeroShots'
 import { Button, Pill } from './ui'
 
 /**
@@ -90,7 +90,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* El producto de verdad: una grabación del tablero, en bucle. */}
+        {/* El producto de verdad: capturas reales de la app, en pestañas. */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export function Hero() {
           className="w-full"
           style={{ marginTop: 'clamp(40px, 6vw, 64px)' }}
         >
-          <HeroVideo />
+          <HeroShots />
         </motion.div>
       </div>
     </section>

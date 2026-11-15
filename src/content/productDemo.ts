@@ -26,8 +26,8 @@ export const demoMeta = {
   caption: 'Recreación de la interfaz. Datos de ejemplo, del mismo período en todas las pestañas.',
   pause: 'Pausar',
   play: 'Reanudar',
-  /** Pie de las pantallas del capítulo 04: avisa que se pueden tocar. */
-  touchHint: 'Pantalla de ejemplo. Puedes tocarla.',
+  /** Pie de las capturas del capítulo 04. */
+  shotHint: 'Captura de la app. Datos de ejemplo.',
 }
 
 export const demoTabs: {
@@ -180,7 +180,8 @@ export const cobros = {
 export const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Pantallas del capítulo 04 («Así se ve»).
+   Datos de las pestañas de /demo (mapa de llamada y comisiones). Las pantallas del
+   capítulo 04 de la home ahora son capturas: viven en public/capturas.
 
    Misma operación de ejemplo que el hero, así que las cifras tienen que seguir
    cuadrando con las de arriba:
@@ -190,41 +191,6 @@ export const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
      - En mora 4.100 = 1.400 + 1.500 + 1.200
      - Las duplas de cada closer suman sus llamadas, ventas y cobro del ranking
    ═══════════════════════════════════════════════════════════════════════════ */
-
-export type OfferId = 'todas' | 'mentoria' | 'intensivo'
-
-/** Inteligencia de clientes: lo que dicen en las llamadas, agrupado por oferta. */
-export const clientes = {
-  url: 'app.sell-node.com/inteligencia/clientes',
-  filterLabel: 'Filtrar por oferta',
-  offers: [
-    { id: 'todas' as OfferId, label: 'Todas las ofertas', calls: 96 },
-    { id: 'mentoria' as OfferId, label: 'Mentoría 12 semanas', calls: 58 },
-    { id: 'intensivo' as OfferId, label: 'Programa intensivo', calls: 38 },
-  ],
-  callsLabel: 'llamadas auditadas',
-  countLabel: 'llamadas',
-  groups: [
-    {
-      title: 'Dolores que más se repiten',
-      tone: 'neutral' as const,
-      rows: [
-        { quote: '«Llevo meses aplicando y no me llaman»', counts: { todas: 41, mentoria: 26, intensivo: 15 } },
-        { quote: '«No sé cómo cobrar en dólares»', counts: { todas: 28, mentoria: 17, intensivo: 11 } },
-        { quote: '«Me da miedo dejar mi trabajo actual»', counts: { todas: 19, mentoria: 9, intensivo: 10 } },
-      ],
-    },
-    {
-      title: 'Objeciones antes de decidir',
-      tone: 'bad' as const,
-      rows: [
-        { quote: '«Tengo que consultarlo con mi pareja»', counts: { todas: 22, mentoria: 13, intensivo: 9 } },
-        { quote: '«Ahora no tengo el dinero»', counts: { todas: 17, mentoria: 8, intensivo: 9 } },
-        { quote: '«Ya probé un curso y no funcionó»', counts: { todas: 11, mentoria: 7, intensivo: 4 } },
-      ],
-    },
-  ],
-}
 
 /** Mapa de una llamada: sus tramos, con marca de tiempo, puntaje y una nota revisable. */
 export const mapa = {
@@ -285,37 +251,6 @@ export const comisiones = {
     ],
     statusLabel: 'Vencida',
     note: 'El closer de cada venta recibió el aviso por WhatsApp el día del vencimiento.',
-  },
-}
-
-export type CompareViewId = 'embudos' | 'closers' | 'duplas'
-
-/** Comparación en el mismo período. Embudos y closers reutilizan los datos del hero. */
-export const comparar = {
-  url: 'app.sell-node.com/analitica',
-  viewLabel: 'Comparar por',
-  views: [
-    { id: 'embudos' as CompareViewId, label: 'Embudos' },
-    { id: 'closers' as CompareViewId, label: 'Closers' },
-    { id: 'duplas' as CompareViewId, label: 'Duplas' },
-  ],
-  columns: {
-    embudos: ['Embudo', 'Agendas', 'Ventas', 'Cobrado'],
-    closers: ['Closer', 'Llamadas', 'Cierre', 'Cobrado'],
-    duplas: ['Setter + closer', 'Llamadas', 'Cierre', 'Cobrado'],
-  },
-  duplas: [
-    { name: 'Dani V. + Laura M.', llamadas: 18, cierre: '33%', cobrado: 13400 },
-    { name: 'Dani V. + Andrés R.', llamadas: 15, cierre: '27%', cobrado: 8300 },
-    { name: 'Sara N. + Camila T.', llamadas: 12, cierre: '25%', cobrado: 6900 },
-    { name: 'Sara N. + Laura M.', llamadas: 14, cierre: '21%', cobrado: 6400 },
-    { name: 'Sara N. + Andrés R.', llamadas: 13, cierre: '23%', cobrado: 6300 },
-  ],
-  /** La guía pide decir siempre qué se midió y sobre qué denominador. */
-  notes: {
-    embudos: 'Agendas, ventas y dinero cobrado de cada embudo, este mes.',
-    closers: 'Tasa de cierre = ventas ÷ llamadas realizadas por cada closer, este mes.',
-    duplas: 'Las cinco duplas con más cobro. Tasa de cierre = ventas ÷ llamadas realizadas de la dupla.',
   },
 }
 

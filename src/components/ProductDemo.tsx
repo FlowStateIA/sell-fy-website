@@ -6,9 +6,7 @@ import {
   CreditCard,
   GraduationCap,
   LayoutDashboard,
-  Pause,
   Phone,
-  Play,
   Receipt,
   TrendingUp,
   Wallet,
@@ -30,7 +28,7 @@ import {
 } from '../content/productDemo'
 import { cell, fig, toneColor } from '../lib/demoStyle'
 import { color, motion as mo, onDark, radius, type } from '../lib/theme'
-import { Bar, Card, SaleToast, TableHead, WindowChrome } from './demoKit'
+import { Bar, Card, DemoTabBar, SaleToast, TableHead, WindowChrome } from './demoKit'
 import { Label } from './ui'
 
 /**
@@ -536,85 +534,18 @@ export function ProductDemo() {
 
   return (
     <div>
-      {/* Pestañas */}
-      <div className="flex justify-center" style={{ marginBottom: 18 }}>
-        <div
-          className="well flex items-center overflow-x-auto no-scrollbar max-w-full"
-          role="tablist"
-          aria-label="Pantallas de la demo"
-          style={{ gap: 4, padding: 5, borderRadius: 17 }}
-        >
-          {demoTabs.map(t => {
-            const Icon = TAB_ICONS[t.id]
-            const selected = t.id === active
-            return (
-              <button
-                key={t.id}
-                role="tab"
-                aria-selected={selected}
-                onClick={() => {
-                  setActive(t.id)
-                  setPlaying(false)
-                }}
-                className="relative flex items-center flex-shrink-0 transition-colors duration-200"
-                style={{
-                  gap: 8,
-                  padding: '10px 18px',
-                  borderRadius: 12,
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: selected ? onDark.primary : onDark.tertiary,
-                  backgroundColor: 'transparent',
-                }}
-              >
-                {selected && (
-                  <motion.span
-                    layoutId="demo-tab"
-                    className="absolute inset-0"
-                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-                    style={{
-                      borderRadius: 12,
-                      border: '1px solid rgba(246,245,240,0.12)',
-                      backgroundImage:
-                        'linear-gradient(180deg, rgba(246,245,240,0.14), rgba(246,245,240,0.05))',
-                      boxShadow:
-                        'inset 0 1px 0 rgba(255,255,255,0.14), 0 6px 14px -8px rgba(0,0,0,0.8)',
-                    }}
-                  />
-                )}
-                <Icon
-                  size={14}
-                  strokeWidth={2}
-                  className="relative"
-                  color={selected ? color.red : 'currentColor'}
-                />
-                <span className="relative">{t.label}</span>
-              </button>
-            )
-          })}
-
-          <button
-            onClick={() => setPlaying(p => !p)}
-            aria-label={playing ? demoMeta.pause : demoMeta.play}
-            title={playing ? demoMeta.pause : demoMeta.play}
-            className="flex items-center justify-center flex-shrink-0"
-            style={{
-              width: 32,
-              height: 32,
-              marginLeft: 2,
-              borderRadius: '50%',
-              border: 'none',
-              cursor: 'pointer',
-              color: onDark.tertiary,
-              backgroundColor: 'transparent',
-            }}
-          >
-            {playing ? <Pause size={13} strokeWidth={2.2} /> : <Play size={13} strokeWidth={2.2} />}
-          </button>
-        </div>
-      </div>
+      <DemoTabBar
+        tabs={demoTabs}
+        icons={TAB_ICONS}
+        active={active}
+        playing={playing}
+        onSelect={id => {
+          setActive(id)
+          setPlaying(false)
+        }}
+        onTogglePlay={() => setPlaying(p => !p)}
+        layoutId="demo-tab"
+      />
 
       {/* Ventana */}
       <div className="bezel" style={{ borderRadius: radius.xl }}>

@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
-import { ProductPanel, type PanelId } from './ProductPanels'
+import { demoMeta } from '../content/productDemo'
+import { ShotWindow } from './demoKit'
 import { Label, TwoTone } from './ui'
 
 export type SubFeature = {
@@ -22,8 +23,8 @@ export type FeatureSectionData = {
   kicker: string
   title: string
   description: string
-  /** Qué pantalla recreada acompaña a la sección (ver ProductPanels.tsx). */
-  panel: PanelId
+  /** La captura de la app que acompaña a la sección (archivo en public/capturas). */
+  shot: { src: string; alt: string; url: string }
   subFeatures: SubFeature[]
 }
 
@@ -36,7 +37,7 @@ export function FeatureSection({
   kicker,
   title,
   description,
-  panel,
+  shot,
   subFeatures,
   flip = false,
 }: FeatureSectionData & { flip?: boolean }) {
@@ -136,7 +137,10 @@ export function FeatureSection({
           transition={{ duration: 0.7, delay: 0.08, ease: mo.ease }}
           className={`lg:col-span-7 min-w-0 ${flip ? 'lg:order-1' : ''}`}
         >
-          <ProductPanel id={panel} />
+          <ShotWindow src={shot.src} alt={shot.alt} url={shot.url} badge={demoMeta.badge} />
+          <p style={{ marginTop: 12, fontSize: 12, color: onDark.faint, textAlign: 'center' }}>
+            {demoMeta.shotHint}
+          </p>
         </motion.div>
       </div>
 
