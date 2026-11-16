@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tipografía del manual de marca SellNode: DejaVu Sans (texto y titulares) y
+   DejaVu Sans Mono (importes y fechas). Servidas desde /public/fonts, recortadas
+   a latín. Solo hay pesos 400 y 700: un fontWeight de 510 o 560 cae en Bold. */
+@font-face { font-family: 'DejaVu Sans'; src: url('/fonts/DejaVuSans.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'DejaVu Sans'; src: url('/fonts/DejaVuSans-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'DejaVu Sans Mono'; src: url('/fonts/DejaVuSansMono.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'DejaVu Sans Mono'; src: url('/fonts/DejaVuSansMono-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
 @layer utilities {
   /* Carruseles horizontales en móvil sin barra de scroll visible */
   .no-scrollbar::-webkit-scrollbar {
@@ -35,6 +43,142 @@
   }
 }
 
+@layer utilities {
+  /* Grano. Una capa casi invisible que le quita el aspecto de degradado digital
+     a los fondos oscuros; sin esto, las zonas grandes de negro se bandean. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Retícula de fondo: da escala y profundidad al hero sin dibujar nada. */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(246,245,240,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(246,245,240,0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 75%);
+  }
+
+  /* ───────────── Superficies ─────────────
+     Ninguna lleva desenfoque de fondo: van sobre fondos lisos, donde no se
+     nota, y con decenas de tarjetas trababa el scroll en teléfonos. El
+     desenfoque queda sólo en la barra de navegación y en el aviso flotante.
+
+     Las cinco superficies del sitio. Están acá y no repetidas en cada
+     componente para que una tarjeta se vea igual en cualquier sección. Todas
+     siguen la misma receta: degradado en diagonal, borde de un píxel, un filo
+     de luz arriba y una línea de sombra abajo. */
+
+  /* Vidrio: la tarjeta sobre fondo oscuro. */
+  .glass {
+    border: 1px solid rgba(246, 245, 240, 0.11);
+    background-image: linear-gradient(160deg, rgba(246, 245, 240, 0.085), rgba(246, 245, 240, 0.02));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      0 22px 44px -26px rgba(0, 0, 0, 0.85);
+  }
+
+  /* La tarjeta que se destaca en una grilla: rojo nodo, con texto en tinta,
+     que es lo que el manual pide sobre rojo. Una por grilla, no más. */
+  .glass-accent {
+    border: 1px solid rgba(255, 196, 190, 0.85);
+    background-image: linear-gradient(150deg, #f56a61, #e2382e 55%, #d93228);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(90, 12, 8, 0.28),
+      0 24px 56px -22px rgba(236, 60, 50, 0.65);
+    color: #121415;
+  }
+
+  /* Papel: la tarjeta sobre marfil. */
+  .paper {
+    border: 1px solid rgba(18, 20, 21, 0.075);
+    background-image: linear-gradient(180deg, #ffffff, #fbfaf6);
+    box-shadow:
+      inset 0 1px 0 #ffffff,
+      0 1px 2px rgba(18, 20, 21, 0.04),
+      0 20px 40px -26px rgba(18, 20, 21, 0.24);
+  }
+
+  /* Marco de la ventana de producto: un bisel de vidrio alrededor de la
+     pantalla, con el halo del rojo de marca detrás. */
+  .bezel {
+    padding: 6px;
+    border: 1px solid rgba(246, 245, 240, 0.16);
+    background-image: linear-gradient(180deg, rgba(246, 245, 240, 0.11), rgba(246, 245, 240, 0.03));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+      0 0 0 6px rgba(246, 245, 240, 0.018),
+      0 40px 100px -24px rgba(0, 0, 0, 0.85),
+      0 0 90px -20px rgba(236, 60, 50, 0.3);
+  }
+
+  /* Hueco: el contenedor hundido de pestañas y selectores. */
+  .well {
+    border: 1px solid rgba(246, 245, 240, 0.08);
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.32));
+    box-shadow:
+      inset 0 1px 3px rgba(0, 0, 0, 0.5),
+      0 1px 0 rgba(246, 245, 240, 0.06);
+  }
+
+  /* ───────────── Botones ─────────────
+     La acción principal: rojo nodo en degradado, con relieve, y el texto en
+     tinta — el manual pide tinta sobre rojo. */
+  .btn-primary {
+    color: #121415;
+    border: 1px solid rgba(255, 190, 183, 0.9);
+    background-image: linear-gradient(180deg, #f8776e, #ec3c32 52%, #dc3329);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0 rgba(90, 12, 8, 0.25),
+      0 8px 22px -8px rgba(236, 60, 50, 0.75),
+      0 0 0 1px rgba(236, 60, 50, 0.14);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(90, 12, 8, 0.25),
+      0 14px 30px -10px rgba(236, 60, 50, 0.85),
+      0 0 0 1px rgba(236, 60, 50, 0.2);
+  }
+
+  .btn-ghost {
+    color: #f6f5f0;
+    border: 1px solid rgba(246, 245, 240, 0.14);
+    background-image: linear-gradient(180deg, rgba(246, 245, 240, 0.08), rgba(246, 245, 240, 0.02));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 10px 24px -14px rgba(0, 0, 0, 0.8);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-ghost:hover {
+    transform: translateY(-1px);
+    border-color: rgba(246, 245, 240, 0.28);
+  }
+  .btn-ghost-light {
+    color: #121415;
+    border: 1px solid rgba(18, 20, 21, 0.14);
+    background-image: linear-gradient(180deg, #ffffff, #f6f5f0);
+    box-shadow: inset 0 1px 0 #ffffff, 0 8px 18px -12px rgba(18, 20, 21, 0.3);
+    transition: transform 0.2s ease;
+  }
+  .btn-ghost-light:hover {
+    transform: translateY(-1px);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -43,13 +187,27 @@
   }
 
   body {
-    background-color: #08090a;
-    color: #f7f8f8;
-    font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
+    background-color: #0B0C0D;
+    color: #F6F5F0;
+    font-family: 'DejaVu Sans', -apple-system, system-ui, sans-serif;
   }
 
+  /* Rojo nodo, el del manual de marca. Antes había tres rojos distintos. */
   ::selection {
-    background: rgba(220, 38, 38, 0.15);
-    color: #f7f8f8;
+    background: rgba(236, 60, 50, 0.22);
+    color: #F6F5F0;
   }
+}
+
+/* Cuadro de las capturas: 16:9. Las del hero (.shot-cuadro--recorte), que traen el menú lateral, en móvil se
+   recortan a 4:3 alineadas a la derecha: sale el menú y queda el contenido, más grande. */
+.shot-cuadro { aspect-ratio: 16 / 9; }
+@media (max-width: 639px) {
+  .shot-cuadro--recorte { aspect-ratio: 4 / 3; }
+  .shot-cuadro--recorte img { object-position: 76% 0; }
+}
+/* El aviso se asoma arriba a la derecha, bajo la campana, como una notificación; más chico en móvil. */
+.shot-cuadro .sale-toast { top: 14px !important; right: 14px !important; }
+@media (max-width: 639px) {
+  .shot-cuadro .sale-toast { top: 8px !important; right: 8px !important; zoom: 0.72; }
 }

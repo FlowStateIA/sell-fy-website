@@ -11,7 +11,10 @@
  * social inventada. Llénalas con datos reales cuando los tengas.
  */
 
-import { PRICE } from './site'
+import { PLANS, type Plan } from './site'
+
+/** Reexportado para no romper los imports que ya apuntaban a este archivo. */
+export { insteadOfLabel, replaceRows, connectsWith, integrations, type ReplaceIcon } from './shared'
 
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
 export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
@@ -52,6 +55,17 @@ export const covers = [
 ]
 
 /**
+ * La demo interactiva, debajo del video: para quien prefiere tocar el producto
+ * antes que verlo. Las pantallas y sus datos son los mismos de la home
+ * (src/content/productDemo.ts).
+ */
+export const tour = {
+  title: 'Recórrelo por dentro.\nSin crear una cuenta.',
+  subtitle:
+    'Cuatro pantallas con datos de ejemplo. Cambia de pestaña y mira qué muestra cada una.',
+}
+
+/**
  * Métricas de validación. Vacío = la sección no se muestra.
  * Sólo números reales y verificables.
  */
@@ -61,7 +75,7 @@ export const metrics: { value: string; label: string }[] = []
 export type PainIcon = 'puzzle' | 'users' | 'headphones' | 'calculator' | 'radar' | 'trending'
 
 export const forWho = {
-  title: '¿Sell-Fy es para tu negocio?',
+  title: '¿SellNode es para tu negocio?',
   subtitle: 'Si te pasa alguna de estas seis cosas, sí.',
   cards: [
     {
@@ -141,125 +155,78 @@ export const includes = {
 }
 
 /**
- * Banner de integraciones que cruza la página debajo del video.
- *
- * Los logos se resuelven por nombre en src/components/brandLogoMaps.ts:
- * agregar una marca aquí sin logo allá la deja sin icono.
- *
- * ⚠️ Calendly aparece aquí Y tachado en las tarjetas de reemplazo. No es
- * contradicción: Calend-Fy reemplaza la suscripción, pero importa los datos
- * desde Calendly para que nadie pierda su historial al migrar.
+ * Reemplaza y centraliza. Las filas y los logos conectados viven en
+ * `shared.ts`, porque la home muestra el mismo bloque: si cambia qué
+ * herramienta absorbe cada módulo, cambia en los dos sitios a la vez.
+ * Aquí quedan sólo los titulares, que son propios de esta página.
  */
-export const integrations = [
-  'Calendly',
-  'Hotmart',
-  'Skool',
-  'Whop',
-  'Fathom',
-  'Google Calendar',
-  'Google Meet',
-  'WhatsApp',
-]
-
-/** Claves de icono de las tarjetas de reemplazo. Se mapean a lucide-react en Demo.tsx */
-export type ReplaceIcon =
-  'calendar' | 'kanban' | 'calculator' | 'graduation' | 'audio' | 'wallet' | 'chart'
-
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
-    'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. Sell-Fy se queda con el trabajo de todas.',
-  /** Etiqueta que une las dos mitades de cada tarjeta. */
-  insteadOf: 'En lugar de',
-  /** Mapeo uno a uno del brief de negocio. Cada fila es una herramienta que el cliente deja de pagar. */
-  rows: [
-    {
-      icon: 'calendar' as ReplaceIcon,
-      inside: 'Calend-Fy',
-      outside: 'Calendly o similar para agendar llamadas',
-    },
-    {
-      icon: 'kanban' as ReplaceIcon,
-      inside: 'CRM + Ventas',
-      outside: 'Un CRM genérico para el pipeline comercial',
-    },
-    {
-      icon: 'calculator' as ReplaceIcon,
-      inside: 'Comisiones',
-      outside: 'Hojas de cálculo de comisiones y liquidaciones',
-    },
-    {
-      icon: 'graduation' as ReplaceIcon,
-      inside: 'Entrega de Servicio',
-      outside: 'Notion o un tablero suelto para la entrega del programa',
-    },
-    {
-      icon: 'audio' as ReplaceIcon,
-      inside: 'Auditorías + Inteligencia',
-      outside: 'Una herramienta de grabación y auditoría de llamadas',
-    },
-    {
-      icon: 'wallet' as ReplaceIcon,
-      inside: 'Finanzas',
-      outside: 'Hojas de gastos, nómina y caja del negocio',
-    },
-    {
-      icon: 'chart' as ReplaceIcon,
-      inside: 'Analítica + Informes',
-      outside: 'Dashboards armados a mano cada semana',
-    },
-  ],
-  /**
-   * ⚠️ Calendly salió de aquí: con Calend-Fy incluido en el plan de lanzamiento
-   * pasó a la columna de "lo que reemplaza". Seguir mostrándolo como
-   * integración al lado de la fila que lo reemplaza se contradice solo.
-   */
-  connects: {
-    title: 'Se conecta con',
-    items: ['Google Calendar', 'Google Meet'],
-  },
+    'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. SellNode se queda con el trabajo de todas.',
 }
 
 /**
- * Precio del Plan de lanzamiento ($297 + $500 de setup), que es el foco
- * comercial según el brief de octubre 2026.
+ * Dos planes. La implementación incluye el primer mes; la mensualidad empieza
+ * el segundo mes. Cifras y checkouts salen de PLANS (site.ts).
  *
- * ⚠️ El plan de $150 ya no se publica: el lanzamiento corrige el precio y
- * suma Finanzas, Calend-Fy y Entrega de Servicio, que son justamente los tres
- * módulos que más herramientas sueltas reemplazan. Los clientes que hoy
- * pagan $150 son una decisión aparte (respetar precio o migrar), no un plan
- * de esta página.
- *
- * ⚠️ El Plan completo ($497) se muestra como destino del upsell, SIN botón
- * de compra: todavía dependen de él las ocho piezas que faltan. Venderlo
- * hoy sería cobrar por algo que no existe.
+ * La diferencia de Pro son tres módulos que reemplazan herramientas externas.
+ * El booking nativo va destacado aparte (`featured`): es el que más pesa en la
+ * decisión, porque le ahorra al cliente Calendly.
  */
-export const pricing = {
-  /** Lo que se cobra el primer día. Cifras verificadas contra el checkout. */
-  setup: {
-    label: 'Hoy pagas',
-    unit: 'USD',
-    /** "pago único" aquí se leía como que $497 es todo lo que se paga. */
-    amount: PRICE.dueToday,
-    period: 'una vez',
-    note: `${PRICE.setup} de implementación + tu primer mes de membresía.`,
-    items: [] as string[],
-  },
-  /** Suscripción recurrente a partir del segundo mes. Lleva los beneficios del producto. */
-  recurring: {
-    label: 'Luego',
-    unit: 'USD',
-    amount: PRICE.monthly,
-    period: PRICE.monthlyPeriod,
-    note: 'A partir del segundo mes. Usuarios ilimitados.',
-    items: [
-      'CRM, Ventas, Comisiones y Cobros',
-      'Auditoría de llamadas con IA e Inteligencia',
-      'Finanzas: caja, gastos, nómina y recurrencia',
-      'Calend-Fy: tu propia página de agendamiento',
-      'Entrega de Servicio: programas, alumnos y mentorías',
-    ] as string[],
-  },
+export type PricingPlan = Plan & {
+  tagline: string
+  highlight: boolean
+  badge: string | null
+  featured: { title: string; desc: string } | null
+  items: string[]
+}
+
+export const pricing: {
+  title: string
+  subtitle: string
+  setupLabel: string
+  setupNote: string
+  monthlyLabel: string
+  plans: PricingPlan[]
+  note: string
+} = {
+  title: 'Elige tu plan',
+  subtitle:
+    'Los dos incluyen implementación acompañada y tu primer mes. La mensualidad empieza el segundo mes.',
+  setupLabel: 'Implementación',
+  setupNote: 'Pago inicial. Incluye tu primer mes.',
+  monthlyLabel: 'Desde el segundo mes',
+  plans: [
+    {
+      ...PLANS.standard,
+      tagline: 'Ventas, cobros y equipo en un solo lugar.',
+      highlight: false,
+      badge: null,
+      featured: null,
+      items: [
+        'CRM, Ventas, Comisiones y Cobros',
+        'Auditoría de llamadas con IA e Inteligencia de clientes',
+        'Agendas, Analítica e Informes',
+        'Implementación en 7 días y soporte por WhatsApp',
+      ],
+    },
+    {
+      ...PLANS.pro,
+      tagline: 'Todo Standard, más los módulos que reemplazan tus herramientas externas.',
+      highlight: true,
+      badge: 'Recomendado',
+      featured: {
+        title: 'Booking nativo incluido',
+        desc: 'Tu propia página de agendamiento, pensada para setters y closers. Te ahorras Calendly.',
+      },
+      items: [
+        'Todo lo del plan Standard',
+        'Finanzas: caja, gastos, nómina y recurrencia',
+        'Entrega de Servicio: programas, alumnos y mentorías',
+      ],
+    },
+  ],
   note: 'Usuarios ilimitados. Sin permanencia.',
 }
 
@@ -278,9 +245,9 @@ export const nextTier = {
   unit: 'USD',
   amount: '$497',
   period: '/ mes',
-  note: 'Se habilita cuando cierren los módulos que faltan. Es el upgrade natural del plan de lanzamiento, no un plan paralelo.',
+  note: 'Se habilita cuando cierren los módulos que faltan. Es el upgrade natural del plan Pro, no un plan paralelo.',
   items: [
-    'Todo lo del plan de lanzamiento',
+    'Todo lo del plan Pro',
     'Instagram, Meta y métricas de campaña',
     'WooCommerce y BCL',
     'Chat de setters y módulo de lanzamientos',
@@ -293,7 +260,7 @@ export const nextTier = {
  * información, más las decisiones que se toman sin data, más las
  * suscripciones sueltas que ya se están pagando.
  *
- * ⚠️ Sólo hay una tarjeta. El contrapeso de Sell-Fy es el bloque de precio
+ * ⚠️ Sólo hay una tarjeta. El contrapeso de SellNode es el bloque de precio
  * que va justo debajo ($500 de setup + $297/mes), no una segunda tarjeta.
  */
 export const costComparison = {

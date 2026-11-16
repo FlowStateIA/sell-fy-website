@@ -1,57 +1,69 @@
-import { useEffect, useState } from 'react'
+import logoImg from '../assets/sellnode-logo-inversa.svg'
+import { CTA_LABEL, nav } from '../content/home'
+import { APP_URL, CALENDLY_URL } from '../content/site'
+import { onDark, radius, space } from '../lib/theme'
+import { Button } from './ui'
 
-import logoImg from '../assets/logo.png'
-
+/**
+ * Barra de navegación flotante: una pieza de vidrio separada del borde, siempre
+ * visible. Se lee como parte del producto, encima de la página, y no como una
+ * franja pegada arriba.
+ */
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const links = [
+    { label: nav.producto, href: '/#producto' },
+    { label: nav.precios, href: '/#precios' },
+  ]
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-200 ${
-        scrolled
-          ? 'backdrop-blur-md border-b'
-          : ''
-      }`}
-      style={{
-        height: 72,
-        backgroundColor: scrolled ? 'rgba(8,9,10,0.8)' : 'transparent',
-        borderColor: scrolled ? 'rgba(255,255,255,0.06)' : 'transparent',
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
-        <a href="/" style={{ marginLeft: -4 }}>
-          <img src={logoImg} alt="Sell-fy" style={{ height: 80 }} />
+    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-5" style={{ paddingTop: 14 }}>
+      <div
+        className="glass mx-auto flex items-center justify-between"
+        style={{
+          maxWidth: space.maxWidth + 24,
+          height: 62,
+          padding: '0 11px 0 20px',
+          borderRadius: radius.xl,
+          backgroundColor: 'rgba(14,15,16,0.72)',
+          backdropFilter: 'blur(22px) saturate(1.8)',
+          WebkitBackdropFilter: 'blur(22px) saturate(1.8)',
+        }}
+      >
+        {/* En móvil va el símbolo solo —que es el uso que el manual le da— porque
+            la firma completa a su tamaño mínimo (144px) no deja sitio al CTA. */}
+        <a href="/" className="flex items-center">
+          <img
+            src="/brand/sellnode-simbolo.svg"
+            alt="SellNode"
+            className="sm:hidden"
+            style={{ height: 28 }}
+          />
+          <img src={logoImg} alt="SellNode" className="hidden sm:block" style={{ height: 27 }} />
         </a>
 
-        <nav className="flex items-center gap-6 sm:gap-8">
-          <a
-            href="/demo"
-            style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
-          >
-            Demo
-          </a>
-          <a
-            href="/#precios"
-            style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
-          >
-            Pricing
-          </a>
-          <a
-            href="https://app.sell-fy.app"
-            style={{ fontSize: 13, color: '#8a8f98' }}
-            className="hover:!text-[#f7f8f8] transition-colors"
-          >
-            Log in
-          </a>
+        <nav className="hidden md:flex items-center" style={{ gap: 30 }}>
+          {links.map(link => (
+            <a
+              key={link.label}
+              href={link.href}
+              style={{ fontSize: 13.5, letterSpacing: '-0.01em', color: onDark.secondary }}
+              className="hover:!text-[#F6F5F0] transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
+
+        <div className="flex items-center" style={{ gap: 18 }}>
+          <a
+            href={APP_URL}
+            style={{ fontSize: 13.5, letterSpacing: '-0.01em', color: onDark.secondary }}
+            className="hidden sm:inline hover:!text-[#F6F5F0] transition-colors"
+          >
+            {nav.entrar}
+          </a>
+          <Button href={CALENDLY_URL}>{CTA_LABEL}</Button>
+        </div>
       </div>
     </header>
   )

@@ -1,74 +1,104 @@
 import { motion } from 'framer-motion'
 
-import dashboardImg from '../assets/dashboard.png'
+import { CTA_LABEL, hero } from '../content/home'
+import { CALENDLY_URL } from '../content/site'
+import { motion as mo, onDark, space, type } from '../lib/theme'
+import { HeroShots } from './HeroShots'
+import { Button, Pill } from './ui'
 
+/**
+ * Hero. Centrado y con el titular a dos tonos: la pregunta entera se lee, pero
+ * la parte que importa —lo que el dueño no puede contestar hoy— queda en
+ * marfil pleno y el resto un tono abajo.
+ *
+ * El fondo lleva retícula, resplandor del rojo de marca y grano. Las tres capas
+ * juntas son lo que le da profundidad; antes era un plano negro.
+ */
 export function Hero() {
+  const [before, after] = hero.headline.split(hero.headlineEmphasis)
+
   return (
-    <section style={{ paddingTop: 140, paddingBottom: 0 }}>
-      <div className="max-w-[1200px] mx-auto px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
+    <section
+      className="relative grain"
+      style={{ paddingTop: 'clamp(112px, 15vw, 148px)', paddingBottom: 28, overflow: 'hidden' }}
+    >
+      {/* El resplandor del rojo de marca queda detrás de la ventana de producto,
+          no arriba: es la ventana la que tiene que parecer encendida. */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(52% 44% at 50% 66%, rgba(236,60,50,0.26), rgba(236,60,50,0.07) 45%, transparent 72%)',
+        }}
+      />
+      {/* Retícula */}
+      <div
+        className="absolute inset-x-0 top-0 grid-bg pointer-events-none"
+        style={{ height: 'clamp(420px, 70vh, 760px)' }}
+      />
+
+      <div
+        className="relative mx-auto px-6 flex flex-col items-center text-center"
+        style={{ maxWidth: space.maxWidth }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: mo.base, ease: mo.ease }}
+        >
+          <Pill>{hero.eyebrow}</Pill>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: mo.base, delay: 0.08, ease: mo.ease }}
           style={{
-            fontSize: 'clamp(40px, 5vw, 64px)',
-            fontWeight: 510,
-            letterSpacing: '-0.022em',
-            lineHeight: 1,
-            color: '#f7f8f8',
-            maxWidth: 720,
+            ...type.display,
+            marginTop: 28,
+            maxWidth: 940,
+            color: onDark.secondary,
+            textWrap: 'balance',
           }}
         >
-          Escala tu equipo de ventas desde la data
+          {before}
+          <span style={{ color: onDark.primary }}>{hero.headlineEmphasis}</span>
+          {after}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{
-            marginTop: 24,
-            fontSize: 15,
-            lineHeight: '24px',
-            color: '#8a8f98',
-            maxWidth: 460,
-          }}
+          transition={{ duration: mo.base, delay: 0.16, ease: mo.ease }}
+          style={{ ...type.lead, marginTop: 26, maxWidth: 620, color: onDark.secondary }}
         >
-          IA que audita cada llamada, extrae el perfil psicológico de tu cliente
-          y te dice exactamente qué mejorar para cerrar más.
+          {hero.subheadline}
         </motion.p>
 
-        {/* Product screenshot — full width like Linear */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{ marginTop: 64 }}
-          className="relative"
+          transition={{ duration: mo.base, delay: 0.24, ease: mo.ease }}
+          className="flex flex-col items-center"
+          style={{ marginTop: 34, gap: 14 }}
         >
-          <div
-            className="overflow-hidden"
-            style={{
-              borderRadius: 8,
-              border: '1px solid rgba(255,255,255,0.08)',
-              backgroundColor: '#0d0e10',
-            }}
-          >
-            <img
-              src={dashboardImg}
-              alt="Sell-fy Dashboard"
-              className="w-full"
-              style={{ display: 'block' }}
-            />
-          </div>
-          {/* Fade to black — Linear style */}
-          <div
-            className="absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{
-              height: '40%',
-              background: 'linear-gradient(to top, #08090a 0%, #08090a 10%, transparent 100%)',
-            }}
-          />
+          <Button href={CALENDLY_URL} size="lg">
+            {CTA_LABEL}
+          </Button>
+          <span style={{ fontSize: 13, color: onDark.tertiary, maxWidth: 440 }}>
+            {hero.ctaSub}
+          </span>
+        </motion.div>
+
+        {/* El producto de verdad: capturas reales de la app, en pestañas. */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.32, ease: mo.ease }}
+          className="w-full"
+          style={{ marginTop: 'clamp(40px, 6vw, 64px)' }}
+        >
+          <HeroShots />
         </motion.div>
       </div>
     </section>

@@ -1,28 +1,31 @@
+import type { CSSProperties, ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import {
-  AudioLines,
-  BarChart3,
-  CalendarDays,
+  CalendarCheck,
   Calculator,
-  GraduationCap,
+  Check,
   Headphones,
-  Kanban,
   Puzzle,
   Radar,
   TrendingUp,
   Users,
-  Wallet,
+  X,
 } from 'lucide-react'
 
-import logoImg from '../assets/logo.png'
-import { BRAND_IMAGES, CONNECT_LOGOS } from '../components/brandLogoMaps'
-import { COPYRIGHT, WHOP_CHECKOUT_URL } from '../content/site'
-import type { PainIcon, ReplaceIcon } from '../content/demo'
+import logoImg from '../assets/sellnode-logo-inversa.svg'
+import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
+import { ProductDemo } from '../components/ProductDemo'
+import { SaleJourney } from '../components/SaleJourney'
+import { SavingsTable } from '../components/SavingsTable'
+import { ReplaceGrid } from '../components/ReplaceGrid'
+import { Button, Label, TwoTone } from '../components/ui'
+import { COPYRIGHT, PRICE_FROM } from '../content/site'
+import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
+  tour,
   covers,
-  integrations,
   metrics,
   forWho,
   includes,
@@ -34,65 +37,35 @@ import {
   guarantee,
   finalCta,
 } from '../content/demo'
+import { mechanism } from '../content/home'
+import { color, motion as mo, onDark, onLight, radius, shade, space, type } from '../lib/theme'
+import { ToneContext, palette, type Tone } from '../lib/tone'
+
+/**
+ * Landing de embudo (/demo). Página de conversión: sin navegación, un solo
+ * objetivo — empezar. A diferencia de la home, acá el CTA lleva a los planes y
+ * al checkout; la home manda a agendar demo.
+ *
+ * Usa el mismo sistema visual que la home (src/lib/theme.ts): paleta del manual,
+ * dos pesos de fuente, y secciones que alternan tinta y marfil.
+ */
 
 /* ─────────────────────────── Primitivas ─────────────────────────── */
 
-function CtaButton({
-  label,
-  sub,
-  size = 'md',
-  center = false,
-  href = WHOP_CHECKOUT_URL,
-  variant = 'solid',
-}: {
-  label: string
-  sub?: string
-  size?: 'md' | 'lg'
-  center?: boolean
-  href?: string
-  variant?: 'solid' | 'outline'
-}) {
-  const solid = variant === 'solid'
+/**
+ * CTA de la página. Baja a #planes, donde cada tarjeta lleva su checkout.
+ * El precio sale de site.ts, no escrito a mano: estaba en tres CTA y un cambio
+ * de plan dejaba la página diciendo dos precios distintos.
+ */
+function StartCta({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?: boolean }) {
   return (
-    <div className={`flex flex-col gap-2 ${center ? 'items-center' : 'items-start'}`}>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block transition-opacity hover:opacity-90"
-        style={{
-          padding: size === 'lg' ? '14px 32px' : '10px 24px',
-          backgroundColor: solid ? '#e6e6e6' : 'transparent',
-          color: solid ? '#08090a' : '#d0d6e0',
-          border: solid ? 'none' : '1px solid rgba(255,255,255,0.14)',
-          borderRadius: 6,
-          fontSize: size === 'lg' ? 15 : 13,
-          fontWeight: 500,
-        }}
-      >
-        {label}
-      </a>
-      {sub && <span style={{ fontSize: 12, color: '#6b6f76' }}>{sub}</span>}
-    </div>
-  )
-}
-
-/** CTA de compra directa (Whop). */
-function CtaPair({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?: boolean }) {
-  return (
-    <div
-      className={`flex flex-col sm:flex-row gap-3 ${center ? 'items-center justify-center' : 'items-start'}`}
-    >
-      {/* El precio sale de `pricing`, no escrito a mano: estaba en tres CTA y
-          un cambio de plan dejaba la página diciendo dos precios distintos. */}
-      <CtaButton
-        label="Empezar ahora"
-        sub={`Plan de lanzamiento · ${pricing.recurring.amount} USD${pricing.recurring.period.replace(' ', '')}`}
-        href={WHOP_CHECKOUT_URL}
-        size={size}
-        center={center}
-        variant="solid"
-      />
+    <div className={`flex flex-col gap-3 ${center ? 'items-center' : 'items-start'}`}>
+      <Button href="#planes" size={size}>
+        Empezar ahora
+      </Button>
+      <span style={{ fontSize: 13, color: onDark.tertiary }}>
+        {`Planes desde ${PRICE_FROM} USD/mes`}
+      </span>
     </div>
   )
 }
@@ -101,24 +74,48 @@ function SectionTitle({
   children,
   max = 800,
   center = false,
+  tone = 'dark',
 }: {
-  children: React.ReactNode
+  children: string
   max?: number
   center?: boolean
+  tone?: Tone
 }) {
   return (
     <h2
       style={{
-        fontSize: 'clamp(26px, 3.2vw, 38px)',
-        fontWeight: 510,
-        letterSpacing: '-0.022em',
-        lineHeight: 1.15,
-        color: '#f7f8f8',
+        ...(type.h2 as CSSProperties),
+        fontSize: 'clamp(27px, 3.5vw, 42px)',
         maxWidth: center ? undefined : max,
+        whiteSpace: 'pre-line',
+        textWrap: 'balance',
+      }}
+    >
+      <TwoTone text={children} light={tone === 'light'} />
+    </h2>
+  )
+}
+
+function SectionLead({
+  children,
+  max = 640,
+  tone = 'dark',
+}: {
+  children: ReactNode
+  max?: number
+  tone?: Tone
+}) {
+  return (
+    <p
+      style={{
+        ...(type.lead as CSSProperties),
+        color: palette(tone).secondary,
+        marginTop: 18,
+        maxWidth: max,
       }}
     >
       {children}
-    </h2>
+    </p>
   )
 }
 
@@ -139,57 +136,52 @@ function PainIconChip({ name }: { name: PainIcon }) {
       style={{
         width: 38,
         height: 38,
-        borderRadius: 9,
-        border: '1px solid rgba(220,38,38,0.22)',
-        backgroundColor: 'rgba(220,38,38,0.07)',
+        borderRadius: radius.sm,
+        border: '1px solid rgba(236,60,50,0.26)',
+        backgroundColor: 'rgba(236,60,50,0.08)',
       }}
     >
-      <Icon size={18} strokeWidth={1.6} color="#e5534b" />
+      <Icon size={18} strokeWidth={1.7} color={color.red} />
     </div>
   )
 }
 
-const REPLACE_ICONS = {
-  calendar: CalendarDays,
-  kanban: Kanban,
-  calculator: Calculator,
-  graduation: GraduationCap,
-  audio: AudioLines,
-  wallet: Wallet,
-  chart: BarChart3,
-} as const
-
-function ReplaceIconChip({ name }: { name: ReplaceIcon }) {
-  const Icon = REPLACE_ICONS[name]
+/** Sección de la página. En marfil cuando `tone="light"`, igual que en la home. */
+function Section({
+  children,
+  id,
+  tone = 'dark',
+  shadeIndex = 0,
+}: {
+  children: ReactNode
+  id?: string
+  tone?: Tone
+  /** Cuál de los tonos oscuros usa la sección, para que dos seguidas no se fundan. */
+  shadeIndex?: 0 | 1 | 2
+}) {
+  const light = tone === 'light'
   return (
-    <div
-      className="flex items-center justify-center flex-shrink-0"
-      style={{
-        width: 36,
-        height: 36,
-        borderRadius: 9,
-        border: '1px solid rgba(220,38,38,0.22)',
-        backgroundColor: 'rgba(220,38,38,0.07)',
-      }}
-    >
-      <Icon size={17} strokeWidth={1.6} color="#e5534b" />
-    </div>
-  )
-}
-
-function Section({ children, id }: { children: React.ReactNode; id?: string }) {
-  return (
-    <section id={id} style={{ padding: '80px 0' }}>
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5 }}
-        className="max-w-[1200px] mx-auto px-6"
+    <ToneContext.Provider value={tone}>
+      <section
+        id={id}
+        style={{
+          padding: `${space.sectionTight} 0`,
+          backgroundColor: light ? color.ivory : shade[shadeIndex],
+          color: palette(tone).primary,
+        }}
       >
-        {children}
-      </motion.div>
-    </section>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: mo.base, ease: mo.ease }}
+          className="mx-auto px-6"
+          style={{ maxWidth: space.maxWidth }}
+        >
+          {children}
+        </motion.div>
+      </section>
+    </ToneContext.Provider>
   )
 }
 
@@ -197,113 +189,37 @@ function Section({ children, id }: { children: React.ReactNode; id?: string }) {
 
 function DemoHeader() {
   return (
-    <header
-      className="fixed top-0 w-full z-50 backdrop-blur-md"
-      style={{
-        height: 64,
-        backgroundColor: 'rgba(8,9,10,0.85)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-5 sm:px-6 h-full flex items-center justify-between gap-3">
-        {/* Sin link a home: en una página de embudo no se ofrecen salidas */}
-        <img src={logoImg} alt="Sell-fy" className="h-12 sm:h-16 w-auto flex-shrink-0" />
-        <a
-          href={WHOP_CHECKOUT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          // whitespace-nowrap: "Empezar ahora" se partía en dos líneas y el
-          // botón crecía a 55px dentro de un header de 64.
-          className="transition-opacity hover:opacity-90 whitespace-nowrap flex-shrink-0
-                     px-4 py-2 text-[12px] sm:px-[18px] sm:text-[13px]"
-          style={{
-            backgroundColor: '#e6e6e6',
-            color: '#08090a',
-            borderRadius: 6,
-            fontWeight: 500,
-          }}
-        >
-          Empezar ahora
-        </a>
+    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-5" style={{ paddingTop: 14 }}>
+      <div
+        className="glass mx-auto flex items-center justify-between"
+        style={{
+          maxWidth: space.maxWidth + 24,
+          height: 62,
+          padding: '0 11px 0 20px',
+          borderRadius: radius.xl,
+          backgroundColor: 'rgba(14,15,16,0.72)',
+          backdropFilter: 'blur(22px) saturate(1.8)',
+          WebkitBackdropFilter: 'blur(22px) saturate(1.8)',
+        }}
+      >
+        {/* Sin link a home: en una página de embudo no se ofrecen salidas.
+            En móvil va el símbolo solo, igual que en la home: la firma completa
+            a su tamaño mínimo de marca no deja sitio al botón. */}
+        <img
+          src="/brand/sellnode-simbolo.svg"
+          alt="SellNode"
+          className="sm:hidden flex-shrink-0"
+          style={{ height: 28 }}
+        />
+        <img
+          src={logoImg}
+          alt="SellNode"
+          className="hidden sm:block flex-shrink-0"
+          style={{ height: 27 }}
+        />
+        <Button href="#planes">Empezar ahora</Button>
       </div>
     </header>
-  )
-}
-
-/* ─────────────────────────── Banner de integraciones ─────────────────────────── */
-
-/**
- * Cinta infinita con las herramientas que se conectan. La lista va duplicada
- * y la pista se desplaza -50%: al reiniciar, la segunda copia está justo
- * donde estaba la primera, así que no se ve el corte.
- *
- * `aria-hidden` en la copia para que un lector de pantalla no lea dos veces
- * la misma lista.
- */
-function IntegrationLogo({ name }: { name: string }) {
-  const Svg = CONNECT_LOGOS[name]
-  if (Svg) return <Svg size={22} />
-
-  const src = BRAND_IMAGES[name]
-  if (!src) return null
-  // Los iconos descargados son cuadrados tipo app: el radio los uniforma
-  // con los SVG de al lado.
-  return (
-    <img
-      src={src}
-      alt=""
-      width={22}
-      height={22}
-      // Sin lazy: la cinta se mueve sola y un logo que todavía no cargó
-      // aparecería como hueco a los pocos segundos. Pesan entre 2 y 16 KB.
-      style={{ width: 22, height: 22, borderRadius: 5, objectFit: 'contain' }}
-    />
-  )
-}
-
-/** Una pasada de la lista. `copia` oculta el duplicado a lectores de pantalla. */
-function MarqueeTrack({ copia }: { copia: boolean }) {
-  return (
-    <ul className="flex items-center shrink-0" style={{ gap: 0 }} aria-hidden={copia || undefined}>
-      {integrations.map(name => (
-        <li
-          key={name}
-          className="flex items-center shrink-0"
-          style={{
-            gap: 9,
-            fontSize: 14,
-            fontWeight: 450,
-            color: '#8a8f98',
-            padding: '0 26px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <IntegrationLogo name={name} />
-          {name}
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-function IntegrationsMarquee() {
-  return (
-    <div
-      style={{
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        padding: '18px 0',
-        overflow: 'hidden',
-        // Desvanece los extremos para que la cinta no "aparezca" de golpe.
-        maskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)',
-      }}
-    >
-      <div className="marquee-track flex w-max">
-        <MarqueeTrack copia={false} />
-        <MarqueeTrack copia />
-      </div>
-    </div>
   )
 }
 
@@ -311,94 +227,81 @@ function IntegrationsMarquee() {
 
 function VideoEmbed() {
   return (
+    <div className="bezel w-full" style={{ borderRadius: radius.xl }}>
     <div
       className="w-full overflow-hidden"
-      style={{
-        borderRadius: 10,
-        border: '1px solid rgba(255,255,255,0.08)',
-        backgroundColor: '#0d0e10',
-        aspectRatio: '16 / 9',
-      }}
+      style={{ borderRadius: 16, backgroundColor: color.surface, aspectRatio: '16 / 9' }}
     >
       {LOOM_VIDEO_ID ? (
         <iframe
           src={`https://www.loom.com/embed/${LOOM_VIDEO_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
-          title="Sell-Fy en 5 minutos"
+          title="SellNode en 5 minutos"
           allowFullScreen
           style={{ width: '100%', height: '100%', border: 0 }}
         />
       ) : (
+        /* Hueco a la espera del video. */
         <div className="w-full h-full flex flex-col items-center justify-center gap-3 px-6 text-center">
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              border: '1px solid rgba(255,255,255,0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <div
-              style={{
-                width: 0,
-                height: 0,
-                borderTop: '9px solid transparent',
-                borderBottom: '9px solid transparent',
-                borderLeft: '14px solid rgba(255,255,255,0.35)',
-                marginLeft: 4,
-              }}
-            />
-          </div>
-          <span style={{ fontSize: 13, color: '#6b6f76' }}>Espacio del video de ventas</span>
-          <span style={{ fontSize: 12, color: '#484b52', maxWidth: 380 }}>
-            Pega el ID de Loom en <code style={{ color: '#8a8f98' }}>LOOM_VIDEO_ID</code> dentro de{' '}
-            <code style={{ color: '#8a8f98' }}>src/content/demo.ts</code>
+          <Label tone="muted">Falta el video</Label>
+          <span style={{ ...type.h3, color: onDark.secondary }}>Espacio del video de ventas</span>
+          <span style={{ fontSize: 12.5, color: onDark.faint, maxWidth: 380 }}>
+            Pega el ID de Loom en <code style={{ color: onDark.secondary }}>LOOM_VIDEO_ID</code>{' '}
+            dentro de <code style={{ color: onDark.secondary }}>src/content/demo.ts</code>
           </span>
         </div>
       )}
+    </div>
     </div>
   )
 }
 
 /* ─────────────────────────── Página ─────────────────────────── */
 
+/** Rótulo chico de cada bloque de precio dentro de una tarjeta de plan. */
+const PLAN_LABEL: CSSProperties = { ...(type.label as CSSProperties), color: onDark.tertiary }
+
 export function Demo() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#08090a', color: '#f7f8f8' }}>
+    <div className="min-h-screen" style={{ backgroundColor: color.bg, color: onDark.primary }}>
       <DemoHeader />
 
       {/* Hero + VSL — compactado a propósito para que el video entre completo
           en el primer pantallazo. En una VSL el video es la página. */}
-      <section style={{ paddingTop: 96, paddingBottom: 24 }}>
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section
+        className="relative grain"
+        style={{ paddingTop: 112, paddingBottom: 28, overflow: 'hidden' }}
+      >
+        {/* El resplandor queda detrás del video, que es lo que tiene que verse encendido. */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(50% 46% at 50% 62%, rgba(236,60,50,0.24), rgba(236,60,50,0.06) 46%, transparent 72%)',
+          }}
+        />
+        <div
+          className="absolute inset-x-0 top-0 grid-bg pointer-events-none"
+          style={{ height: 'clamp(420px, 70vh, 760px)' }}
+        />
+
+        <div className="relative mx-auto px-6" style={{ maxWidth: space.maxWidth }}>
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: mo.base, ease: mo.ease }}
             className="text-center mx-auto"
-            style={{ maxWidth: 860 }}
+            style={{ maxWidth: 880 }}
           >
-            <div
-              style={{
-                fontSize: 12,
-                color: '#8a8f98',
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                fontWeight: 500,
-                marginBottom: 20,
-              }}
-            >
+            <Label tone="muted" style={{ marginBottom: 18 }}>
               {hero.eyebrow}
-            </div>
+            </Label>
             <h1
               style={{
-                fontSize: 'clamp(30px, 3.8vw, 46px)',
-                fontWeight: 510,
-                letterSpacing: '-0.022em',
-                lineHeight: 1.05,
-                color: '#f7f8f8',
+                ...(type.h2 as CSSProperties),
+                fontSize: 'clamp(30px, 4.2vw, 52px)',
+                lineHeight: 1.06,
+                color: onDark.primary,
+                textWrap: 'balance',
               }}
             >
               {hero.headline}
@@ -406,10 +309,11 @@ export function Demo() {
             <p
               className="mx-auto"
               style={{
-                marginTop: 16,
+                ...(type.lead as CSSProperties),
                 fontSize: 16,
-                lineHeight: '25px',
-                color: '#8a8f98',
+                lineHeight: '26px',
+                marginTop: 16,
+                color: onDark.secondary,
                 maxWidth: 680,
               }}
             >
@@ -421,19 +325,19 @@ export function Demo() {
                 el video fuera del primer pantallazo. */}
             <div
               className="flex flex-wrap justify-center gap-x-2 gap-y-2 mx-auto"
-              style={{ marginTop: 16, maxWidth: 720 }}
+              style={{ marginTop: 18, maxWidth: 720 }}
             >
               {covers.map(item => (
                 <span
                   key={item}
                   style={{
                     padding: '5px 11px',
-                    borderRadius: 999,
-                    border: '1px solid rgba(255,255,255,0.09)',
-                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    borderRadius: radius.pill,
+                    border: `1px solid ${onDark.line}`,
+                    backgroundColor: 'rgba(246,245,240,0.03)',
                     fontSize: 12,
                     lineHeight: '16px',
-                    color: '#8a8f98',
+                    color: onDark.secondary,
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -445,15 +349,15 @@ export function Demo() {
 
           {/* El video va inmediatamente después del titular */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.7, delay: 0.15, ease: mo.ease }}
             className="mx-auto"
-            style={{ marginTop: 22, maxWidth: 880 }}
+            style={{ marginTop: 26, maxWidth: 900 }}
           >
             <VideoEmbed />
-            <div style={{ marginTop: 24 }}>
-              <CtaPair size="lg" center />
+            <div style={{ marginTop: 28 }}>
+              <StartCta size="lg" center />
             </div>
           </motion.div>
         </div>
@@ -461,9 +365,20 @@ export function Demo() {
 
       {/* Integraciones. Va justo debajo del CTA del video: responde "¿y lo que
           ya uso?" antes de que el prospecto empiece a leer los dolores. */}
-      <div style={{ marginTop: 40 }}>
+      <div style={{ marginTop: 36 }}>
         <IntegrationsMarquee />
       </div>
+
+      {/* La demo viva: para quien prefiere tocar el producto antes que verlo. */}
+      <Section shadeIndex={1}>
+        <div className="text-center mx-auto" style={{ maxWidth: 720, marginBottom: 44 }}>
+          <SectionTitle center>{tour.title}</SectionTitle>
+          <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 16 }}>
+            {tour.subtitle}
+          </p>
+        </div>
+        <ProductDemo />
+      </Section>
 
       {/* Métricas — sólo si hay datos reales */}
       {metrics.length > 0 && (
@@ -471,62 +386,56 @@ export function Demo() {
           <div
             className="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden"
             style={{
-              borderRadius: 8,
-              border: '1px solid rgba(255,255,255,0.06)',
-              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderRadius: radius.lg,
+              border: `1px solid ${onDark.lineSoft}`,
+              backgroundColor: onDark.lineSoft,
             }}
           >
             {metrics.map(m => (
-              <div key={m.label} style={{ padding: '28px 24px', backgroundColor: '#08090a' }}>
-                <div
-                  style={{
-                    fontSize: 28,
-                    fontWeight: 510,
-                    letterSpacing: '-0.02em',
-                    color: '#f7f8f8',
-                  }}
-                >
+              <div key={m.label} style={{ padding: '28px 24px', backgroundColor: color.bg }}>
+                <div style={{ ...type.figure, fontSize: 30, fontWeight: 700, color: onDark.primary }}>
                   {m.value}
                 </div>
-                <div style={{ fontSize: 13, color: '#6b6f76', marginTop: 4 }}>{m.label}</div>
+                <div style={{ fontSize: 13, color: onDark.tertiary, marginTop: 6 }}>{m.label}</div>
               </div>
             ))}
           </div>
         </Section>
       )}
 
-      {/* ¿Es para ti? — rejilla de dolores */}
-      <Section>
+      {/* ¿Es para ti? — rejilla de dolores. Primer corte en marfil. */}
+      <Section tone="light">
         <div className="text-center mx-auto" style={{ maxWidth: 720 }}>
-          <SectionTitle center>{forWho.title}</SectionTitle>
-          <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 18 }}>
+          <SectionTitle center tone="light">
+            {forWho.title}
+          </SectionTitle>
+          <p
+            style={{
+              ...(type.lead as CSSProperties),
+              color: onLight.secondary,
+              marginTop: 16,
+            }}
+          >
             {forWho.subtitle}
           </p>
         </div>
 
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
           style={{ marginTop: 56 }}
         >
           {forWho.cards.map(card => (
             <div
               key={card.title}
-              className="flex gap-4"
-              style={{
-                padding: 24,
-                borderRadius: 10,
-                border: '1px solid rgba(255,255,255,0.07)',
-                backgroundColor: '#0b0c0e',
-              }}
+              className="paper flex gap-4"
+              style={{ padding: 24, borderRadius: radius.lg }}
             >
               <PainIconChip name={card.icon} />
               <div>
-                <div
-                  style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', lineHeight: '21px' }}
-                >
+                <div style={{ ...type.h3, fontSize: 15.5, color: onLight.primary }}>
                   {card.title}
                 </div>
-                <div style={{ fontSize: 13, lineHeight: '21px', color: '#6b6f76', marginTop: 7 }}>
+                <div style={{ ...type.body, fontSize: 14, color: onLight.secondary, marginTop: 6 }}>
                   {card.desc}
                 </div>
               </div>
@@ -535,158 +444,43 @@ export function Demo() {
         </div>
       </Section>
 
-      {/* Centralización — reemplaza vs se conecta */}
+      {/* Cómo sigue SellNode una venta: el mismo recorrido de la home. */}
       <Section>
-        <SectionTitle max={680}>{centralize.title}</SectionTitle>
-        <p
-          style={{
-            fontSize: 17,
-            lineHeight: '26px',
-            color: '#8a8f98',
-            marginTop: 16,
-            maxWidth: 640,
-          }}
-        >
-          {centralize.subtitle}
-        </p>
-
-        {/* Mapeo uno a uno: cada herramienta que paga hoy contra el módulo que
-            la absorbe. En tarjetas y no en tabla porque el protagonista debe ser
-            el módulo de Sell-Fy; la herramienta que se cae va debajo, tachada. */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
-          style={{ marginTop: 48 }}
-        >
-          {centralize.rows.map(row => (
-            <div
-              key={row.inside}
-              className="flex items-start gap-3 sm:gap-3.5 md:gap-4 p-4 sm:p-5"
-              style={{
-                borderRadius: 12,
-                border: '1px solid rgba(255,255,255,0.07)',
-                backgroundColor: '#0b0c0e',
-              }}
-            >
-              <ReplaceIconChip name={row.icon} />
-              <div style={{ minWidth: 0 }}>
-                <div
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 550,
-                    lineHeight: '20px',
-                    color: '#f7f8f8',
-                  }}
-                >
-                  {row.inside}
-                </div>
-                {/* En móvil el rótulo va en la misma línea que la herramienta:
-                    en línea aparte sumaba 18px por tarjeta y eran siete. */}
-                <div className="mt-1.5 sm:mt-[7px] flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 sm:block">
-                  <span
-                    style={{
-                      fontSize: 10,
-                      fontWeight: 600,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.07em',
-                      color: '#484b52',
-                    }}
-                  >
-                    {centralize.insteadOf}
-                  </span>
-                  <span
-                    className="sm:block sm:mt-[3px]"
-                    style={{
-                      fontSize: 13,
-                      lineHeight: '19px',
-                      color: '#6b6f76',
-                      textDecoration: 'line-through',
-                      textDecorationColor: 'rgba(229,83,75,0.45)',
-                    }}
-                  >
-                    {row.outside}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Lo que sigue conectado. En móvil el rótulo va en su propia línea:
-            en línea con los chips dejaba uno solo arriba y el resto huérfano. */}
-        <div
-          className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
-          style={{ marginTop: 28 }}
-        >
-          <span
-            className="flex-shrink-0"
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: '#6b6f76',
-            }}
-          >
-            {centralize.connects.title}
-          </span>
-          <div className="flex flex-wrap gap-2.5">
-            {centralize.connects.items.map(name => {
-              const Logo = CONNECT_LOGOS[name]
-              return (
-                <span
-                  key={name}
-                  className="inline-flex items-center gap-2.5"
-                  style={{
-                    padding: '9px 16px',
-                    borderRadius: 999,
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    backgroundColor: 'rgba(255,255,255,0.03)',
-                    fontSize: 13,
-                    color: '#d0d6e0',
-                  }}
-                >
-                  {Logo && <Logo size={20} />}
-                  {name}
-                </span>
-              )
-            })}
-          </div>
-        </div>
+        <SectionTitle max={720}>{mechanism.title}</SectionTitle>
+        <SectionLead>{mechanism.body}</SectionLead>
+        <SaleJourney />
       </Section>
 
-      {/* Qué incluye */}
-      <Section>
-        <SectionTitle>{includes.title}</SectionTitle>
-        <p
-          style={{
-            fontSize: 17,
-            lineHeight: '26px',
-            color: '#8a8f98',
-            marginTop: 16,
-            maxWidth: 620,
-          }}
-        >
+      {/* Centralización — reemplaza vs se conecta */}
+      <Section shadeIndex={1}>
+        <SectionTitle max={680}>{centralize.title}</SectionTitle>
+        <SectionLead>{centralize.subtitle}</SectionLead>
+        <ReplaceGrid />
+      </Section>
+
+      {/* Qué incluye. Segundo corte en marfil. */}
+      <Section tone="light">
+        <SectionTitle tone="light">{includes.title}</SectionTitle>
+        <SectionLead tone="light" max={620}>
           {includes.subtitle}
-        </p>
-        {/* Móvil: carrusel horizontal deslizable (evita apilar 6 cards y alargar
-            la página). Desktop (md+): grid unificado con costuras de 1px. */}
+        </SectionLead>
+        {/* Móvil: carrusel horizontal deslizable (evita apilar nueve tarjetas y
+            alargar la página). Desde md: grilla. */}
         <div
-          className="mt-12 flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar
+          className="mt-12 flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar
                      -mx-6 px-6 scroll-px-6
-                     md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-px
-                     md:overflow-hidden md:rounded-lg md:border md:border-white/[0.06] md:bg-white/[0.04]"
+                     md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 md:overflow-visible"
         >
           {includes.items.map(item => (
             <div
               key={item.title}
-              className="snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto
-                         rounded-xl md:rounded-none border border-white/[0.07] md:border-0
-                         bg-[#0b0c0e] md:bg-[#08090a] p-8"
+              className="paper snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto"
+              style={{ padding: '26px 24px 28px', borderRadius: radius.lg }}
             >
-              <div style={{ fontSize: 14, fontWeight: 500, color: '#f7f8f8', marginBottom: 8 }}>
+              <div style={{ ...type.h3, fontSize: 15.5, color: onLight.primary, marginBottom: 8 }}>
                 {item.title}
               </div>
-              <div style={{ fontSize: 13, lineHeight: '21px', color: '#6b6f76' }}>{item.desc}</div>
+              <div style={{ ...type.body, fontSize: 14, color: onLight.secondary }}>{item.desc}</div>
             </div>
           ))}
         </div>
@@ -696,151 +490,234 @@ export function Demo() {
       <Section>
         <div className="text-center mx-auto" style={{ maxWidth: 760 }}>
           <SectionTitle center>{costComparison.title}</SectionTitle>
-          <p style={{ fontSize: 16, lineHeight: '26px', color: '#8a8f98', marginTop: 18 }}>
+          <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 18 }}>
             {costComparison.subtitle}
           </p>
         </div>
 
         {/* Una sola tarjeta: el costo de seguir igual. El contrapeso es el
-            bloque de precio que va justo debajo. */}
-        <div className="mx-auto w-full" style={{ marginTop: 56, maxWidth: 440 }}>
-          {[{ data: costComparison.human, highlight: false }].map(({ data, highlight }) => (
-            <div
-              key={data.label}
-              className="p-6 sm:p-8"
+            bloque de planes que va justo debajo. Va en línea punteada y sin
+            relleno a propósito: es lo que se deja atrás, no una oferta. */}
+        <div className="mx-auto w-full" style={{ marginTop: 56, maxWidth: 460 }}>
+          <div
+            className="p-6 sm:p-8"
+            style={{
+              borderRadius: radius.lg,
+              border: `1px dashed rgba(246,245,240,0.16)`,
+            }}
+          >
+            <span
+              className="inline-block"
               style={{
-                borderRadius: 12,
-                border: highlight
-                  ? '1px solid rgba(229,83,75,0.35)'
-                  : '1px solid rgba(255,255,255,0.07)',
-                backgroundColor: highlight ? '#0d0e10' : 'transparent',
+                padding: '6px 12px',
+                borderRadius: radius.pill,
+                border: `1px solid ${onDark.line}`,
               }}
             >
-              <div
-                className="inline-block"
+              <Label tone="muted">{costComparison.human.label}</Label>
+            </span>
+
+            {/* La cifra baja a 30px en móvil: a 40 "$800 – $1.500" se partía
+                en dos líneas dentro de la tarjeta. */}
+            <div className="flex items-baseline gap-2 flex-wrap" style={{ marginTop: 24 }}>
+              <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
+              <span
+                className="text-[30px] sm:text-[40px]"
                 style={{
-                  padding: '6px 14px',
-                  borderRadius: 999,
-                  border: highlight
-                    ? '1px solid rgba(229,83,75,0.35)'
-                    : '1px solid rgba(255,255,255,0.12)',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: highlight ? '#e5534b' : '#8a8f98',
+                  ...type.figure,
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  whiteSpace: 'nowrap',
+                  color: onDark.secondary,
                 }}
               >
-                {data.label}
-              </div>
-
-              {/* La cifra baja a 30px en móvil: a 40 "$800 – $1.500" se partía
-                  en dos líneas dentro de la tarjeta. */}
-              <div className="flex items-baseline gap-2 flex-wrap" style={{ marginTop: 24 }}>
-                <span style={{ fontSize: 13, color: '#6b6f76' }}>USD</span>
-                <span
-                  className="text-[30px] sm:text-[40px]"
-                  style={{
-                    fontWeight: 510,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1,
-                    whiteSpace: 'nowrap',
-                    color: highlight ? '#f7f8f8' : '#8a8f98',
-                  }}
-                >
-                  {data.amount}
-                </span>
-                <span style={{ fontSize: 14, color: '#6b6f76' }}>{data.period}</span>
-              </div>
-
-              <ul className="flex flex-col gap-3" style={{ marginTop: 28 }}>
-                {data.items.map(item => (
-                  <li
-                    key={item}
-                    className="flex gap-3"
-                    style={{ fontSize: 14, lineHeight: '22px' }}
-                  >
-                    <span style={{ color: highlight ? '#e5534b' : '#484b52', flexShrink: 0 }}>
-                      {highlight ? '✓' : '✕'}
-                    </span>
-                    <span style={{ color: highlight ? '#d0d6e0' : '#6b6f76' }}>{item}</span>
-                  </li>
-                ))}
-              </ul>
+                {costComparison.human.amount}
+              </span>
+              <span style={{ fontSize: 14, color: onDark.tertiary }}>
+                {costComparison.human.period}
+              </span>
             </div>
-          ))}
+
+            <ul className="flex flex-col gap-3" style={{ marginTop: 28 }}>
+              {costComparison.human.items.map(item => (
+                <li key={item} className="flex items-start gap-3">
+                  <X
+                    size={15}
+                    strokeWidth={2.2}
+                    color={onDark.faint}
+                    style={{ flexShrink: 0, marginTop: 4 }}
+                  />
+                  <span style={{ ...type.body, color: onDark.tertiary }}>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Estructura de precio: setup único (incluye 1er mes) + mensualidad */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mx-auto w-full"
-          style={{ marginTop: 56, maxWidth: 680 }}
-        >
-          {[
-            { ...pricing.setup, highlight: false },
-            { ...pricing.recurring, highlight: true },
-          ].map(p => (
-            <div
-              key={p.label}
-              style={{
-                padding: 28,
-                borderRadius: 12,
-                border: p.highlight
-                  ? '1px solid rgba(229,83,75,0.35)'
-                  : '1px solid rgba(255,255,255,0.07)',
-                backgroundColor: p.highlight ? '#0d0e10' : 'transparent',
-              }}
-            >
+      </Section>
+
+      {/* Lo que cuesta armar lo mismo con herramientas sueltas. Misma tabla que la home. */}
+      <SavingsTable />
+
+      <Section shadeIndex={2}>
+        {/* Planes. Cada tarjeta lleva su propio checkout; el resto de los CTA de
+            la página baja aquí (#planes) para que el cliente elija. */}
+        <div id="planes" style={{ scrollMarginTop: 96 }}>
+          <div className="text-center mx-auto" style={{ maxWidth: 640 }}>
+            <SectionTitle center>{pricing.title}</SectionTitle>
+            <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 14 }}>
+              {pricing.subtitle}
+            </p>
+          </div>
+
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mx-auto w-full items-stretch"
+            style={{ marginTop: 44, maxWidth: 880 }}
+          >
+            {pricing.plans.map(plan => (
               <div
+                key={plan.name}
+                className="glass flex flex-col p-6 sm:p-8"
                 style={{
-                  fontSize: 11,
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: p.highlight ? '#e5534b' : '#8a8f98',
+                  borderRadius: radius.lg,
+                  backgroundColor: plan.highlight ? 'rgba(236,60,50,0.05)' : color.surface,
                 }}
               >
-                {p.label}
-              </div>
-              <div className="flex items-baseline gap-2" style={{ marginTop: 16 }}>
-                <span style={{ fontSize: 13, color: '#6b6f76' }}>{p.unit}</span>
-                <span
+                <div className="flex items-center justify-between gap-3">
+                  <span
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      letterSpacing: '-0.025em',
+                      color: onDark.primary,
+                    }}
+                  >
+                    {plan.name}
+                  </span>
+                  {plan.badge && (
+                    <span
+                      style={{
+                        padding: '5px 10px',
+                        borderRadius: radius.pill,
+                        backgroundColor: 'rgba(236,60,50,0.14)',
+                        border: '1px solid rgba(236,60,50,0.3)',
+                      }}
+                    >
+                      <Label>{plan.badge}</Label>
+                    </span>
+                  )}
+                </div>
+                {/* Alto fijo de dos líneas: así las cifras de las dos tarjetas quedan a la misma altura */}
+                <p
+                  className="md:min-h-[46px]"
+                  style={{ ...type.body, color: onDark.secondary, marginTop: 8 }}
+                >
+                  {plan.tagline}
+                </p>
+
+                {/* Implementación: pago inicial que ya incluye el primer mes */}
+                <div style={{ marginTop: 24 }}>
+                  <div style={PLAN_LABEL}>{pricing.setupLabel}</div>
+                  <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
+                    <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
+                    <span
+                      style={{
+                        ...type.figure,
+                        fontSize: 40,
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        color: onDark.primary,
+                      }}
+                    >
+                      {plan.setup}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.tertiary, marginTop: 8 }}>
+                    {pricing.setupNote}
+                  </p>
+                </div>
+
+                {/* Mensualidad, desde el segundo mes */}
+                <div
                   style={{
-                    fontSize: 36,
-                    fontWeight: 510,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1,
-                    color: '#f7f8f8',
+                    marginTop: 20,
+                    paddingTop: 20,
+                    borderTop: `1px solid ${onDark.line}`,
                   }}
                 >
-                  {p.amount}
-                </span>
-                <span style={{ fontSize: 14, color: '#6b6f76' }}>{p.period}</span>
-              </div>
-              <p style={{ fontSize: 13, lineHeight: '20px', color: '#8a8f98', marginTop: 14 }}>
-                {p.note}
-              </p>
-              {p.items.length > 0 && (
-                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
-                  {p.items.map(item => (
-                    <li
-                      key={item}
-                      className="flex gap-3"
-                      style={{ fontSize: 14, lineHeight: '22px' }}
+                  <div style={PLAN_LABEL}>{pricing.monthlyLabel}</div>
+                  <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
+                    <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
+                    <span
+                      style={{
+                        ...type.figure,
+                        fontSize: 26,
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        color: onDark.primary,
+                      }}
                     >
-                      <span style={{ color: '#e5534b', flexShrink: 0 }}>✓</span>
-                      <span style={{ color: '#d0d6e0' }}>{item}</span>
+                      {plan.monthly}
+                    </span>
+                    <span style={{ fontSize: 14, color: onDark.tertiary }}>{plan.monthlyPeriod}</span>
+                  </div>
+                </div>
+
+                {/* El booking nativo va aparte: es lo que más pesa al elegir Pro */}
+                {plan.featured && (
+                  <div
+                    style={{
+                      marginTop: 22,
+                      padding: 16,
+                      borderRadius: radius.md,
+                      border: '1px solid rgba(236,60,50,0.3)',
+                      backgroundColor: 'rgba(236,60,50,0.08)',
+                    }}
+                  >
+                    <div
+                      className="flex items-center gap-2"
+                      style={{ ...type.h3, fontSize: 14.5, color: onDark.primary }}
+                    >
+                      <CalendarCheck size={16} strokeWidth={1.8} color={color.red} />
+                      {plan.featured.title}
+                    </div>
+                    <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.secondary, marginTop: 6 }}>
+                      {plan.featured.desc}
+                    </p>
+                  </div>
+                )}
+
+                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
+                  {plan.items.map(item => (
+                    <li key={item} className="flex items-start gap-3">
+                      <Check
+                        size={15}
+                        strokeWidth={2.4}
+                        color={color.red}
+                        style={{ flexShrink: 0, marginTop: 4 }}
+                      />
+                      <span style={{ ...type.body, color: onDark.secondary }}>{item}</span>
                     </li>
                   ))}
                 </ul>
-              )}
-            </div>
-          ))}
-        </div>
 
-        <div className="flex flex-col items-center" style={{ marginTop: 40 }}>
-          <CtaPair size="lg" center />
-          <p style={{ fontSize: 13, color: '#6b6f76', marginTop: 20 }}>{pricing.note}</p>
+                <div className="mt-auto" style={{ paddingTop: 28 }}>
+                  <Button
+                    href={plan.checkoutUrl}
+                    variant={plan.highlight ? 'primary' : 'ghost'}
+                    size="lg"
+                    block
+                  >
+                    Empezar con {plan.name}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center" style={{ fontSize: 13, color: onDark.tertiary, marginTop: 24 }}>
+            {pricing.note}
+          </p>
         </div>
 
         {/* Siguiente escalón. Ancla de precio y destino del upsell — deliberadamente
@@ -853,58 +730,48 @@ export function Demo() {
               marginTop: 48,
               maxWidth: 680,
               padding: 28,
-              borderRadius: 12,
-              border: '1px dashed rgba(255,255,255,0.12)',
+              borderRadius: radius.lg,
+              border: '1px dashed rgba(246,245,240,0.16)',
             }}
           >
             <div className="flex items-center justify-between gap-4 flex-wrap">
-              <div
-                style={{
-                  fontSize: 11,
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: '#8a8f98',
-                }}
-              >
-                {nextTier.label}
-              </div>
-              <div
+              <Label tone="muted">{nextTier.label}</Label>
+              <span
                 style={{
                   padding: '4px 10px',
-                  borderRadius: 999,
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: radius.pill,
+                  border: `1px solid ${onDark.line}`,
                   fontSize: 11,
-                  color: '#6b6f76',
+                  color: onDark.tertiary,
                 }}
               >
                 {nextTier.badge}
-              </div>
+              </span>
             </div>
 
             <div className="flex items-baseline gap-2" style={{ marginTop: 14 }}>
-              <span style={{ fontSize: 13, color: '#6b6f76' }}>{nextTier.unit}</span>
+              <span style={{ fontSize: 13, color: onDark.tertiary }}>{nextTier.unit}</span>
               <span
                 style={{
+                  ...type.figure,
                   fontSize: 30,
-                  fontWeight: 510,
-                  letterSpacing: '-0.03em',
+                  fontWeight: 700,
                   lineHeight: 1,
-                  color: '#8a8f98',
+                  color: onDark.secondary,
                 }}
               >
                 {nextTier.amount}
               </span>
-              <span style={{ fontSize: 14, color: '#6b6f76' }}>{nextTier.period}</span>
+              <span style={{ fontSize: 14, color: onDark.tertiary }}>{nextTier.period}</span>
             </div>
 
-            <p style={{ fontSize: 13, lineHeight: '20px', color: '#6b6f76', marginTop: 12 }}>
+            <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.tertiary, marginTop: 12 }}>
               {nextTier.note}
             </p>
 
             <ul className="flex flex-wrap gap-x-5 gap-y-2" style={{ marginTop: 18 }}>
               {nextTier.items.map(item => (
-                <li key={item} style={{ fontSize: 13, color: '#6b6f76' }}>
+                <li key={item} style={{ fontSize: 13, color: onDark.tertiary }}>
                   · {item}
                 </li>
               ))}
@@ -917,21 +784,23 @@ export function Demo() {
       {testimonials.length > 0 && (
         <Section>
           <SectionTitle max={620}>Lo que dicen quienes ya lo usan</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ marginTop: 48 }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" style={{ marginTop: 48 }}>
             {testimonials.map(t => (
               <div
                 key={t.name}
+                className="glass"
                 style={{
                   padding: 28,
-                  borderRadius: 8,
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  backgroundColor: '#0d0e10',
+                  borderRadius: radius.lg,
+                  backgroundColor: color.surface,
                 }}
               >
-                <p style={{ fontSize: 14, lineHeight: '23px', color: '#d0d6e0' }}>“{t.quote}”</p>
+                <p style={{ ...type.body, fontSize: 15, lineHeight: '25px', color: onDark.secondary }}>
+                  “{t.quote}”
+                </p>
                 <div style={{ marginTop: 20 }}>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: '#f7f8f8' }}>{t.name}</div>
-                  <div style={{ fontSize: 12, color: '#6b6f76' }}>{t.role}</div>
+                  <div style={{ ...type.h3, fontSize: 14, color: onDark.primary }}>{t.name}</div>
+                  <div style={{ fontSize: 12.5, color: onDark.tertiary }}>{t.role}</div>
                 </div>
               </div>
             ))}
@@ -943,72 +812,84 @@ export function Demo() {
       {guarantee && (
         <Section>
           <div
+            className="glass"
             style={{
               padding: 40,
-              borderRadius: 8,
-              border: '1px solid rgba(255,255,255,0.08)',
-              backgroundColor: '#0d0e10',
+              borderRadius: radius.lg,
+              backgroundColor: color.surface,
               maxWidth: 760,
             }}
           >
-            <div style={{ fontSize: 20, fontWeight: 510, color: '#f7f8f8', marginBottom: 12 }}>
+            <div
+              style={{
+                fontSize: 22,
+                fontWeight: 700,
+                letterSpacing: '-0.025em',
+                color: onDark.primary,
+                marginBottom: 12,
+              }}
+            >
               {guarantee.title}
             </div>
-            <p style={{ fontSize: 15, lineHeight: '25px', color: '#8a8f98' }}>{guarantee.body}</p>
+            <p style={{ ...(type.lead as CSSProperties), fontSize: 15, color: onDark.secondary }}>
+              {guarantee.body}
+            </p>
           </div>
         </Section>
       )}
 
       {/* CTA final */}
-      <section style={{ padding: '96px 0 128px' }}>
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section style={{ padding: `${space.sectionTight} 0 ${space.section}` }}>
+        <div className="mx-auto px-6" style={{ maxWidth: space.maxWidth }}>
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: mo.base, ease: mo.ease }}
+            className="glass relative overflow-hidden px-6 py-12 sm:px-12 sm:py-14"
             style={{
-              padding: '56px 40px',
-              borderRadius: 10,
-              border: '1px solid rgba(255,255,255,0.08)',
-              backgroundColor: '#0d0e10',
+              borderRadius: radius.xl,
+              backgroundColor: color.surface,
             }}
           >
-            <SectionTitle max={720}>{finalCta.title}</SectionTitle>
-            <p
+            {/* El resplandor del hero vuelve en el cierre, desde la esquina. */}
+            <div
+              className="absolute inset-0 pointer-events-none"
               style={{
-                fontSize: 16,
-                lineHeight: '26px',
-                color: '#8a8f98',
-                marginTop: 18,
-                maxWidth: 620,
+                background:
+                  'radial-gradient(55% 90% at 100% 100%, rgba(236,60,50,0.16), transparent 70%)',
               }}
-            >
-              {finalCta.subtitle}
-            </p>
-            <div style={{ marginTop: 32 }}>
-              <CtaPair size="lg" />
+            />
+            <div className="relative">
+              <SectionTitle max={720}>{finalCta.title}</SectionTitle>
+              <SectionLead max={620}>{finalCta.subtitle}</SectionLead>
+              <div style={{ marginTop: 32 }}>
+                <StartCta size="lg" />
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer mínimo — sólo legal, sin salidas de navegación */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '28px 0' }}>
-        <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <span style={{ fontSize: 12, color: '#484b52' }}>{COPYRIGHT}</span>
+      <footer style={{ borderTop: `1px solid ${onDark.lineSoft}`, padding: '28px 0' }}>
+        <div
+          className="mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          style={{ maxWidth: space.maxWidth }}
+        >
+          <span style={{ fontSize: 12, color: onDark.faint }}>{COPYRIGHT}</span>
           <div className="flex items-center gap-5">
             <a
               href="/privacidad"
-              style={{ fontSize: 12, color: '#484b52' }}
-              className="hover:!text-[#8a8f98] transition-colors"
+              style={{ fontSize: 12.5, color: onDark.tertiary }}
+              className="hover:!text-[#F6F5F0] transition-colors"
             >
               Política de Privacidad
             </a>
             <a
               href="/terminos"
-              style={{ fontSize: 12, color: '#484b52' }}
-              className="hover:!text-[#8a8f98] transition-colors"
+              style={{ fontSize: 12.5, color: onDark.tertiary }}
+              className="hover:!text-[#F6F5F0] transition-colors"
             >
               Términos de Servicio
             </a>
