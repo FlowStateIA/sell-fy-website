@@ -24,7 +24,7 @@ export type FeatureSectionData = {
   title: string
   description: string
   /** La captura de la app que acompaña a la sección (archivo en public/capturas). */
-  shot: { src: string; alt: string; url: string }
+  shot: { src: string; srcMovil: string; alt: string; url: string }
   subFeatures: SubFeature[]
 }
 
@@ -137,7 +137,7 @@ export function FeatureSection({
           transition={{ duration: 0.7, delay: 0.08, ease: mo.ease }}
           className={`lg:col-span-7 min-w-0 ${flip ? 'lg:order-1' : ''}`}
         >
-          <ShotWindow src={shot.src} alt={shot.alt} url={shot.url} badge={demoMeta.badge} />
+          <ShotWindow src={shot.src} srcMovil={shot.srcMovil} alt={shot.alt} url={shot.url} badge={demoMeta.badge} />
           <p style={{ marginTop: 12, fontSize: 12, color: onDark.faint, textAlign: 'center' }}>
             {demoMeta.shotHint}
           </p>

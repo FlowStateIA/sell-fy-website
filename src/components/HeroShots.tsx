@@ -75,7 +75,14 @@ export function HeroShots() {
         layoutId="hero-tab"
       />
 
-      <ShotWindow src={tab.src} alt={tab.alt} url={tab.url} badge={heroShots.badge} priority recorteMovil>
+      <ShotWindow
+        src={tab.src}
+        srcMovil={tab.srcMovil}
+        alt={tab.alt}
+        url={tab.url}
+        badge={heroShots.badge}
+        priority
+      >
         <AnimatePresence>
           {avisoVisible && (
             <SaleToast

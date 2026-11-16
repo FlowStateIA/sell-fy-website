@@ -363,11 +363,10 @@ export function DemoTabBar<Id extends string>({
               key={t.id}
               role="tab"
               aria-selected={selected}
+              aria-label={t.label}
               onClick={() => onSelect(t.id)}
-              className="relative flex items-center flex-shrink-0 transition-colors duration-200"
+              className="demo-tab relative flex items-center flex-shrink-0 transition-colors duration-200"
               style={{
-                gap: 8,
-                padding: '10px 18px',
                 borderRadius: 12,
                 border: 'none',
                 cursor: 'pointer',
@@ -398,7 +397,7 @@ export function DemoTabBar<Id extends string>({
                 className="relative"
                 color={selected ? color.red : 'currentColor'}
               />
-              <span className="relative">{t.label}</span>
+              <span className="demo-tab-label relative">{t.label}</span>
             </button>
           )
         })}
@@ -427,27 +426,27 @@ export function DemoTabBar<Id extends string>({
 }
 
 /**
- * Una captura real de la app dentro de la ventana de la marca. Las capturas son
- * 16:9 (ver .shot-cuadro en index.css). `children` se
+ * Una captura real de la app dentro de la ventana de la marca. En escritorio es
+ * 16:9; en teléfono se cambia por la vista de teléfono de la app (ver .shot-cuadro en index.css). `children` se
  * pinta encima de la imagen: el aviso que «acaba de pasar».
  */
 export function ShotWindow({
   src,
+  srcMovil,
   alt,
   url,
   badge,
   priority = false,
-  recorteMovil = false,
   children,
 }: {
   src: string
+  /** La misma pantalla vista en teléfono (la app es responsive): vertical y con letra legible. */
+  srcMovil: string
   alt: string
   url: string
   badge: string
   /** El hero carga la imagen ya; las de más abajo, al acercarse. */
   priority?: boolean
-  /** En móvil, recorta el menú lateral de la captura (sólo para capturas de pantalla completa). */
-  recorteMovil?: boolean
   children?: ReactNode
 }) {
   return (
@@ -457,17 +456,20 @@ export function ShotWindow({
         style={{ borderRadius: 16, backgroundColor: color.surface }}
       >
         <WindowChrome url={url} badge={badge} />
-        <div className={`relative shot-cuadro${recorteMovil ? ' shot-cuadro--recorte' : ''}`} style={{ backgroundColor: '#0B0C0D' }}>
-          <img
-            src={src}
-            alt={alt}
-            width={2200}
-            height={1238}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            className="block w-full h-full"
-            style={{ objectFit: 'cover' }}
-          />
+        <div className="relative shot-cuadro" style={{ backgroundColor: '#0B0C0D' }}>
+          <picture>
+            <source media="(max-width: 639px)" srcSet={srcMovil} />
+            <img
+              src={src}
+              alt={alt}
+              width={2200}
+              height={1238}
+              loading={priority ? 'eager' : 'lazy'}
+              decoding="async"
+              className="block w-full h-full"
+              style={{ objectFit: 'cover', objectPosition: 'top' }}
+            />
+          </picture>
           {children}
         </div>
       </div>

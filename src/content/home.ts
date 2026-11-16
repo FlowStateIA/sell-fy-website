@@ -112,6 +112,7 @@ export const featureSections: FeatureSectionData[] = [
       'Cada llamada trae los dolores, las objeciones y las aspiraciones que tu cliente dice en voz alta. SellNode las extrae y las agrupa por oferta, para que el copy de tu embudo use las palabras del cliente y no las tuyas.',
     shot: {
       src: '/capturas/prod-clientes.webp',
+      srcMovil: '/capturas/m-clientes.webp',
       alt: 'Inteligencia de clientes en SellNode: dolores y aspiraciones que dicen los prospectos en las llamadas, con cuántas veces se repite cada uno.',
       url: 'app.sell-node.com/inteligencia/clientes',
     },
@@ -155,6 +156,7 @@ export const featureSections: FeatureSectionData[] = [
       'Score por fase de la llamada, mapa con marcas de tiempo, el momento donde se puso en riesgo la venta y un plan de mejora por closer. Sin abrir una grabación.',
     shot: {
       src: '/capturas/prod-auditoria.webp',
+      srcMovil: '/capturas/m-auditoria-mapa.webp',
       alt: 'Auditoría de una llamada en SellNode: el mapa de la llamada con el puntaje de cada fase y los insights clave.',
       url: 'app.sell-node.com/auditorias',
     },
@@ -198,6 +200,7 @@ export const featureSections: FeatureSectionData[] = [
       'Ventas, cuotas, renovaciones y reembolsos, cada uno en su fecha. Comisiones que se calculan al registrar la venta y se desbloquean cuando el dinero entra. Aviso cuando una cuota vence.',
     shot: {
       src: '/capturas/prod-cobros.webp',
+      srcMovil: '/capturas/m-cobros.webp',
       alt: 'Cartera de cobros de SellNode: total por cobrar, cartera vencida y el detalle de cada venta.',
       url: 'app.sell-node.com/ventas/cobros',
     },
@@ -241,6 +244,7 @@ export const featureSections: FeatureSectionData[] = [
       'Compara embudos, closers y duplas en el mismo período. La tasa de cierre dice sobre qué llamadas se calculó, y cada cifra se puede abrir hasta la venta que la originó.',
     shot: {
       src: '/capturas/prod-analitica.webp',
+      srcMovil: '/capturas/m-analitica.webp',
       alt: 'Analítica de SellNode: resumen ejecutivo del mes con revenue, cash collected, tasa de cierre y comparación con el período anterior.',
       url: 'app.sell-node.com/ventas/analitica',
     },
@@ -509,7 +513,7 @@ export const finalCta = {
 }
 
 /**
- * Las pantallas del hero: capturas REALES de la app (no recreaciones) con los
+ * Las pantallas del hero: capturas REALES de la app (no recreaciones; en móvil, la app en su vista de teléfono) con los
  * datos de ejemplo de «Academia Norte», todas del mismo período. Cada pestaña
  * trae el aviso de lo que «acaba de pasar» ahí, hecho con código para poder
  * traducirlo y cambiarlo sin volver a capturar. Cada aviso cuenta algo que está
@@ -524,6 +528,7 @@ export const heroShots = {
       label: 'Tablero',
       url: 'app.sell-node.com/dashboard',
       src: '/capturas/hero-tablero.webp',
+      srcMovil: '/capturas/m-tablero.webp',
       alt: 'Tablero de SellNode: ventas, cobrado del mes y embudo, con datos de ejemplo.',
       toast: { title: 'Venta registrada', body: 'Laura M. cerró Programa intensivo', amount: '+$3,500' },
     },
@@ -532,6 +537,7 @@ export const heroShots = {
       label: 'Llamadas',
       url: 'app.sell-node.com/llamadas',
       src: '/capturas/hero-llamadas.webp',
+      srcMovil: '/capturas/m-llamadas.webp',
       alt: 'Llamadas de SellNode: 96 llamadas del mes, con su closer, su grabación y su resultado.',
       toast: { title: 'Llamada registrada', body: 'Julián S. con Laura M. · Venta' },
     },
@@ -540,6 +546,7 @@ export const heroShots = {
       label: 'Cobros',
       url: 'app.sell-node.com/ventas/cobros',
       src: '/capturas/hero-cobros.webp',
+      srcMovil: '/capturas/m-cobros.webp',
       alt: 'Cartera de cobros de SellNode: total por cobrar, cartera vencida y el detalle de cada venta.',
       toast: { title: 'Cuota cobrada', body: 'Carla P. pagó Mentoría', amount: '+$800' },
     },
@@ -548,6 +555,7 @@ export const heroShots = {
       label: 'Auditoría',
       url: 'app.sell-node.com/auditorias',
       src: '/capturas/hero-auditoria.webp',
+      srcMovil: '/capturas/m-auditoria.webp',
       alt: 'Auditoría de una llamada en SellNode: score general y puntaje de cada fase.',
       toast: { title: 'Llamada auditada', body: 'Bruno I. · score 81 de 100' },
     },
