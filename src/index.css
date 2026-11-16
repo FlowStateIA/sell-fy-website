@@ -199,15 +199,20 @@
   }
 }
 
-/* Cuadro de las capturas: 16:9. Las del hero (.shot-cuadro--recorte), que traen el menú lateral, en móvil se
-   recortan a 4:3 alineadas a la derecha: sale el menú y queda el contenido, más grande. */
+/* Cuadro de las capturas: 16:9 en escritorio. En teléfono se muestra la vista de teléfono de la app (430×680), vertical. */
 .shot-cuadro { aspect-ratio: 16 / 9; }
 @media (max-width: 639px) {
-  .shot-cuadro--recorte { aspect-ratio: 4 / 3; }
-  .shot-cuadro--recorte img { object-position: 76% 0; }
+  .shot-cuadro { aspect-ratio: 430 / 680; }
+}
+/* Pestañas de las demos: en teléfono sólo la elegida muestra su nombre, para que quepan las cuatro. */
+.demo-tab { gap: 8px; padding: 10px 18px; }
+@media (max-width: 639px) {
+  .demo-tab { gap: 6px; padding: 10px 13px; }
+  .demo-tab[aria-selected='false'] .demo-tab-label { display: none; }
 }
 /* El aviso se asoma arriba a la derecha, bajo la campana, como una notificación; más chico en móvil. */
 .shot-cuadro .sale-toast { top: 14px !important; right: 14px !important; }
 @media (max-width: 639px) {
-  .shot-cuadro .sale-toast { top: 8px !important; right: 8px !important; zoom: 0.72; }
+  /* Abajo, para no tapar el título de la pantalla. */
+  .shot-cuadro .sale-toast { top: auto !important; bottom: 10px; right: 10px !important; left: 10px; max-width: none !important; zoom: 0.85; }
 }
