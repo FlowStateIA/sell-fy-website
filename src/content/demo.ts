@@ -25,10 +25,10 @@ export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
  * `ctaSub` de cuando se agendaba por Calendly, que ya no renderizaba nadie.
  */
 export const hero = {
-  eyebrow: 'Para infoproductores que quieren centralizar su negocio',
-  headline: 'Toda la operación de tu negocio en un solo lugar, auditada por IA',
+  eyebrow: 'Para equipos que venden por llamada',
+  headline: 'Centraliza tu operación High Ticket en un solo lugar',
   subheadline:
-    'En este video te muestro cómo funciona por dentro y cómo deja de escapársete el dinero que ya vendiste.',
+    'Mira cómo funciona por dentro y escala tu negocio desde la data real.',
 }
 
 /**
@@ -42,28 +42,12 @@ export const hero = {
 export const covers = [
   'Ventas',
   'Cobros',
-  'Cuotas',
   'Comisiones',
-  'Embudos',
   'Agendas',
+  'Auditoría de llamadas',
   'Entrega de servicio',
-  'Calendario',
-  'Métricas',
-  'Reportes',
-  'Recordatorios',
   'Analítica',
 ]
-
-/**
- * La demo interactiva, debajo del video: para quien prefiere tocar el producto
- * antes que verlo. Las pantallas y sus datos son los mismos de la home
- * (src/content/productDemo.ts).
- */
-export const tour = {
-  title: 'Recórrelo por dentro.\nSin crear una cuenta.',
-  subtitle:
-    'Cuatro pantallas con datos de ejemplo. Cambia de pestaña y mira qué muestra cada una.',
-}
 
 /**
  * Métricas de validación. Vacío = la sección no se muestra.
@@ -75,23 +59,23 @@ export const metrics: { value: string; label: string }[] = []
 export type PainIcon = 'puzzle' | 'users' | 'headphones' | 'calculator' | 'radar' | 'trending'
 
 export const forWho = {
-  title: '¿SellNode es para tu negocio?',
-  subtitle: 'Si te pasa alguna de estas seis cosas, sí.',
+  title: '¿Es para tu negocio?',
+  subtitle: 'Si te pasa algo de esto, sí.',
   cards: [
     {
       icon: 'puzzle' as PainIcon,
       title: 'Tu operación está partida',
-      desc: 'El CRM por un lado, la entrega del servicio en otro, las comisiones en Excel.',
+      desc: 'El CRM por un lado, la entrega en otro y las comisiones en Excel.',
     },
     {
       icon: 'users' as PainIcon,
       title: 'No sabes quién falla',
-      desc: 'Tienes closers, pero no en qué parte de la llamada pierden la venta.',
+      desc: 'No ves en qué parte de la llamada pierde la venta cada closer.',
     },
     {
       icon: 'headphones' as PainIcon,
       title: 'Nadie escucha las llamadas',
-      desc: 'Se acumulan cientos de grabaciones al mes y no las abre nadie.',
+      desc: 'Cientos de grabaciones al mes que no abre nadie.',
     },
     {
       icon: 'calculator' as PainIcon,
@@ -100,56 +84,56 @@ export const forWho = {
     },
     {
       icon: 'radar' as PainIcon,
-      title: 'No sabes la atribución real del lead',
-      desc: 'Ni dónde está el cuello de botella de la operación. Inviertes sin saber qué canal te trae clientes rentables.',
+      title: 'No sabes de dónde viene cada venta',
+      desc: 'Inviertes sin saber qué embudo trae clientes que pagan.',
     },
     {
       icon: 'trending' as PainIcon,
       title: 'Dependes de la memoria',
-      desc: 'Lo que sabe cada vendedor se va con él cuando renuncia.',
+      desc: 'Lo que sabe cada vendedor se va cuando él se va.',
     },
   ],
 }
 
 export const includes = {
   title: 'Qué incluye',
-  subtitle: 'No es una licencia de software. Es la plataforma más la implementación.',
+  subtitle: 'La plataforma y la implementación, juntas.',
   items: [
     {
       title: 'CRM, ventas y cartera',
-      desc: 'Pipeline comercial, ventas adicionales, cuotas, renovaciones y reservas. Recordatorios de cobro automáticos para que no se te quede plata en la calle.',
+      desc: 'Pipeline, cuotas, renovaciones y reservas, con recordatorios de cobro automáticos.',
     },
     {
-      title: 'Audita el 100% de las llamadas de tu equipo',
-      desc: 'Score conductual de 0 a 100 en 7 dimensiones, mapa de la llamada con timestamps, el error más costoso y plan de mejora por closer. Todas, todos los días.',
+      title: 'Auditoría de llamadas',
+      desc: 'Score de 0 a 100 por fase, mapa con tiempos, el momento de riesgo y plan de mejora por closer.',
     },
     {
-      title: 'Inteligencia del cliente',
-      desc: 'El perfil psicológico de tu avatar: dolores, objeciones, aspiraciones y señales de cierre extraídas automáticamente de cada conversación.',
+      title: 'Inteligencia de clientes',
+      desc: 'Los dolores, objeciones y aspiraciones que tus clientes dicen en cada llamada, por oferta.',
     },
     {
-      title: 'Centralización de funnels',
-      desc: 'Conecta tus diferentes canales de venta y trackéalos todos en el mismo tablero. Sabes qué embudo trae clientes rentables y cuál no.',
+      title: 'Embudos en un tablero',
+      desc: 'Conecta tus canales de venta y ve qué embudo trae clientes que pagan y cuál no.',
     },
     {
       title: 'Entrega de servicio',
-      desc: 'Programas reutilizables, alumnos con checklist y progreso, sesiones y calendario del mentor, encuestas por sesión y reporting de la entrega.',
+      desc: 'Programas, alumnos con progreso, sesiones y encuestas, en el mismo sistema.',
     },
     {
       title: 'Calend-Fy',
-      desc: 'Tu propia página de agendamiento con la marca de tu organización: tipos de evento, reglas de reparto entre el equipo y disponibilidad por persona.',
+      desc: 'Tu página de agendamiento con tu marca, con reparto entre el equipo y disponibilidad por persona.',
     },
     {
       title: 'Comisiones y liquidaciones',
-      desc: 'Cálculo automático por closer y setter, liquidaciones parciales y PDF descargable. Se acaban las discusiones.',
+      desc: 'Cálculo automático por closer y setter, liquidaciones parciales y PDF.',
     },
     {
-      title: 'Analítica, atribución e informes',
-      desc: 'Atribución por funnel con inversión prorrateada, revenue, cash collected, tasa de cierre, CAC y ROI. Información en línea, no el reporte de la semana pasada.',
+      title: 'Analítica e informes',
+      desc: 'Vendido, cobrado, tasa de cierre y retorno por embudo, siempre al día.',
     },
     {
       title: 'Implementación en 7 días',
-      desc: 'Configuramos tu organización, roles, ofertas, embudos y permisos, y entrenamos a tu equipo para que opere sin ti encima.',
+      desc: 'Configuramos tu organización, roles, ofertas y embudos, y entrenamos a tu equipo.',
     },
   ],
 }
@@ -163,7 +147,7 @@ export const includes = {
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
-    'Hoy ese negocio se maneja con cinco o seis herramientas que no se hablan entre sí. SellNode se queda con el trabajo de todas.',
+    'Hoy lo manejas con cinco o seis herramientas que no se hablan. SellNode hace el trabajo de todas.',
 }
 
 /**
@@ -193,7 +177,7 @@ export const pricing: {
 } = {
   title: 'Elige tu plan',
   subtitle:
-    'Los dos incluyen implementación acompañada y tu primer mes. La mensualidad empieza el segundo mes.',
+    'Los dos incluyen la implementación y tu primer mes. La mensualidad empieza el segundo.',
   setupLabel: 'Implementación',
   setupNote: 'Pago inicial. Incluye tu primer mes.',
   monthlyLabel: 'Desde el segundo mes',
@@ -213,12 +197,12 @@ export const pricing: {
     },
     {
       ...PLANS.pro,
-      tagline: 'Todo Standard, más los módulos que reemplazan tus herramientas externas.',
+      tagline: 'Todo Standard, más finanzas, entrega de servicio y agenda propia.',
       highlight: true,
       badge: 'Recomendado',
       featured: {
         title: 'Booking nativo incluido',
-        desc: 'Tu propia página de agendamiento, pensada para setters y closers. Te ahorras Calendly.',
+        desc: 'Tu página de agendamiento propia. Te ahorras Calendly.',
       },
       items: [
         'Todo lo del plan Standard',
@@ -264,9 +248,9 @@ export const nextTier = {
  * que va justo debajo ($500 de setup + $297/mes), no una segunda tarjeta.
  */
 export const costComparison = {
-  title: 'Calcula lo que te cuesta no tenerlo',
+  title: 'Lo que cuesta seguir como estás',
   subtitle:
-    'No es sólo el sueldo de alguien que escuche las llamadas. Son las horas que se van ordenando información regada, las decisiones que tomas por memoria porque la data no está, y las cinco o seis suscripciones que ya pagas por separado.',
+    'No es solo el sueldo de quien escuche las llamadas: son las horas armando reportes, las decisiones por memoria y las herramientas sueltas que ya pagas.',
   human: {
     label: 'Seguir como estás',
     amount: '$800 – $1.500',
@@ -274,11 +258,11 @@ export const costComparison = {
      *  de que es sólo el sueldo va en el subtítulo y en el primer ítem. */
     period: '/mes',
     items: [
-      'Y eso es sólo el sueldo de quien audita',
-      'Escucha 20 o 30 llamadas al mes, no 300',
-      'Cinco o seis suscripciones que pagas aparte',
-      'Horas cada semana armando reportes a mano',
-      'Decisiones por memoria, porque la data no está cruzada',
+      'Solo el sueldo de quien audita',
+      'Escucha 20 o 30 llamadas al mes, no todas',
+      'Cinco o seis suscripciones aparte',
+      'Horas a la semana armando reportes',
+      'Decisiones por memoria, no por datos',
       'Vacaciones, incapacidades y rotación',
     ],
   },
@@ -304,5 +288,5 @@ export const guarantee: { title: string; body: string } | null = null
 export const finalCta = {
   title: 'Centraliza tu operación esta semana',
   subtitle:
-    'Empiezas hoy y nosotros configuramos tu organización, roles, ofertas, embudos y permisos. En 7 días tu equipo está operando adentro.',
+    'Empiezas hoy y lo dejamos configurado. En 7 días tu equipo opera adentro.',
 }
