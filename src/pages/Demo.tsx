@@ -14,8 +14,6 @@ import {
 
 import logoImg from '../assets/sellnode-logo-inversa.svg'
 import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
-import { ProductDemo } from '../components/ProductDemo'
-import { SaleJourney } from '../components/SaleJourney'
 import { SavingsTable } from '../components/SavingsTable'
 import { ReplaceGrid } from '../components/ReplaceGrid'
 import { Button, Label, TwoTone } from '../components/ui'
@@ -24,7 +22,6 @@ import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
   hero,
-  tour,
   covers,
   metrics,
   forWho,
@@ -37,7 +34,6 @@ import {
   guarantee,
   finalCta,
 } from '../content/demo'
-import { mechanism } from '../content/home'
 import { color, motion as mo, onDark, onLight, radius, shade, space, type } from '../lib/theme'
 import { ToneContext, palette, type Tone } from '../lib/tone'
 
@@ -369,17 +365,6 @@ export function Demo() {
         <IntegrationsMarquee />
       </div>
 
-      {/* La demo viva: para quien prefiere tocar el producto antes que verlo. */}
-      <Section shadeIndex={1}>
-        <div className="text-center mx-auto" style={{ maxWidth: 720, marginBottom: 44 }}>
-          <SectionTitle center>{tour.title}</SectionTitle>
-          <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 16 }}>
-            {tour.subtitle}
-          </p>
-        </div>
-        <ProductDemo />
-      </Section>
-
       {/* Métricas — sólo si hay datos reales */}
       {metrics.length > 0 && (
         <Section>
@@ -442,13 +427,6 @@ export function Demo() {
             </div>
           ))}
         </div>
-      </Section>
-
-      {/* Cómo sigue SellNode una venta: el mismo recorrido de la home. */}
-      <Section>
-        <SectionTitle max={720}>{mechanism.title}</SectionTitle>
-        <SectionLead>{mechanism.body}</SectionLead>
-        <SaleJourney />
       </Section>
 
       {/* Centralización — reemplaza vs se conecta */}
