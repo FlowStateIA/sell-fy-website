@@ -2,9 +2,9 @@ import type { CSSProperties, ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import {
   CalendarCheck,
-  Calculator,
   Check,
-  Headphones,
+  Clock,
+  GraduationCap,
   Puzzle,
   Radar,
   TrendingUp,
@@ -117,11 +117,11 @@ function SectionLead({
 
 const PAIN_ICONS = {
   puzzle: Puzzle,
-  users: Users,
-  headphones: Headphones,
-  calculator: Calculator,
   radar: Radar,
+  users: Users,
   trending: TrendingUp,
+  graduation: GraduationCap,
+  clock: Clock,
 } as const
 
 function PainIconChip({ name }: { name: PainIcon }) {
@@ -427,6 +427,13 @@ export function Demo() {
             </div>
           ))}
         </div>
+
+        <p
+          className="text-center mx-auto"
+          style={{ ...type.body, fontSize: 14, color: onLight.secondary, marginTop: 28, maxWidth: 560 }}
+        >
+          {forWho.note}
+        </p>
       </Section>
 
       {/* Centralización — reemplaza vs se conecta */}
