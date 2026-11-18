@@ -56,43 +56,54 @@ export const covers = [
 export const metrics: { value: string; label: string }[] = []
 
 /** Claves de icono válidas. Se mapean a lucide-react en Demo.tsx */
-export type PainIcon = 'puzzle' | 'users' | 'headphones' | 'calculator' | 'radar' | 'trending'
+export type PainIcon = 'puzzle' | 'radar' | 'users' | 'trending' | 'graduation' | 'clock'
 
+/**
+ * Los seis dolores del genoma de marketing (sección «Dolores y problemas
+ * principales»), en el mismo orden y con sus palabras. Los títulos nombran lo
+ * que le pasa al dueño, no lo que hace mal: la guía pide no juzgar personas.
+ *
+ * ⚠️ Antes había tres tarjetas que no salían del genoma («no sabes quién falla»,
+ * «nadie escucha las llamadas», «comisiones a mano»). Si quieres sumar un dolor,
+ * primero tiene que estar en el genoma.
+ */
 export const forWho = {
   title: '¿Es para tu negocio?',
   subtitle: 'Si te pasa algo de esto, sí.',
   cards: [
     {
       icon: 'puzzle' as PainIcon,
-      title: 'Tu operación está partida',
-      desc: 'El CRM por un lado, la entrega en otro y las comisiones en Excel.',
-    },
-    {
-      icon: 'users' as PainIcon,
-      title: 'No sabes quién falla',
-      desc: 'No ves en qué parte de la llamada pierde la venta cada closer.',
-    },
-    {
-      icon: 'headphones' as PainIcon,
-      title: 'Nadie escucha las llamadas',
-      desc: 'Cientos de grabaciones al mes que no abre nadie.',
-    },
-    {
-      icon: 'calculator' as PainIcon,
-      title: 'Comisiones a mano',
-      desc: 'Cada mes, la misma discusión sobre quién cobra qué.',
+      title: 'Tus datos están regados',
+      desc: 'CRM, hojas y calendario: hay que abrir los tres para saber qué pasó.',
     },
     {
       icon: 'radar' as PainIcon,
-      title: 'No sabes de dónde viene cada venta',
-      desc: 'Inviertes sin saber qué embudo trae clientes que pagan.',
+      title: 'No sabes qué embudo te deja dinero',
+      desc: 'Ni qué dupla de setter y closer rinde mejor.',
+    },
+    {
+      icon: 'users' as PainIcon,
+      title: 'Tu director comercial arma los reportes',
+      desc: 'Consolida métricas, revisa llamadas y verifica comisiones en vez de dirigir al equipo.',
     },
     {
       icon: 'trending' as PainIcon,
-      title: 'Dependes de la memoria',
-      desc: 'Lo que sabe cada vendedor se va cuando él se va.',
+      title: 'Todo depende de quien sabe el proceso',
+      desc: 'Cada vendedor o embudo nuevo suma complicación y riesgo de errores.',
+    },
+    {
+      icon: 'graduation' as PainIcon,
+      title: 'La venta no llega a la entrega',
+      desc: 'El equipo que entrega el programa no recibe lo que se vendió.',
+    },
+    {
+      icon: 'clock' as PainIcon,
+      title: 'Decides con datos de la semana pasada',
+      desc: 'Los reportes llegan tarde, y las decisiones también.',
     },
   ],
+  /** Cualificación: el genoma pide decir también para quién no es. */
+  note: 'Pensado para equipos con closers y setters que venden por llamada agendada. Si estás empezando, todavía no es para ti.',
 }
 
 export const includes = {
