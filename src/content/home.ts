@@ -17,6 +17,7 @@
  */
 
 import type { FeatureSectionData } from '../components/FeatureSection'
+import { ctaDiagnostic } from './shared'
 
 /** El único CTA de la página. Si cambia, cambia en un solo lugar. */
 export const CTA_LABEL = 'Agendar demo'
@@ -301,9 +302,9 @@ export const jarvisChapter = {
 /** Capítulo 06 — la metodología. Mantener siempre el orden: comprender, implementar, acompañar. */
 export const method = {
   eyebrow: '06 — Cómo trabajamos',
-  title: 'Instalar el software no es el trabajo.\nEs el tercio del medio.',
+  title: 'Instalar el software no es el trabajo.\nEs trabajar contigo hasta que tu operación esté adentro.',
   subtitle:
-    'Control Comercial 360: comprende tu operación, organiza tus datos y acompaña a tu equipo para gestionar con mayor claridad.',
+    'Control Comercial 360: comprende tu operación, organiza tus datos y acompaña a tu equipo para gestionar con mayor claridad. Nuestro equipo trabaja con el tuyo: entendemos tu operación, la configuramos contigo y te acompañamos para que tengas todo al día.',
   pillars: [
     {
       tag: '01',
@@ -390,16 +391,19 @@ export const fit = {
   },
 }
 
-/** Capítulo 10 — planes. Las cifras salen de site.ts; acá sólo va el copy. */
+/** Capítulo 10 — precio. Las cifras salen de site.ts; acá sólo va el copy. */
 export const pricingCopy = {
-  eyebrow: '10 — Planes',
+  eyebrow: '10 — Precio',
   title: 'No es una licencia.\nEs la implementación y el acompañamiento.',
   body:
-    'El pago inicial cubre el diagnóstico, la configuración de tu operación y la capacitación de tu equipo. La mensualidad es la plataforma y el acompañamiento continuo.',
+    'El pago inicial cubre el diagnóstico, la configuración de tu operación y la capacitación de tu equipo. La mensualidad es la plataforma, el acompañamiento cada quince días y el soporte por WhatsApp.',
+  /** Rótulo y nota de la tarjeta de precio. Hay un solo plan. */
+  planLabel: 'Un solo plan',
+  planNote: 'La plataforma completa, para todo tu equipo. Usuarios ilimitados.',
   includes: [
     {
       title: 'La plataforma completa',
-      desc: 'Ventas, cobros, comisiones, agendas, analítica y auditorías de llamada. Sin límite de usuarios.',
+      desc: 'Ventas, cobros, comisiones, agendas, analítica, auditorías de llamada, finanzas y entrega de servicio. Sin límite de usuarios.',
     },
     {
       title: 'Diagnóstico de tu operación',
@@ -437,7 +441,7 @@ export const pricingCopy = {
  * tiene eso, y ponerlos sería prometer algo que no existe.
  *
  * El total y el ahorro se calculan en el componente a partir de estas filas y
- * del plan Pro de site.ts; no se escriben a mano en ningún lado.
+ * del plan de site.ts; no se escriben a mano en ningún lado.
  */
 export const savings = {
   eyebrow: 'Lo que te ahorras',
@@ -446,7 +450,7 @@ export const savings = {
   body: 'Para un equipo de 5 personas —un director, 2 closers y 2 setters—, con el plan de cada herramienta que haría el mismo trabajo.',
   headers: { tool: 'Por separado', price: 'Al mes' },
   included: 'Incluido',
-  planLabel: 'Plan Pro',
+  planLabel: 'Plan único',
   totalLabel: 'Total',
   /** {n} se reemplaza por la cantidad de filas. */
   totalNote: '{n} herramientas, {n} facturas',
@@ -501,7 +505,7 @@ export const savings = {
   ],
   /** {date}, {sources} y {setup} se arman en el componente. */
   footnote:
-    'Precios públicos en USD, consultados el {date} en la página de cada proveedor: {sources}. Pueden cambiar. De SellNode se compara la mensualidad del plan Pro; la implementación es un pago único de {setup} USD que incluye el primer mes. Las marcas son de sus dueños y se citan solo para comparar.',
+    'Precios públicos en USD, consultados el {date} en la página de cada proveedor: {sources}. Pueden cambiar. De SellNode se compara la mensualidad; la implementación es un pago único de {setup} USD que incluye el primer mes. Las marcas son de sus dueños y se citan solo para comparar.',
 }
 
 /** Cierre. Acá sí va el lema, que es donde la guía lo quiere en piezas institucionales. */
@@ -509,7 +513,7 @@ export const finalCta = {
   title: 'Sigue cada venta hasta el cobro.',
   subtitle:
     'En la demo vemos tu propia operación: qué se centraliza, qué se conecta y qué necesita tu equipo para registrarla. Si no encaja, es mejor saberlo en esa llamada.',
-  ctaSub: 'Treinta minutos. Revisamos tus embudos y tu forma de vender.',
+  ctaSub: ctaDiagnostic,
 }
 
 /**
