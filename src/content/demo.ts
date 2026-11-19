@@ -17,7 +17,7 @@ import { PLANS, type Plan } from './site'
 export { insteadOfLabel, replaceRows, connectsWith, integrations, type ReplaceIcon } from './shared'
 
 /** ID del video de Loom. Sacar de la URL: loom.com/share/<ESTE_ID> */
-export const LOOM_VIDEO_ID = '245f6a6353a240d08d4420581a380a17'
+export const LOOM_VIDEO_ID = '76fc9c04adf44ed6ae5bccc892cd8169'
 
 /**
  * ⚠️ El hero no define el texto del botón: todos los CTA de la página son el

@@ -231,7 +231,7 @@ function VideoEmbed() {
       {LOOM_VIDEO_ID ? (
         <iframe
           src={`https://www.loom.com/embed/${LOOM_VIDEO_ID}?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
-          title="SellNode en 5 minutos"
+          title="Demo de SellNode"
           allowFullScreen
           style={{ width: '100%', height: '100%', border: 0 }}
         />
