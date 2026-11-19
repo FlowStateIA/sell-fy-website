@@ -4,14 +4,14 @@ import { Check } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { savings } from '../content/home'
-import { PLANS } from '../content/site'
+import { PLAN } from '../content/site'
 import { color, motion as mo, onDark, radius, space, type } from '../lib/theme'
 import { Chapter } from './ChapterKit'
 import { Label } from './ui'
 
 /**
  * Lo que te ahorras: lo que cuesta armar lo mismo con herramientas sueltas,
- * contra la mensualidad del plan Pro.
+ * contra la mensualidad del plan.
  *
  * El total, el ahorro y la lista de fuentes del pie salen de las filas de
  * home.ts y del plan de site.ts. Nada se escribe a mano acá, para que la tabla
@@ -26,14 +26,14 @@ const ROW_H = 58
 
 export function SavingsTable() {
   const total = savings.rows.reduce((sum, row) => sum + row.price, 0)
-  const ours = toNumber(PLANS.pro.monthly)
+  const ours = toNumber(PLAN.monthly)
   const monthly = total - ours
   const count = String(savings.rows.length)
 
   const title = savings.title.replace('{total}', usd(total))
   const footnote = savings.footnote
     .replace('{date}', savings.checkedOn)
-    .replace('{setup}', PLANS.pro.setup.replace('$', ''))
+    .replace('{setup}', PLAN.setup.replace('$', ''))
 
   // El pie se parte en «{sources}» para poder enlazar cada proveedor a su página.
   const [noteBefore, noteAfter] = footnote.split('{sources}')
@@ -174,7 +174,7 @@ export function SavingsTable() {
 
           <div className="flex-1 flex flex-col items-center justify-center text-center" style={{ minHeight: 88, padding: '14px 0 18px' }}>
             <span style={{ ...type.figure, fontSize: 34, fontWeight: 700, lineHeight: 1 }}>
-              {PLANS.pro.monthly}
+              {PLAN.monthly}
             </span>
             <span
               style={{

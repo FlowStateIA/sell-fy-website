@@ -11,7 +11,8 @@
  * social inventada. Llénalas con datos reales cuando los tengas.
  */
 
-import { PLANS, type Plan } from './site'
+import { PLAN } from './site'
+import { method } from './home'
 
 /** Reexportado para no romper los imports que ya apuntaban a este archivo. */
 export { insteadOfLabel, replaceRows, connectsWith, integrations, type ReplaceIcon } from './shared'
@@ -21,14 +22,14 @@ export const LOOM_VIDEO_ID = '76fc9c04adf44ed6ae5bccc892cd8169'
 
 /**
  * ⚠️ El hero no define el texto del botón: todos los CTA de la página son el
- * mismo componente (CtaPair) y llevan al checkout. Tenía aquí un `cta` y un
- * `ctaSub` de cuando se agendaba por Calendly, que ya no renderizaba nadie.
+ * mismo (DemoCta) y llevan a agendar. La etiqueta (CTA_LABEL) vive en home.ts y
+ * la línea del diagnóstico (ctaDiagnostic) en shared.ts.
  */
 export const hero = {
   eyebrow: 'Para equipos que venden por llamada',
   headline: 'Centraliza tu operación High Ticket en un solo lugar',
   subheadline:
-    'Mira cómo funciona por dentro y escala tu negocio desde la data real.',
+    'Mira cómo funciona por dentro y cómo trabajamos con tu equipo para que toda tu operación quede adentro.',
 }
 
 /**
@@ -56,7 +57,7 @@ export const covers = [
 export const metrics: { value: string; label: string }[] = []
 
 /** Claves de icono válidas. Se mapean a lucide-react en Demo.tsx */
-export type PainIcon = 'puzzle' | 'radar' | 'users' | 'trending' | 'graduation' | 'clock'
+export type PainIcon = 'puzzle' | 'radar' | 'users' | 'brain' | 'graduation' | 'clock'
 
 /**
  * Los seis dolores del genoma de marketing (sección «Dolores y problemas
@@ -87,9 +88,9 @@ export const forWho = {
       desc: 'Consolida métricas, revisa llamadas y verifica comisiones en vez de dirigir al equipo.',
     },
     {
-      icon: 'trending' as PainIcon,
-      title: 'Todo depende de quien sabe el proceso',
-      desc: 'Cada vendedor o embudo nuevo suma complicación y riesgo de errores.',
+      icon: 'brain' as PainIcon,
+      title: 'El proceso vive en la cabeza de alguien',
+      desc: 'Si esa persona no está, nadie sabe cómo se hace, y cada vendedor nuevo lo aprende distinto.',
     },
     {
       icon: 'graduation' as PainIcon,
@@ -120,7 +121,7 @@ export const includes = {
     },
     {
       title: 'Inteligencia de clientes',
-      desc: 'Los dolores, objeciones y aspiraciones que tus clientes dicen en cada llamada, por oferta.',
+      desc: 'El perfil psicológico de cada cliente, armado desde sus llamadas: dolores, aspiraciones y objeciones, por oferta.',
     },
     {
       title: 'Embudos en un tablero',
@@ -140,7 +141,7 @@ export const includes = {
     },
     {
       title: 'Analítica e informes',
-      desc: 'Vendido, cobrado, tasa de cierre y retorno por embudo, siempre al día.',
+      desc: 'Vendido, cobrado, tasa de cierre y retorno por embudo. Se actualizan en cuanto tu equipo registra.',
     },
     {
       title: 'Implementación en 7 días',
@@ -158,70 +159,50 @@ export const includes = {
 export const centralize = {
   title: 'Reemplaza y centraliza lo que ya usas',
   subtitle:
-    'Hoy lo manejas con cinco o seis herramientas que no se hablan. SellNode hace el trabajo de todas.',
+    'Hoy lo manejas con cinco o seis herramientas que no se hablan. SellNode es el CRM hecho por infoproductores, para infoproductores: no un CRM genérico adaptado, sino uno diseñado para tu modelo y para crecer sin sumar caos.',
 }
 
 /**
- * Dos planes. La implementación incluye el primer mes; la mensualidad empieza
- * el segundo mes. Cifras y checkouts salen de PLANS (site.ts).
- *
- * La diferencia de Pro son tres módulos que reemplazan herramientas externas.
- * El booking nativo va destacado aparte (`featured`): es el que más pesa en la
- * decisión, porque le ahorra al cliente Calendly.
+ * Cómo trabajamos contigo. Los tres pasos son los de la home (`method`): es el
+ * mismo texto y vive allá; aquí sólo cambian el titular y el subtítulo.
  */
-export type PricingPlan = Plan & {
-  tagline: string
-  highlight: boolean
-  badge: string | null
-  featured: { title: string; desc: string } | null
-  items: string[]
+export const how = {
+  title: 'Trabajamos de la mano con tu equipo',
+  subtitle:
+    'Nuestro equipo trabaja con el tuyo: entendemos tu operación, la configuramos contigo en 7 días y te acompañamos para que tengas todo al día.',
+  steps: method.pillars,
 }
 
-export const pricing: {
-  title: string
-  subtitle: string
-  setupLabel: string
-  setupNote: string
-  monthlyLabel: string
-  plans: PricingPlan[]
-  note: string
-} = {
-  title: 'Elige tu plan',
+/**
+ * Un solo plan: la plataforma completa. La implementación incluye el primer mes;
+ * la mensualidad empieza el segundo mes. Las cifras salen de PLAN (site.ts).
+ *
+ * El booking nativo va destacado aparte (`featured`): es lo que más pesa en la
+ * decisión, porque le ahorra al cliente Calendly.
+ */
+export const pricing = {
+  title: 'Un plan, con la implementación contigo',
   subtitle:
-    'Los dos incluyen la implementación y tu primer mes. La mensualidad empieza el segundo.',
+    'La plataforma completa y nuestro equipo trabajando con el tuyo para dejarla funcionando.',
   setupLabel: 'Implementación',
   setupNote: 'Pago inicial. Incluye tu primer mes.',
   monthlyLabel: 'Desde el segundo mes',
-  plans: [
-    {
-      ...PLANS.standard,
-      tagline: 'Ventas, cobros y equipo en un solo lugar.',
-      highlight: false,
-      badge: null,
-      featured: null,
-      items: [
-        'CRM, Ventas, Comisiones y Cobros',
-        'Auditoría de llamadas con IA e Inteligencia de clientes',
-        'Agendas, Analítica e Informes',
-        'Implementación en 7 días y soporte por WhatsApp',
-      ],
+  plan: {
+    ...PLAN,
+    tagline: 'Ventas, cobros, equipo, finanzas y entrega del servicio en un solo lugar.',
+    featured: {
+      title: 'Booking nativo incluido',
+      desc: 'Tu página de agendamiento propia. Te ahorras Calendly.',
     },
-    {
-      ...PLANS.pro,
-      tagline: 'Todo Standard, más finanzas, entrega de servicio y agenda propia.',
-      highlight: true,
-      badge: 'Recomendado',
-      featured: {
-        title: 'Booking nativo incluido',
-        desc: 'Tu página de agendamiento propia. Te ahorras Calendly.',
-      },
-      items: [
-        'Todo lo del plan Standard',
-        'Finanzas: caja, gastos, nómina y recurrencia',
-        'Entrega de Servicio: programas, alumnos y mentorías',
-      ],
-    },
-  ],
+    items: [
+      'CRM, ventas, comisiones y cobros',
+      'Auditoría de llamadas con IA e inteligencia de clientes',
+      'Agendas, analítica e informes',
+      'Finanzas: caja, gastos, nómina y recurrencia',
+      'Entrega de Servicio: programas, alumnos y mentorías',
+      'Implementación en 7 días y soporte por WhatsApp',
+    ],
+  },
   note: 'Usuarios ilimitados. Sin permanencia.',
 }
 
@@ -240,9 +221,9 @@ export const nextTier = {
   unit: 'USD',
   amount: '$497',
   period: '/ mes',
-  note: 'Se habilita cuando cierren los módulos que faltan. Es el upgrade natural del plan Pro, no un plan paralelo.',
+  note: 'Se habilita cuando cierren los módulos que faltan. Es el upgrade natural del plan actual, no un plan paralelo.',
   items: [
-    'Todo lo del plan Pro',
+    'Todo lo del plan actual',
     'Instagram, Meta y métricas de campaña',
     'WooCommerce y BCL',
     'Chat de setters y módulo de lanzamientos',
@@ -250,31 +231,22 @@ export const nextTier = {
 }
 
 /**
- * Costo de oportunidad. No compara sólo contra contratar a alguien: el costo
- * real de seguir igual es el sueldo, más las horas que se van ordenando
- * información, más las decisiones que se toman sin data, más las
- * suscripciones sueltas que ya se están pagando.
- *
- * ⚠️ Sólo hay una tarjeta. El contrapeso de SellNode es el bloque de precio
- * que va justo debajo ($500 de setup + $297/mes), no una segunda tarjeta.
+ * Lo que cuesta seguir como estás. No es una cifra: es la lista de lo que pasa
+ * mientras la operación sigue repartida. Antes llevaba el sueldo de quien audita
+ * y un rango en dólares sin fuente; salieron los dos (decisión del dueño,
+ * 2026-11-18). Lo de las herramientas sueltas ya lo cubre la tabla de ahorro.
  */
 export const costComparison = {
   title: 'Lo que cuesta seguir como estás',
   subtitle:
-    'No es solo el sueldo de quien escuche las llamadas: son las horas armando reportes, las decisiones por memoria y las herramientas sueltas que ya pagas.',
+    'Lo caro no es una herramienta: es la falta de datos, las horas armando reportes y áreas que no se hablan entre sí.',
   human: {
     label: 'Seguir como estás',
-    amount: '$800 – $1.500',
-    /** Corto a propósito: un period largo parte la cifra en dos líneas. El matiz
-     *  de que es sólo el sueldo va en el subtítulo y en el primer ítem. */
-    period: '/mes',
     items: [
-      'Solo el sueldo de quien audita',
-      'Escucha 20 o 30 llamadas al mes, no todas',
-      'Cinco o seis suscripciones aparte',
+      'Las llamadas no se auditan',
+      'Nadie extrae el perfil psicológico de tu cliente en cada llamada',
+      'Tu equipo no trabaja en un solo ecosistema',
       'Horas a la semana armando reportes',
-      'Decisiones por memoria, no por datos',
-      'Vacaciones, incapacidades y rotación',
     ],
   },
 }
@@ -292,12 +264,12 @@ export const testimonials: { quote: string; name: string; role: string }[] = []
 export const guarantee: { title: string; body: string } | null = null
 
 /**
- * ⚠️ El título tiene que hablar de empezar, no de agendar. El botón de esta
- * sección lleva al checkout, no a una llamada: decía "Agenda 30 minutos" y
- * cobraba $297 al hacer clic.
+ * El botón de esta sección lleva a agendar, igual que todos los de la página, y
+ * el título habla de la llamada, no de pagar: antes decía "Centraliza tu
+ * operación esta semana" y el botón llevaba al checkout.
  */
 export const finalCta = {
-  title: 'Centraliza tu operación esta semana',
+  title: 'Veamos cómo se adapta SellNode a tu operación',
   subtitle:
-    'Empiezas hoy y lo dejamos configurado. En 7 días tu equipo opera adentro.',
+    'Agenda una demo. Primero entendemos tu operación; si encaja, la configuramos contigo en 7 días y capacitamos a tu equipo por rol.',
 }

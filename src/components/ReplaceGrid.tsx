@@ -1,7 +1,6 @@
 import {
   AudioLines,
   BarChart3,
-  Calculator,
   CalendarDays,
   GraduationCap,
   Kanban,
@@ -23,7 +22,6 @@ import { color, depth, onDark, radius, type } from '../lib/theme'
 const REPLACE_ICONS = {
   calendar: CalendarDays,
   kanban: Kanban,
-  calculator: Calculator,
   graduation: GraduationCap,
   audio: AudioLines,
   wallet: Wallet,

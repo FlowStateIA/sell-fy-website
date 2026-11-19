@@ -11,10 +11,17 @@
 
 /** Claves de icono de las tarjetas de reemplazo. Se mapean a lucide-react en ReplaceGrid.tsx */
 export type ReplaceIcon =
-  'calendar' | 'kanban' | 'calculator' | 'graduation' | 'audio' | 'wallet' | 'chart'
+  'calendar' | 'kanban' | 'graduation' | 'audio' | 'wallet' | 'chart'
 
 /** Etiqueta que une las dos mitades de cada tarjeta. */
 export const insteadOfLabel = 'En lugar de'
+
+/**
+ * Lo que acompaña a todo botón de agendar: qué pasa en la llamada. Es el mismo
+ * mensaje en la home y en /demo, así que vive en un solo lugar.
+ */
+export const ctaDiagnostic =
+  'Empezamos con un diagnóstico de 30 minutos: vemos cómo SellNode se adapta a tu operación.'
 
 /** Mapeo uno a uno. Cada fila es una herramienta que el cliente deja de pagar. */
 export const replaceRows: { icon: ReplaceIcon; inside: string; outside: string }[] = [
@@ -29,9 +36,9 @@ export const replaceRows: { icon: ReplaceIcon; inside: string; outside: string }
     outside: 'Un CRM genérico para el pipeline comercial',
   },
   {
-    icon: 'calculator',
-    inside: 'Comisiones',
-    outside: 'Hojas de cálculo de comisiones y liquidaciones',
+    icon: 'wallet',
+    inside: 'Finanzas y comisiones',
+    outside: 'Hojas de gastos, nómina, comisiones y caja del negocio',
   },
   {
     icon: 'graduation',
@@ -42,11 +49,6 @@ export const replaceRows: { icon: ReplaceIcon; inside: string; outside: string }
     icon: 'audio',
     inside: 'Auditorías + Inteligencia',
     outside: 'Una herramienta de grabación y auditoría de llamadas',
-  },
-  {
-    icon: 'wallet',
-    inside: 'Finanzas',
-    outside: 'Hojas de gastos, nómina y caja del negocio',
   },
   {
     icon: 'chart',

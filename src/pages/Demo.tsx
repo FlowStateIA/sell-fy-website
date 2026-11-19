@@ -1,23 +1,26 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import {
+  Brain,
   CalendarCheck,
   Check,
   Clock,
   GraduationCap,
   Puzzle,
   Radar,
-  TrendingUp,
   Users,
   X,
 } from 'lucide-react'
 
 import logoImg from '../assets/sellnode-logo-inversa.svg'
+import { ChapterGrid, DemoCta } from '../components/ChapterKit'
 import { IntegrationsMarquee } from '../components/IntegrationsMarquee'
 import { SavingsTable } from '../components/SavingsTable'
 import { ReplaceGrid } from '../components/ReplaceGrid'
 import { Button, Label, TwoTone } from '../components/ui'
-import { COPYRIGHT, PRICE_FROM } from '../content/site'
+import { CALENDLY_URL, COPYRIGHT } from '../content/site'
+import { CTA_LABEL } from '../content/home'
+import { ctaDiagnostic } from '../content/shared'
 import type { PainIcon } from '../content/demo'
 import {
   LOOM_VIDEO_ID,
@@ -27,6 +30,7 @@ import {
   forWho,
   includes,
   centralize,
+  how,
   pricing,
   nextTier,
   costComparison,
@@ -39,32 +43,14 @@ import { ToneContext, palette, type Tone } from '../lib/tone'
 
 /**
  * Landing de embudo (/demo). Página de conversión: sin navegación, un solo
- * objetivo — empezar. A diferencia de la home, acá el CTA lleva a los planes y
- * al checkout; la home manda a agendar demo.
+ * objetivo — agendar. Igual que la home, todo botón lleva a agendar demo
+ * (Calendly); la página no enlaza a ningún checkout.
  *
  * Usa el mismo sistema visual que la home (src/lib/theme.ts): paleta del manual,
  * dos pesos de fuente, y secciones que alternan tinta y marfil.
  */
 
 /* ─────────────────────────── Primitivas ─────────────────────────── */
-
-/**
- * CTA de la página. Baja a #planes, donde cada tarjeta lleva su checkout.
- * El precio sale de site.ts, no escrito a mano: estaba en tres CTA y un cambio
- * de plan dejaba la página diciendo dos precios distintos.
- */
-function StartCta({ size = 'lg', center = false }: { size?: 'md' | 'lg'; center?: boolean }) {
-  return (
-    <div className={`flex flex-col gap-3 ${center ? 'items-center' : 'items-start'}`}>
-      <Button href="#planes" size={size}>
-        Empezar ahora
-      </Button>
-      <span style={{ fontSize: 13, color: onDark.tertiary }}>
-        {`Planes desde ${PRICE_FROM} USD/mes`}
-      </span>
-    </div>
-  )
-}
 
 function SectionTitle({
   children,
@@ -119,7 +105,7 @@ const PAIN_ICONS = {
   puzzle: Puzzle,
   radar: Radar,
   users: Users,
-  trending: TrendingUp,
+  brain: Brain,
   graduation: GraduationCap,
   clock: Clock,
 } as const
@@ -213,7 +199,7 @@ function DemoHeader() {
           className="hidden sm:block flex-shrink-0"
           style={{ height: 27 }}
         />
-        <Button href="#planes">Empezar ahora</Button>
+        <Button href={CALENDLY_URL}>{CTA_LABEL}</Button>
       </div>
     </header>
   )
@@ -255,6 +241,124 @@ function VideoEmbed() {
 
 /** Rótulo chico de cada bloque de precio dentro de una tarjeta de plan. */
 const PLAN_LABEL: CSSProperties = { ...(type.label as CSSProperties), color: onDark.tertiary }
+
+function PlanCard() {
+  const plan = pricing.plan
+  return (
+    <div
+      className="glass flex flex-col p-6 sm:p-8"
+      style={{ borderRadius: radius.lg, backgroundColor: 'rgba(236,60,50,0.05)' }}
+    >
+      <span
+        style={{
+          fontSize: 22,
+          fontWeight: 700,
+          letterSpacing: '-0.025em',
+          color: onDark.primary,
+        }}
+      >
+        {plan.name}
+      </span>
+      <p style={{ ...type.body, color: onDark.secondary, marginTop: 8 }}>{plan.tagline}</p>
+
+      {/* Implementación: pago inicial que ya incluye el primer mes */}
+      <div style={{ marginTop: 24 }}>
+        <div style={PLAN_LABEL}>{pricing.setupLabel}</div>
+        <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
+          <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
+          <span
+            style={{
+              ...type.figure,
+              fontSize: 40,
+              fontWeight: 700,
+              lineHeight: 1,
+              color: onDark.primary,
+            }}
+          >
+            {plan.setup}
+          </span>
+        </div>
+        <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.tertiary, marginTop: 8 }}>
+          {pricing.setupNote}
+        </p>
+      </div>
+
+      {/* Mensualidad, desde el segundo mes */}
+      <div
+        style={{
+          marginTop: 20,
+          paddingTop: 20,
+          borderTop: `1px solid ${onDark.line}`,
+        }}
+      >
+        <div style={PLAN_LABEL}>{pricing.monthlyLabel}</div>
+        <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
+          <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
+          <span
+            style={{
+              ...type.figure,
+              fontSize: 26,
+              fontWeight: 700,
+              lineHeight: 1,
+              color: onDark.primary,
+            }}
+          >
+            {plan.monthly}
+          </span>
+          <span style={{ fontSize: 14, color: onDark.tertiary }}>{plan.monthlyPeriod}</span>
+        </div>
+      </div>
+
+      {/* El booking nativo va aparte: es lo que más pesa en la decisión */}
+      <div
+        style={{
+          marginTop: 22,
+          padding: 16,
+          borderRadius: radius.md,
+          border: '1px solid rgba(236,60,50,0.3)',
+          backgroundColor: 'rgba(236,60,50,0.08)',
+        }}
+      >
+        <div
+          className="flex items-center gap-2"
+          style={{ ...type.h3, fontSize: 14.5, color: onDark.primary }}
+        >
+          <CalendarCheck size={16} strokeWidth={1.8} color={color.red} />
+          {plan.featured.title}
+        </div>
+        <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.secondary, marginTop: 6 }}>
+          {plan.featured.desc}
+        </p>
+      </div>
+
+      <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
+        {plan.items.map(item => (
+          <li key={item} className="flex items-start gap-3">
+            <Check
+              size={15}
+              strokeWidth={2.4}
+              color={color.red}
+              style={{ flexShrink: 0, marginTop: 4 }}
+            />
+            <span style={{ ...type.body, color: onDark.secondary }}>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-auto" style={{ paddingTop: 28 }}>
+        <Button href={CALENDLY_URL} size="lg" block>
+          {CTA_LABEL}
+        </Button>
+        <p
+          className="text-center"
+          style={{ fontSize: 13, lineHeight: '20px', color: onDark.tertiary, marginTop: 12 }}
+        >
+          {ctaDiagnostic}
+        </p>
+      </div>
+    </div>
+  )
+}
 
 export function Demo() {
   return (
@@ -353,7 +457,7 @@ export function Demo() {
           >
             <VideoEmbed />
             <div style={{ marginTop: 28 }}>
-              <StartCta size="lg" center />
+              <DemoCta size="lg" center sub={ctaDiagnostic} />
             </div>
           </motion.div>
         </div>
@@ -471,6 +575,13 @@ export function Demo() {
         </div>
       </Section>
 
+      {/* Cómo trabajamos contigo. Los tres pasos salen de la home (method): un solo texto. */}
+      <Section shadeIndex={1}>
+        <SectionTitle max={680}>{how.title}</SectionTitle>
+        <SectionLead>{how.subtitle}</SectionLead>
+        <ChapterGrid items={how.steps} cols={3} />
+      </Section>
+
       {/* Precio y costo de oportunidad */}
       <Section>
         <div className="text-center mx-auto" style={{ maxWidth: 760 }}>
@@ -481,7 +592,7 @@ export function Demo() {
         </div>
 
         {/* Una sola tarjeta: el costo de seguir igual. El contrapeso es el
-            bloque de planes que va justo debajo. Va en línea punteada y sin
+            bloque de precio que va justo debajo. Va en línea punteada y sin
             relleno a propósito: es lo que se deja atrás, no una oferta. */}
         <div className="mx-auto w-full" style={{ marginTop: 56, maxWidth: 460 }}>
           <div
@@ -502,28 +613,7 @@ export function Demo() {
               <Label tone="muted">{costComparison.human.label}</Label>
             </span>
 
-            {/* La cifra baja a 30px en móvil: a 40 "$800 – $1.500" se partía
-                en dos líneas dentro de la tarjeta. */}
-            <div className="flex items-baseline gap-2 flex-wrap" style={{ marginTop: 24 }}>
-              <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
-              <span
-                className="text-[30px] sm:text-[40px]"
-                style={{
-                  ...type.figure,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                  whiteSpace: 'nowrap',
-                  color: onDark.secondary,
-                }}
-              >
-                {costComparison.human.amount}
-              </span>
-              <span style={{ fontSize: 14, color: onDark.tertiary }}>
-                {costComparison.human.period}
-              </span>
-            </div>
-
-            <ul className="flex flex-col gap-3" style={{ marginTop: 28 }}>
+            <ul className="flex flex-col gap-3" style={{ marginTop: 24 }}>
               {costComparison.human.items.map(item => (
                 <li key={item} className="flex items-start gap-3">
                   <X
@@ -545,9 +635,8 @@ export function Demo() {
       <SavingsTable />
 
       <Section shadeIndex={2}>
-        {/* Planes. Cada tarjeta lleva su propio checkout; el resto de los CTA de
-            la página baja aquí (#planes) para que el cliente elija. */}
-        <div id="planes" style={{ scrollMarginTop: 96 }}>
+        {/* El plan. Un solo bloque de precio; todos los botones de la página agendan. */}
+        <div id="precio" style={{ scrollMarginTop: 96 }}>
           <div className="text-center mx-auto" style={{ maxWidth: 640 }}>
             <SectionTitle center>{pricing.title}</SectionTitle>
             <p style={{ ...(type.lead as CSSProperties), color: onDark.secondary, marginTop: 14 }}>
@@ -555,149 +644,8 @@ export function Demo() {
             </p>
           </div>
 
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mx-auto w-full items-stretch"
-            style={{ marginTop: 44, maxWidth: 880 }}
-          >
-            {pricing.plans.map(plan => (
-              <div
-                key={plan.name}
-                className="glass flex flex-col p-6 sm:p-8"
-                style={{
-                  borderRadius: radius.lg,
-                  backgroundColor: plan.highlight ? 'rgba(236,60,50,0.05)' : color.surface,
-                }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 700,
-                      letterSpacing: '-0.025em',
-                      color: onDark.primary,
-                    }}
-                  >
-                    {plan.name}
-                  </span>
-                  {plan.badge && (
-                    <span
-                      style={{
-                        padding: '5px 10px',
-                        borderRadius: radius.pill,
-                        backgroundColor: 'rgba(236,60,50,0.14)',
-                        border: '1px solid rgba(236,60,50,0.3)',
-                      }}
-                    >
-                      <Label>{plan.badge}</Label>
-                    </span>
-                  )}
-                </div>
-                {/* Alto fijo de dos líneas: así las cifras de las dos tarjetas quedan a la misma altura */}
-                <p
-                  className="md:min-h-[46px]"
-                  style={{ ...type.body, color: onDark.secondary, marginTop: 8 }}
-                >
-                  {plan.tagline}
-                </p>
-
-                {/* Implementación: pago inicial que ya incluye el primer mes */}
-                <div style={{ marginTop: 24 }}>
-                  <div style={PLAN_LABEL}>{pricing.setupLabel}</div>
-                  <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
-                    <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
-                    <span
-                      style={{
-                        ...type.figure,
-                        fontSize: 40,
-                        fontWeight: 700,
-                        lineHeight: 1,
-                        color: onDark.primary,
-                      }}
-                    >
-                      {plan.setup}
-                    </span>
-                  </div>
-                  <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.tertiary, marginTop: 8 }}>
-                    {pricing.setupNote}
-                  </p>
-                </div>
-
-                {/* Mensualidad, desde el segundo mes */}
-                <div
-                  style={{
-                    marginTop: 20,
-                    paddingTop: 20,
-                    borderTop: `1px solid ${onDark.line}`,
-                  }}
-                >
-                  <div style={PLAN_LABEL}>{pricing.monthlyLabel}</div>
-                  <div className="flex items-baseline gap-2" style={{ marginTop: 10 }}>
-                    <span style={{ fontSize: 13, color: onDark.tertiary }}>USD</span>
-                    <span
-                      style={{
-                        ...type.figure,
-                        fontSize: 26,
-                        fontWeight: 700,
-                        lineHeight: 1,
-                        color: onDark.primary,
-                      }}
-                    >
-                      {plan.monthly}
-                    </span>
-                    <span style={{ fontSize: 14, color: onDark.tertiary }}>{plan.monthlyPeriod}</span>
-                  </div>
-                </div>
-
-                {/* El booking nativo va aparte: es lo que más pesa al elegir Pro */}
-                {plan.featured && (
-                  <div
-                    style={{
-                      marginTop: 22,
-                      padding: 16,
-                      borderRadius: radius.md,
-                      border: '1px solid rgba(236,60,50,0.3)',
-                      backgroundColor: 'rgba(236,60,50,0.08)',
-                    }}
-                  >
-                    <div
-                      className="flex items-center gap-2"
-                      style={{ ...type.h3, fontSize: 14.5, color: onDark.primary }}
-                    >
-                      <CalendarCheck size={16} strokeWidth={1.8} color={color.red} />
-                      {plan.featured.title}
-                    </div>
-                    <p style={{ fontSize: 13, lineHeight: '20px', color: onDark.secondary, marginTop: 6 }}>
-                      {plan.featured.desc}
-                    </p>
-                  </div>
-                )}
-
-                <ul className="flex flex-col gap-3" style={{ marginTop: 22 }}>
-                  {plan.items.map(item => (
-                    <li key={item} className="flex items-start gap-3">
-                      <Check
-                        size={15}
-                        strokeWidth={2.4}
-                        color={color.red}
-                        style={{ flexShrink: 0, marginTop: 4 }}
-                      />
-                      <span style={{ ...type.body, color: onDark.secondary }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto" style={{ paddingTop: 28 }}>
-                  <Button
-                    href={plan.checkoutUrl}
-                    variant={plan.highlight ? 'primary' : 'ghost'}
-                    size="lg"
-                    block
-                  >
-                    Empezar con {plan.name}
-                  </Button>
-                </div>
-              </div>
-            ))}
+          <div className="mx-auto w-full" style={{ marginTop: 44, maxWidth: 520 }}>
+            <PlanCard />
           </div>
 
           <p className="text-center" style={{ fontSize: 13, color: onDark.tertiary, marginTop: 24 }}>
@@ -849,7 +797,7 @@ export function Demo() {
               <SectionTitle max={720}>{finalCta.title}</SectionTitle>
               <SectionLead max={620}>{finalCta.subtitle}</SectionLead>
               <div style={{ marginTop: 32 }}>
-                <StartCta size="lg" />
+                <DemoCta size="lg" sub={ctaDiagnostic} />
               </div>
             </div>
           </motion.div>

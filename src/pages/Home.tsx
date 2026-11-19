@@ -25,7 +25,7 @@ import { color, onDark, shade, space } from '../lib/theme'
  * Home. Primero muestra qué hace la herramienta y después por qué importa:
  * producto vivo → con qué se conecta → una venta paso a paso → dónde se pierde
  * la respuesta → por qué un CRM no alcanza → las pantallas → cómo trabajamos →
- * lo que dejas de pagar → lo que ya probaste → si encaja o no → planes → lo que te
+ * lo que dejas de pagar → lo que ya probaste → si encaja o no → precio → lo que te
  * ahorras → cierre.
  *
  * Un solo CTA en toda la página: agendar demo.
